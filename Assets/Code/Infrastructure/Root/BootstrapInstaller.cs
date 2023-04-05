@@ -1,4 +1,5 @@
-﻿using Code.Infrastructure.Services.LoadScene;
+﻿using Code.Infrastructure.Factories;
+using Code.Infrastructure.Services.LoadScene;
 using Code.Infrastructure.StateMachine;
 using Code.Infrastructure.StateMachine.States;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Code.Infrastructure.Root
         {
             BindStateMachine();
             BindLoadScene();
+            
+            Container.BindInterfacesTo<GameFactory>().AsSingle();
 
             Container.BindInterfacesTo<BootstrapInstaller>().FromInstance(this).AsSingle();
         }
@@ -22,6 +25,7 @@ namespace Code.Infrastructure.Root
         {
             Container.BindInterfacesTo<GameStateMachine>().AsSingle();
             Container.Bind<LoadSceneState>().AsSingle();
+            Container.Bind<GameLoopState>().AsSingle();
         }
 
         private void BindLoadScene()

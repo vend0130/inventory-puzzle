@@ -10,12 +10,16 @@ namespace Code.Infrastructure.StateMachine
 
         private IState _activeState;
 
-        public GameStateMachine(LoadSceneState loadSceneState)
+        public GameStateMachine(LoadSceneState loadSceneState, GameLoopState gameLoopState)
         {
             _states = new Dictionary<Type, IState>()
             {
                 [typeof(LoadSceneState)] = loadSceneState,
+                [typeof(GameLoopState)] = gameLoopState,
             };
+
+            loadSceneState.InitStateMachine(this);
+            gameLoopState.InitStateMachine(this);
         }
 
         public void Enter<TState>() where TState : class, IDefaultState
