@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using GridLayoutGroup = UnityEngine.UI.GridLayoutGroup;
 using Color = UnityEngine.Color;
 
 namespace Code.Game.Inventory
@@ -22,14 +22,8 @@ namespace Code.Game.Inventory
         [field: SerializeField] public RectTransform ParentForCells { get; private set; }
         [field: SerializeField] public CellView[] Cells { get; private set; }
 
-
-        public Vector2 InventoryOffset => ParentForCells.position;
-
         private void Awake()
         {
-            // ItemView item = CreateItem(_item);
-            // ChangeCells(item, 0);
-
             _pointerHandler.DownHandler += _dragItems.Down;
             _pointerHandler.DragHandler += _dragItems.Drag;
             _pointerHandler.UpHandler += _dragItems.Up;
@@ -42,6 +36,7 @@ namespace Code.Game.Inventory
             _pointerHandler.UpHandler -= _dragItems.Up;
         }
 
+
 #if UNITY_EDITOR
         [Space, SerializeField] private bool _drawLineInEditor;
 
@@ -49,7 +44,7 @@ namespace Code.Game.Inventory
         private void Refresh()
         {
             GridLayoutGroup layoutGroup = ParentForCells.GetComponent<GridLayoutGroup>();
-            
+
             RefreshGrid(layoutGroup);
             LoadCells(layoutGroup);
             List<ItemView> items = LoadItems(layoutGroup);
@@ -102,8 +97,8 @@ namespace Code.Game.Inventory
 
                     item.ChangeCell(cells.Clone());
                     item.ParentCells.ForEach((cell) => cell.AddItem(item));
-                    
-                    item.transform.position = item.GetPosition(cells[0].Point);
+
+                    item.transform.position = item.GetPosition(cells[0].CenterPoint);
                 }
             }
 
@@ -130,7 +125,7 @@ namespace Code.Game.Inventory
             Vector2 gridPosition = ParentForCells.transform.position;
             Vector2 startPoint = cell.StartPoint;
             Vector2 endPoint = cell.EndPoint;
-            Vector2 point = cell.Point;
+            Vector2 point = cell.CenterPoint;
 
             Gizmos.color = Color.red;
             Gizmos.DrawLine(startPoint, point);

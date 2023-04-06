@@ -1,4 +1,5 @@
 ﻿using Code.Game.Item;
+using Code.Property.Readonly;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,13 +7,13 @@ namespace Code.Game.Cells
 {
     public class CellView : MonoBehaviour
     {
-        [field: SerializeField] public Vector2 Point { get; private set; }
-        [field: SerializeField] public Vector2 StartPoint { get; private set; }
-        [field: SerializeField] public Vector2 EndPoint { get; private set; }
-        [field: SerializeField] public bool Free { get; private set; }
-        [field: SerializeField] public ItemView Item { get; private set; }
+        [field: SerializeField, ReadOnly] public Vector2 CenterPoint { get; private set; }
+        [field: SerializeField, ReadOnly] public Vector2 StartPoint { get; private set; }
+        [field: SerializeField, ReadOnly] public Vector2 EndPoint { get; private set; }
+        [field: SerializeField, ReadOnly] public bool Free { get; private set; }
+        [field: SerializeField, ReadOnly] public ItemView Item { get; private set; }
 
-        [SerializeField] private Image _coloringImage;
+        [Space, SerializeField] private Image _coloringImage;
         [SerializeField] private Color _freeColor;
         [SerializeField] private Color _busyColor;
 
@@ -23,8 +24,8 @@ namespace Code.Game.Cells
         {
             _defaultColor = _coloringImage.color;
 
-            Point = transform.position;
-            StartPoint = GetStartPoint(Point, distanceBetweenCells);
+            CenterPoint = transform.position;
+            StartPoint = GetStartPoint(CenterPoint, distanceBetweenCells);
             EndPoint = new Vector2(StartPoint.x + distanceBetweenCells, StartPoint.y + distanceBetweenCells);
 
             Free = true;
@@ -49,7 +50,6 @@ namespace Code.Game.Cells
         {
             Free = true;
             Item = null;
-
         }
 
         private Vector2 GetStartPoint(Vector2 defaultPosition, float distanceBetweenCells)

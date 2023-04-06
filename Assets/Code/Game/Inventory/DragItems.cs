@@ -113,7 +113,7 @@ namespace Code.Game.Inventory
 
             _tween.SimpleKill();
 
-            Vector2 target = _currentItem.GetPosition(_currentItem.ParentCells[0].Point);
+            Vector2 target = _currentItem.GetPosition(_currentItem.ParentCells[0].CenterPoint);
 
             //float distance = Vector2.Distance(_item.transform.localPosition, _item.ParentCell.Point); => distance / 1000
             _tween = _currentItem.transform.DOMove(target, DurationMove)
