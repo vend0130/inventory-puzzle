@@ -16,7 +16,6 @@ namespace Code.Game.Inventory
     {
         [SerializeField] private PointerHandler _pointerHandler;
         [SerializeField] private DragItems _dragItems;
-
         [SerializeField] private Canvas _canvasWithItems;
 
         [field: SerializeField] public RectTransform ParentForCells { get; private set; }
@@ -90,15 +89,17 @@ namespace Code.Game.Inventory
             foreach (var item in items)
             {
                 if (CellsChecker.TryEnterOnCell(this, item.GetPositions(),
-                        out List<CellView> cells))
+                        out List<CellView> cells, out Vector2 cellPosition, out Vector2 itemCellPosition))
                 {
                     if (cells.Count != item.CellsCountForItem)
                         throw new Exception("not correct position item: " + item.name);
 
+                    item.ChangeOffset(cellPosition - itemCellPosition);
+
                     item.ChangeCell(cells.Clone());
                     item.ParentCells.ForEach((cell) => cell.AddItem(item));
 
-                    item.transform.position = item.GetPosition(cells[0].CenterPoint);
+                    item.transform.position = item.GetPosition();
                 }
             }
 
@@ -122,7 +123,6 @@ namespace Code.Game.Inventory
 
         private void DrawBox(CellView cell)
         {
-            Vector2 gridPosition = ParentForCells.transform.position;
             Vector2 startPoint = cell.StartPoint;
             Vector2 endPoint = cell.EndPoint;
             Vector2 point = cell.CenterPoint;

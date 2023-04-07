@@ -19,6 +19,7 @@ namespace Code.Game.Inventory
         private List<CellView> _previousDragCells = new List<CellView>();
         private Tween _tween;
 
+        //TODO: rework
         private void Update()
         {
             if (Input.GetMouseButtonDown(1))
@@ -75,8 +76,10 @@ namespace Code.Game.Inventory
         private void ChangeCellsWhenDragItem()
         {
             if (CellsChecker.TryEnterOnCell(_inventory, _currentItem.GetPositions(),
-                    out List<CellView> cells))
+                    out List<CellView> cells, out Vector2 cellPosition, out Vector2 itemCellPosition))
             {
+                _currentItem.ChangeOffset(cellPosition - itemCellPosition);
+
                 PreviousCellsExit();
                 _previousDragCells = cells;
 
@@ -113,7 +116,7 @@ namespace Code.Game.Inventory
 
             _tween.SimpleKill();
 
-            Vector2 target = _currentItem.GetPosition(_currentItem.ParentCells[0].CenterPoint);
+            Vector2 target = _currentItem.GetPosition();
 
             //float distance = Vector2.Distance(_item.transform.localPosition, _item.ParentCell.Point); => distance / 1000
             _tween = _currentItem.transform.DOMove(target, DurationMove)

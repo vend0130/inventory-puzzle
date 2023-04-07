@@ -18,12 +18,16 @@ namespace Code.Game.Cells
             return false;
         }
 
-        public static bool TryEnterOnCell(IInventory inventory, List<Vector2> positions, out List<CellView> cells)
+        public static bool TryEnterOnCell(IInventory inventory, List<Vector2> positions,
+            out List<CellView> cells, out Vector2 cellPosition, out Vector2 itemCellPosition)
         {
             cells = new List<CellView>();
 
+            cellPosition = Vector2.zero;
+            itemCellPosition = Vector2.zero;
+
             for (int i = 0; i < inventory.Cells.Length; i++)
-                EnterOnCell(inventory.Cells[i], positions, cells);
+                EnterOnCell(inventory.Cells[i], positions, cells, ref cellPosition, ref itemCellPosition);
 
             return cells.Count > 0;
         }
@@ -55,14 +59,23 @@ namespace Code.Game.Cells
             return false;
         }
 
-        private static void EnterOnCell(CellView currentCell, List<Vector2> positions, List<CellView> cells)
+        private static void EnterOnCell(CellView currentCell, List<Vector2> positions, List<CellView> cells,
+            ref Vector2 cellPosition, ref Vector2 itemCellPosition)
         {
+            bool first = false;
             foreach (var position in positions)
             {
-                if (Collision(position, currentCell))
-                {
-                    cells.Add(currentCell);
-                }
+                if (!Collision(position, currentCell))
+                    continue;
+
+                cells.Add(currentCell);
+
+                if (first)
+                    continue;
+
+                cellPosition = currentCell.CenterPoint;
+                itemCellPosition = position;
+                first = true;
             }
         }
 
