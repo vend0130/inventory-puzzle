@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.Item;
-using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using GridLayoutGroup = UnityEngine.UI.GridLayoutGroup;
 using Color = UnityEngine.Color;
+
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
 
 namespace Code.Game.Inventory
 {

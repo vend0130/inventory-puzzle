@@ -21,24 +21,26 @@ namespace Code.Game.Item
         [field: SerializeField, HideInInspector]
         public List<CellView> ParentCells { get; private set; }
 
+        [SerializeField, HideInInspector] private int _defaultSortingOrder;
+
         private const int UpSortingOrder = 1;
 
-        private int _defaultSortingOrder;
 
         private Vector3 _previousRotation;
-        private Vector3 _previousPosition;
+        private Vector2 _previousPosition;
         private Vector2 _targetPosition;
 
         public void Init(int defaultSortingOrder, float distanceBetweenCells)
         {
             _defaultSortingOrder = defaultSortingOrder + UpSortingOrder;
             _distanceBetweenCells = distanceBetweenCells;
+
             ResetOrder();
         }
 
         public void BeginDrag()
         {
-            _previousPosition = transform.position;
+            _targetPosition = _previousPosition = transform.position;
             _previousRotation = _containerForRotation.eulerAngles;
             _canvasOrder.sortingOrder = _defaultSortingOrder + UpSortingOrder;
         }

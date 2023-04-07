@@ -97,14 +97,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b94ba4313ed479989c95a3be8d3fc46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ParentCells>k__BackingField: []
   _canvasOrder: {fileID: 6458066616071315097}
   _containerForRotation: {fileID: 1777437721796034031}
   _distanceBetweenCells: 69
   _debug: 1
-  _width: 1
-  _height: 1
-  _grid: []
+  <Width>k__BackingField: 1
+  <Height>k__BackingField: 1
+  <Grid>k__BackingField:
+  - <Width>k__BackingField: 00
+  <CellsCountForItem>k__BackingField: 0
+  <ParentCells>k__BackingField: []
 --- !u!223 &6458066616071315097
 Canvas:
   m_ObjectHideFlags: 0
@@ -119,13 +121,13 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 101
   m_TargetDisplay: 0
 --- !u!1 &7460819333573690268
 GameObject:

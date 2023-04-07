@@ -42,8 +42,8 @@ namespace Code.Game.Inventory
 
         private void End()
         {
-            _pointerId = null;
             UpHandler?.Invoke();
+            _pointerId = null;
         }
     }
 }

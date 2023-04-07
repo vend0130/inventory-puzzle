@@ -18,6 +18,7 @@ namespace Code.Game.Inventory
         private Vector2 _offset;
         private List<CellView> _previousDragCells = new List<CellView>();
         private Tween _tween;
+        private bool _isEnabled = true;
 
         //TODO: rework
         private void Update()
@@ -31,13 +32,18 @@ namespace Code.Game.Inventory
 
         public void Down(PointerEventData eventData)
         {
+            if(!_isEnabled)
+                return;
+
             if (CellsChecker.TryTapOnCell(_inventory, eventData.position, out CellView cell))
                 BeginDrag(cell.Item, eventData);
+            else
+                _currentItem = null;
         }
 
         public void Drag(PointerEventData eventData)
         {
-            if (_currentItem == null)
+            if (_currentItem == null || !_isEnabled)
                 return;
 
             DragItem(eventData.position);
@@ -46,7 +52,7 @@ namespace Code.Game.Inventory
 
         public void Up()
         {
-            if (_currentItem == null)
+            if (_currentItem == null || !_isEnabled)
                 return;
 
             //note: if drop in new cells updated parent cells for item
@@ -60,6 +66,9 @@ namespace Code.Game.Inventory
 
         private void BeginDrag(ItemView item, PointerEventData eventData)
         {
+            _tween.SimpleKill();
+            PreviousCellsExit();
+            
             _currentItem = item;
             _currentItem.BeginDrag();
             _currentItem.ParentCells.ForEach((cell) => cell.RemoveItem());
@@ -111,6 +120,7 @@ namespace Code.Game.Inventory
 
         private void EndDrag()
         {
+            _isEnabled = false;
             PreviousCellsExit();
             _previousDragCells.Clear();
 
@@ -125,14 +135,13 @@ namespace Code.Game.Inventory
 
             _currentItem.ParentCells.ForEach((cell) => cell.AddItem(_currentItem));
 
-            enabled = false;
         }
 
         private void EndItemMove()
         {
             _currentItem.ResetOrder();
             _currentItem = null;
-            enabled = true;
+            _isEnabled = true;
         }
 
         private void RotationItem()
