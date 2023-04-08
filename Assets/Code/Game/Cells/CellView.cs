@@ -12,7 +12,7 @@ namespace Code.Game.Cells
         [field: SerializeField, ReadOnly] public Vector2 EndPoint { get; private set; }
         [field: SerializeField, ReadOnly] public bool Free { get; private set; }
         [field: SerializeField, ReadOnly] public ItemView Item { get; private set; }
-
+        
         [Space, SerializeField] private Image _coloringImage;
         [SerializeField] private Color _freeColor;
         [SerializeField] private Color _busyColor;
@@ -20,15 +20,19 @@ namespace Code.Game.Cells
 
         private Color _defaultColor;
 
-        public void Init(float distanceBetweenCells)
+        public void Init()
         {
             _defaultColor = _coloringImage.color;
+            
+            Free = true;
+            Item = null;;
+        }
 
+        public void RecalculatePoints(float distanceBetweenCells)
+        {
             CenterPoint = transform.position;
             StartPoint = GetStartPoint(CenterPoint, distanceBetweenCells);
             EndPoint = new Vector2(StartPoint.x + distanceBetweenCells, StartPoint.y + distanceBetweenCells);
-
-            Free = true;
         }
 
         public void Enter() =>

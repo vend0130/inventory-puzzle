@@ -1,11 +1,43 @@
 ﻿using System.Collections.Generic;
 using Code.Game.Inventory;
+using Code.Game.Item;
+using UnityEditor;
 using UnityEngine;
 
 namespace Code.Game.Cells
 {
-    public static class CellsChecker
+    public static class CellsHelper
     {
+        private const int DefaultWidthScreen = 1920;
+        private const int DefaultHeightScreen = 1080;
+
+        public static float GetCurrentDistance(float distance)
+        {
+            Vector2Int currentSize = CurrentSizeScreen();
+
+#if UNITY_EDITOR
+            if (!Application.isPlaying && DefaultWidthScreen != currentSize.x)
+                Debug.LogError("In Editor Mode use screen size 1920x1080");
+#endif
+
+            float scalerX = (float)currentSize.x / DefaultWidthScreen;
+            float scalerY = (float)currentSize.y / DefaultHeightScreen;
+
+            float scaler = scalerX < scalerY ? scalerX : scalerY;
+
+            return scaler * distance;
+        }
+
+        public static Vector2Int CurrentSizeScreen()
+        {
+#if UNITY_EDITOR
+            Vector2 size = Handles.GetMainGameViewSize();
+            return new Vector2Int((int)size.x, (int)size.y);
+#else
+            return new Vector2Int(Screen.width, Screen.height);
+#endif
+        }
+
         public static bool TryTapOnCell(IInventory inventory, Vector2 position, out CellView cell)
         {
             for (int i = 0; i < inventory.Cells.Length; i++)
@@ -18,16 +50,13 @@ namespace Code.Game.Cells
             return false;
         }
 
-        public static bool TryEnterOnCell(IInventory inventory, List<Vector2> positions,
-            out List<CellView> cells, out Vector2 cellPosition, out Vector2 itemCellPosition)
+        public static bool TryEnterOnCell(IInventory inventory, ItemView item, out List<CellView> cells)
         {
+            List<Vector2> positions = item.GetCellsPositions();
             cells = new List<CellView>();
 
-            cellPosition = Vector2.zero;
-            itemCellPosition = Vector2.zero;
-
             for (int i = 0; i < inventory.Cells.Length; i++)
-                EnterOnCell(inventory.Cells[i], positions, cells, ref cellPosition, ref itemCellPosition);
+                EnterOnCell(inventory.Cells[i], item, positions, cells);
 
             return cells.Count > 0;
         }
@@ -59,8 +88,8 @@ namespace Code.Game.Cells
             return false;
         }
 
-        private static void EnterOnCell(CellView currentCell, List<Vector2> positions, List<CellView> cells,
-            ref Vector2 cellPosition, ref Vector2 itemCellPosition)
+        private static void EnterOnCell(CellView currentCell, ItemView item,
+            List<Vector2> positions, List<CellView> cells)
         {
             bool first = false;
             foreach (var position in positions)
@@ -73,8 +102,8 @@ namespace Code.Game.Cells
                 if (first)
                     continue;
 
-                cellPosition = currentCell.CenterPoint;
-                itemCellPosition = position;
+                item.ChangeLastOffset(currentCell.CenterPoint - position);
+
                 first = true;
             }
         }

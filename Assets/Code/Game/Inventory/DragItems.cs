@@ -35,7 +35,7 @@ namespace Code.Game.Inventory
             if (!_isEnabled)
                 return;
 
-            if (CellsChecker.TryTapOnCell(_inventory, eventData.position, out CellView cell))
+            if (CellsHelper.TryTapOnCell(_inventory, eventData.position, out CellView cell))
                 BeginDrag(cell.Item, eventData);
             else
                 _currentItem = null;
@@ -56,7 +56,7 @@ namespace Code.Game.Inventory
                 return;
 
             //note: if drop in new cells updated parent cells for item
-            if (CellsChecker.TryDropInNewCells(_previousDragCells, _currentItem.CellsCountForItem))
+            if (CellsHelper.TryDropInNewCells(_previousDragCells, _currentItem.CellsCountForItem))
                 _currentItem.ChangeCell(_previousDragCells.Clone());
             else
                 _currentItem.ResetRotation();
@@ -84,10 +84,9 @@ namespace Code.Game.Inventory
 
         private void ChangeCellsWhenDragItem()
         {
-            if (CellsChecker.TryEnterOnCell(_inventory, _currentItem.GetPositions(),
-                    out List<CellView> cells, out Vector2 cellPosition, out Vector2 itemCellPosition))
+            if (CellsHelper.TryEnterOnCell(_inventory, _currentItem, out List<CellView> cells))
             {
-                _currentItem.ChangeOffset(cellPosition - itemCellPosition);
+                _currentItem.ChangeOffset();
 
                 PreviousCellsExit();
                 _previousDragCells = cells;
@@ -126,9 +125,8 @@ namespace Code.Game.Inventory
 
             _tween.SimpleKill();
 
-            Vector2 target = _currentItem.GetPosition();
+            Vector2 target = _currentItem.GetTargetPosition();
 
-            //float distance = Vector2.Distance(_item.transform.localPosition, _item.ParentCell.Point); => distance / 1000
             _tween = _currentItem.transform.DOMove(target, DurationMove)
                 .SetEase(Ease.Linear)
                 .OnComplete(EndItemMove);

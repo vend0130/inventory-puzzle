@@ -23,6 +23,10 @@ namespace Code.Game.Item
         public List<CellView> ParentCells { get; private set; }
 
         [SerializeField, HideInInspector] private int _defaultSortingOrder;
+        [SerializeField, HideInInspector] private Vector3 _currentRotation;
+
+        [field: SerializeField, HideInInspector]
+        public Vector2 LastOffset { get; private set; }
 
         public float DistanceBetweenCells => _distanceBetweenCells;
         public Vector3 CurrentRotation => _currentRotation;
@@ -33,21 +37,28 @@ namespace Code.Game.Item
 
         private Tween _rotationTween;
         private Vector3 _previousRotation;
-        private Vector3 _currentRotation;
-
         private Vector2 _previousPosition;
         private Vector2 _targetPosition;
+
+        private void Awake()
+        {
+            _targetPosition = _previousPosition = transform.position;
+            _currentRotation = _previousRotation = _containerForRotation.eulerAngles;
+        }
 
         private void OnDestroy() =>
             _rotationTween.SimpleKill();
 
-        public void Init(int defaultSortingOrder, float distanceBetweenCells)
+        public void Init(int defaultSortingOrder)
         {
             _defaultSortingOrder = defaultSortingOrder + UpSortingOrder;
-            _distanceBetweenCells = distanceBetweenCells;
+            _currentRotation = _containerForRotation.eulerAngles;
 
             ResetOrder();
         }
+
+        public void ChangeDistance(float distanceBetweenCells) =>
+            _distanceBetweenCells = distanceBetweenCells;
 
         public void BeginDrag()
         {
@@ -56,19 +67,24 @@ namespace Code.Game.Item
             _canvasOrder.sortingOrder = _defaultSortingOrder + UpSortingOrder;
         }
 
-        public List<Vector2> GetPositions()
+        public void ChangeLastOffset(Vector2 lastOffset) =>
+            LastOffset = lastOffset;
+
+        public List<Vector2> GetCellsPositions()
         {
-            RotationType rotationType = ItemHelper.GetRotationType(_currentRotation.z);
-
-            ItemHelper.CalculateBounds(rotationType, transform.position, DistanceBetweenCells,
-                new Vector2Int(Width, Height), out Vector2 startPoint, out Vector2 _);
-
-            Vector2 startPointCell = ItemHelper.GetStartPointCell(rotationType, startPoint, DistanceBetweenCells);
+            GetData(out RotationType rotationType, out Vector2 startPointCell);
 
             return ItemHelper.GetCellsPositions(rotationType, Grid, DistanceBetweenCells, startPointCell);
         }
 
-        public Vector2 GetPosition() =>
+        public Vector2 GetFirstCellPosition()
+        {
+            GetData(out RotationType rotationType, out Vector2 startPointCell);
+
+            return ItemHelper.GetFirstCellPosition(rotationType, Grid, DistanceBetweenCells, startPointCell);
+        }
+
+        public Vector2 GetTargetPosition() =>
             _targetPosition;
 
         public void ResetOrder() =>
@@ -94,10 +110,21 @@ namespace Code.Game.Item
         {
             Rotation(_previousRotation);
             _targetPosition = _previousPosition;
+            _currentRotation = _previousRotation;
         }
 
-        public void ChangeOffset(Vector2 offset) =>
-            _targetPosition = (Vector2)transform.position + offset;
+        public void ChangeOffset() =>
+            _targetPosition = (Vector2)transform.position + LastOffset;
+
+        private void GetData(out RotationType rotationType, out Vector2 startPointCell)
+        {
+            rotationType = ItemHelper.GetRotationType(_currentRotation.z);
+
+            ItemHelper.CalculateBounds(rotationType, transform.position, DistanceBetweenCells,
+                new Vector2Int(Width, Height), out Vector2 startPoint, out Vector2 _);
+
+            startPointCell = ItemHelper.GetStartPointCell(rotationType, startPoint, DistanceBetweenCells);
+        }
 
         private void Rotation(Vector3 target)
         {

@@ -102,6 +102,34 @@ namespace Code.Game.Item
 
             return positions;
         }
+        
+        public static Vector2 GetFirstCellPosition(RotationType rotationType, WidthData[] grid,
+            float distance, Vector2 startPointCell)
+        {
+            (int multiplyX, int multiplyY) = GetMultiply(rotationType);
+
+            for (int y = 0; y < grid.Length; y++)
+            {
+                for (int x = 0; x < grid[y].Width.Length; x++)
+                {
+                    if (grid[y].Width[x] == false)
+                        continue;
+
+                    Vector2 position = startPointCell;
+
+                    int tempX = x;
+                    int tempY = y;
+                    Calculate(rotationType, ref tempX, ref tempY);
+
+                    position.x += (distance * tempX + SmallOffset) * multiplyX;
+                    position.y -= (distance * tempY + SmallOffset) * multiplyY;
+
+                    return position;
+                }
+            }
+
+            return Vector2.zero;
+        }
 
         private static (int, int) GetMultiply(RotationType rotationType)
         {
