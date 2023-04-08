@@ -22859,6 +22859,7 @@ GameObject:
   - component: {fileID: 1198565172}
   - component: {fileID: 1198565171}
   - component: {fileID: 1198565170}
+  - component: {fileID: 1198565173}
   m_Layer: 5
   m_Name: Loot (1)
   m_TagString: Untagged
@@ -22926,7 +22927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pointerHandler: {fileID: 1198565171}
   _dragItems: {fileID: 1198565170}
-  _canvasWithItems: {fileID: 433309140}
+  <CanvasWithItems>k__BackingField: {fileID: 433309140}
   <ParentForCells>k__BackingField: {fileID: 1222561438}
   <Cells>k__BackingField:
   - {fileID: 1996119156}
@@ -23105,7 +23106,19 @@ MonoBehaviour:
   - {fileID: 139294451}
   - {fileID: 1882811260}
   - {fileID: 1210863832}
-  _drawLineInEditor: 0
+--- !u!114 &1198565173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198565168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39da104d7d48459ea63bbff8b55b348f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debug: 0
 --- !u!1001 &1200626545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27584,11 +27597,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6458066616071315094, guid: 335ce6641e4e1eb49be48a69c0c8a7fb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 300.84045
+      value: 300.8329
       objectReference: {fileID: 0}
     - target: {fileID: 6458066616071315094, guid: 335ce6641e4e1eb49be48a69c0c8a7fb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 309.88165
+      value: 309.88916
       objectReference: {fileID: 0}
     - target: {fileID: 6458066616071315094, guid: 335ce6641e4e1eb49be48a69c0c8a7fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -29616,11 +29629,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6458066616071315094, guid: 335ce6641e4e1eb49be48a69c0c8a7fb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 426
+      value: 423.3329
       objectReference: {fileID: 0}
     - target: {fileID: 6458066616071315094, guid: 335ce6641e4e1eb49be48a69c0c8a7fb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 261
+      value: 260.88916
       objectReference: {fileID: 0}
     - target: {fileID: 6458066616071315094, guid: 335ce6641e4e1eb49be48a69c0c8a7fb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -33434,7 +33447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pointerHandler: {fileID: 1682416977}
   _dragItems: {fileID: 1682416978}
-  _canvasWithItems: {fileID: 433309140}
+  <CanvasWithItems>k__BackingField: {fileID: 0}
   <ParentForCells>k__BackingField: {fileID: 835088891}
   <Cells>k__BackingField:
   - {fileID: 2031266255982565122}
@@ -33525,7 +33538,6 @@ MonoBehaviour:
   - {fileID: 267651039}
   - {fileID: 1358397979}
   - {fileID: 460595561}
-  _drawLineInEditor: 0
 --- !u!114 &1682416977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41967,6 +41979,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 433309141}
     m_Modifications:
+    - target: {fileID: 461392650729021591, guid: 335ce6641e4e1eb49be48a69c0c8a7fb, type: 3}
+      propertyPath: _debug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1777437721796034031, guid: 335ce6641e4e1eb49be48a69c0c8a7fb, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1

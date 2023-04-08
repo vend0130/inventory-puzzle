@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Game.Item;
+﻿using Code.Game.Item;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -15,7 +14,7 @@ namespace Code.Utils.Editor
 
         private void OnEnable()
         {
-            _itemView = serializedObject.targetObject as ItemView;
+            _itemView = (ItemView)serializedObject.targetObject;
 
             UpdateArray();
         }
@@ -42,7 +41,7 @@ namespace Code.Utils.Editor
             {
                 if (_grid.GetLength(1) != _itemView.Grid[y].Width.Length)
                     return true;
-                
+
                 for (int x = 0; x < _grid.GetLength(1); x++)
                 {
                     if (_grid[y, x] != _itemView.Grid[y].Width[x])
@@ -72,7 +71,7 @@ namespace Code.Utils.Editor
                         counter++;
                 }
             }
-            
+
             _itemView.CellsCountForItem = counter;
 
             PrefabUtility.RecordPrefabInstancePropertyModifications(_itemView);

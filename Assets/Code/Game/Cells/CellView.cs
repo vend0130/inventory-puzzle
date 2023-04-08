@@ -1,5 +1,5 @@
 ﻿using Code.Game.Item;
-using Code.Property.Readonly;
+using Code.Utils.Readonly;
 using UnityEngine;
 using UnityEngine.UI;
 

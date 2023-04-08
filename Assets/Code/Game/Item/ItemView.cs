@@ -10,8 +10,7 @@ namespace Code.Game.Item
     {
         [SerializeField] private Canvas _canvasOrder;
         [SerializeField] private Transform _containerForRotation;
-        [SerializeField] private float _distanceBetweenCells = 69f;
-        [SerializeField] private bool _debug;
+        [SerializeField] public float _distanceBetweenCells = 69f;
 
         [field: SerializeField, Space(20)] public int Width { get; private set; } = 1;
         [field: SerializeField] public int Height { get; private set; } = 1;
@@ -24,6 +23,9 @@ namespace Code.Game.Item
         public List<CellView> ParentCells { get; private set; }
 
         [SerializeField, HideInInspector] private int _defaultSortingOrder;
+
+        public float DistanceBetweenCells => _distanceBetweenCells;
+        public Vector3 CurrentRotation => _currentRotation;
 
         private const int UpSortingOrder = 1;
         private const float DurationRotate = .05f;
@@ -58,12 +60,12 @@ namespace Code.Game.Item
         {
             RotationType rotationType = ItemHelper.GetRotationType(_currentRotation.z);
 
-            ItemHelper.CalculateBounds(rotationType, transform.position, _distanceBetweenCells,
+            ItemHelper.CalculateBounds(rotationType, transform.position, DistanceBetweenCells,
                 new Vector2Int(Width, Height), out Vector2 startPoint, out Vector2 _);
 
-            Vector2 startPointCell = ItemHelper.GetStartPointCell(rotationType, startPoint, _distanceBetweenCells);
+            Vector2 startPointCell = ItemHelper.GetStartPointCell(rotationType, startPoint, DistanceBetweenCells);
 
-            return ItemHelper.GetCellsPositions(rotationType, Grid, _distanceBetweenCells, startPointCell);
+            return ItemHelper.GetCellsPositions(rotationType, Grid, DistanceBetweenCells, startPointCell);
         }
 
         public Vector2 GetPosition() =>
@@ -82,6 +84,7 @@ namespace Code.Game.Item
 
             _currentRotation = _containerForRotation.eulerAngles;
             _currentRotation.z = _currentRotation.z + 90 >= 360 ? 0 : _currentRotation.z + 90;
+
             Rotation(_currentRotation);
 
             return true;
@@ -103,55 +106,5 @@ namespace Code.Game.Item
                 .DORotate(target, DurationRotate)
                 .SetEase(EaseType);
         }
-
-        #region Gizmo
-
-        private void OnDrawGizmos()
-        {
-            if (!_debug)
-                return;
-
-            Color previousColor = Gizmos.color;
-
-            RotationType rotationType = ItemHelper.GetRotationType(_currentRotation.z);
-
-            ItemHelper.CalculateBounds(rotationType, transform.position, _distanceBetweenCells,
-                new Vector2Int(Width, Height), out Vector2 startPoint, out Vector2 endPoint);
-            DrawBorder(startPoint, endPoint);
-
-            if (Grid != null)
-                DrawCells(rotationType, startPoint);
-
-            Gizmos.color = previousColor;
-        }
-
-        private void DrawCells(RotationType rotationType, Vector2 startPoint)
-        {
-            Vector2 startPointCell = ItemHelper.GetStartPointCell(rotationType, startPoint, _distanceBetweenCells);
-            List<Vector2> positions = ItemHelper.GetCellsPositions(rotationType, Grid,
-                _distanceBetweenCells, startPointCell);
-
-            Gizmos.color = Color.magenta;
-            foreach (Vector2 position in positions)
-                Gizmos.DrawSphere(position, 10);
-        }
-
-        private void DrawBorder(Vector2 startPoint, Vector2 endPoint)
-        {
-            Gizmos.color = Color.magenta;
-
-            Gizmos.DrawLine(startPoint, new Vector2(startPoint.x, endPoint.y));
-            Gizmos.DrawLine(new Vector2(startPoint.x, endPoint.y), endPoint);
-            Gizmos.DrawLine(endPoint, new Vector2(endPoint.x, startPoint.y));
-            Gizmos.DrawLine(new Vector2(endPoint.x, startPoint.y), startPoint);
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(startPoint, 7);
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(endPoint, 7);
-        }
-
-        #endregion
     }
 }
