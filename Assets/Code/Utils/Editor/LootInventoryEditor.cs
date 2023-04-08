@@ -21,9 +21,10 @@ namespace Code.Utils.Editor
             base.OnInspectorGUI();
 
             if (GUILayout.Button("Refresh Grid And Items"))
-            {
                 _lootInventory.Refresh();
-            }
+
+            if (GUILayout.Button("Update Grid"))
+                _lootInventory.UpdateGrid();
         }
     }
 }

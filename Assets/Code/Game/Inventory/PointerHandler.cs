@@ -6,19 +6,26 @@ namespace Code.Game.Inventory
 {
     public class PointerHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
-        public event Action<PointerEventData> DownHandler;
+        public event Action<PointerEventData> LeftDownHandler;
+        public event Action RightDownHandler;
         public event Action<PointerEventData> DragHandler;
         public event Action UpHandler;
 
         private int? _pointerId;
 
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(1))
+                RightDownHandler?.Invoke();
+        }
+
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (_pointerId != null)
+            if (_pointerId != null || eventData.button != PointerEventData.InputButton.Left)
                 return;
 
             _pointerId = eventData.pointerId;
-            DownHandler?.Invoke(eventData);
+            LeftDownHandler?.Invoke(eventData);
         }
 
         public void OnDrag(PointerEventData eventData)

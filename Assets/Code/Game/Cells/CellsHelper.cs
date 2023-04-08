@@ -13,19 +13,26 @@ namespace Code.Game.Cells
 
         public static float GetCurrentDistance(float distance)
         {
-            Vector2Int currentSize = CurrentSizeScreen();
-
 #if UNITY_EDITOR
-            if (!Application.isPlaying && DefaultWidthScreen != currentSize.x)
+            if (!Application.isPlaying && DefaultWidthScreen != CurrentSizeScreen().x)
                 Debug.LogError("In Editor Mode use screen size 1920x1080");
 #endif
+
+            Vector2 scaler = GetScaler();
+
+            float currentScaler = scaler.x < scaler.y ? scaler.x : scaler.y;
+
+            return currentScaler * distance;
+        }
+
+        public static Vector2 GetScaler()
+        {
+            Vector2Int currentSize = CurrentSizeScreen();
 
             float scalerX = (float)currentSize.x / DefaultWidthScreen;
             float scalerY = (float)currentSize.y / DefaultHeightScreen;
 
-            float scaler = scalerX < scalerY ? scalerX : scalerY;
-
-            return scaler * distance;
+            return new Vector2(scalerX, scalerY);
         }
 
         public static Vector2Int CurrentSizeScreen()
@@ -59,6 +66,23 @@ namespace Code.Game.Cells
                 EnterOnCell(inventory.Cells[i], item, positions, cells);
 
             return cells.Count > 0;
+        }
+
+        public static void ChangeOffsetItem(ItemView item)
+        {
+            List<Vector2> positions = item.GetCellsPositions();
+
+            foreach (var position in positions)
+            {
+                foreach (var cell in item.ParentCells)
+                {
+                    if (Collision(position, cell))
+                    {
+                        item.ChangeLastOffset(cell.CenterPoint - position);
+                        return;
+                    }
+                }
+            }
         }
 
         public static bool TryDropInNewCells(List<CellView> previousDragCells, int cellsCountForItem)
@@ -103,7 +127,6 @@ namespace Code.Game.Cells
                     continue;
 
                 item.ChangeLastOffset(currentCell.CenterPoint - position);
-
                 first = true;
             }
         }

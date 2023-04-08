@@ -26,12 +26,16 @@ namespace Code.Game.Inventory
 
         private void Awake()
         {
-            _pointerHandler.DownHandler += _dragItems.Down;
+            _pointerHandler.LeftDownHandler += _dragItems.LeftDown;
+            _pointerHandler.RightDownHandler += _dragItems.RightDown;
             _pointerHandler.DragHandler += _dragItems.Drag;
             _pointerHandler.UpHandler += _dragItems.Up;
+        }
 
-            _previousScreenSize = CellsHelper.CurrentSizeScreen();
+        private void Start()
+        {
             UpdateGrid();
+            _previousScreenSize = CellsHelper.CurrentSizeScreen();
         }
 
         //TODO: to main class
@@ -45,7 +49,8 @@ namespace Code.Game.Inventory
 
         private void OnDestroy()
         {
-            _pointerHandler.DownHandler -= _dragItems.Down;
+            _pointerHandler.LeftDownHandler -= _dragItems.LeftDown;
+            _pointerHandler.RightDownHandler -= _dragItems.RightDown;
             _pointerHandler.DragHandler -= _dragItems.Drag;
             _pointerHandler.UpHandler -= _dragItems.Up;
         }
@@ -69,7 +74,7 @@ namespace Code.Game.Inventory
                 EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         }
 
-        private void UpdateGrid()
+        public void UpdateGrid()
         {
             RefreshGrid();
 
@@ -81,7 +86,9 @@ namespace Code.Game.Inventory
             foreach (var item in _items)
             {
                 item.ChangeDistance(distance);
-                item.ChangeLastOffset(item.ParentCells[0].CenterPoint - item.GetFirstCellPosition());
+
+                CellsHelper.ChangeOffsetItem(item);
+
                 item.ChangeOffset();
                 item.transform.position = item.GetTargetPosition();
             }

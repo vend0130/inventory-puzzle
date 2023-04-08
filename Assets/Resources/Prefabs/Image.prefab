@@ -101,7 +101,6 @@ MonoBehaviour:
   _canvasOrder: {fileID: 6458066616071315097}
   _containerForRotation: {fileID: 1777437721796034031}
   _distanceBetweenCells: 69
-  _debug: 1
   <Width>k__BackingField: 1
   <Height>k__BackingField: 1
   <Grid>k__BackingField:
@@ -109,6 +108,8 @@ MonoBehaviour:
   <CellsCountForItem>k__BackingField: 0
   <ParentCells>k__BackingField: []
   _defaultSortingOrder: 0
+  _currentRotation: {x: 0, y: 0, z: 0}
+  <LastOffset>k__BackingField: {x: 0, y: 0}
 --- !u!223 &6458066616071315097
 Canvas:
   m_ObjectHideFlags: 0
@@ -205,7 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

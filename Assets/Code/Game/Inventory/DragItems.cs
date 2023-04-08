@@ -20,17 +20,10 @@ namespace Code.Game.Inventory
         private Tween _tween;
         private bool _isEnabled = true;
 
-        //TODO: rework
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(1))
-                RotationItem();
-        }
-
         private void OnDestroy() =>
             _tween.SimpleKill();
 
-        public void Down(PointerEventData eventData)
+        public void LeftDown(PointerEventData eventData)
         {
             if (!_isEnabled)
                 return;
@@ -39,6 +32,14 @@ namespace Code.Game.Inventory
                 BeginDrag(cell.Item, eventData);
             else
                 _currentItem = null;
+        }
+
+        public void RightDown()
+        {
+            if (!_isEnabled || _currentItem == null)
+                return;
+
+            RotationItem();
         }
 
         public void Drag(PointerEventData eventData)

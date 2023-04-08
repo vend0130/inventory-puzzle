@@ -77,13 +77,6 @@ namespace Code.Game.Item
             return ItemHelper.GetCellsPositions(rotationType, Grid, DistanceBetweenCells, startPointCell);
         }
 
-        public Vector2 GetFirstCellPosition()
-        {
-            GetData(out RotationType rotationType, out Vector2 startPointCell);
-
-            return ItemHelper.GetFirstCellPosition(rotationType, Grid, DistanceBetweenCells, startPointCell);
-        }
-
         public Vector2 GetTargetPosition() =>
             _targetPosition;
 
