@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Code.Extensions;
 using Code.Game.Cells;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Code.Game.Item
@@ -24,11 +26,18 @@ namespace Code.Game.Item
         [SerializeField, HideInInspector] private int _defaultSortingOrder;
 
         private const int UpSortingOrder = 1;
+        private const float DurationRotate = .05f;
+        private const Ease EaseType = Ease.Linear;
 
-
+        private Tween _rotationTween;
         private Vector3 _previousRotation;
+        private Vector3 _currentRotation;
+
         private Vector2 _previousPosition;
         private Vector2 _targetPosition;
+
+        private void OnDestroy() =>
+            _rotationTween.SimpleKill();
 
         public void Init(int defaultSortingOrder, float distanceBetweenCells)
         {
@@ -41,13 +50,13 @@ namespace Code.Game.Item
         public void BeginDrag()
         {
             _targetPosition = _previousPosition = transform.position;
-            _previousRotation = _containerForRotation.eulerAngles;
+            _currentRotation = _previousRotation = _containerForRotation.eulerAngles;
             _canvasOrder.sortingOrder = _defaultSortingOrder + UpSortingOrder;
         }
 
         public List<Vector2> GetPositions()
         {
-            RotationType rotationType = ItemHelper.GetRotationType(_containerForRotation.eulerAngles.z);
+            RotationType rotationType = ItemHelper.GetRotationType(_currentRotation.z);
 
             ItemHelper.CalculateBounds(rotationType, transform.position, _distanceBetweenCells,
                 new Vector2Int(Width, Height), out Vector2 startPoint, out Vector2 _);
@@ -66,21 +75,34 @@ namespace Code.Game.Item
         public void ChangeCell(List<CellView> cellDatas) =>
             ParentCells = cellDatas;
 
-        public void Rotate()
+        public bool TryRotation()
         {
-            Vector3 currentAngle = _containerForRotation.eulerAngles;
-            currentAngle.z = currentAngle.z + 90 >= 360 ? 0 : currentAngle.z + 90;
-            _containerForRotation.eulerAngles = currentAngle;
+            if (_rotationTween != null && _rotationTween.active)
+                return false;
+
+            _currentRotation = _containerForRotation.eulerAngles;
+            _currentRotation.z = _currentRotation.z + 90 >= 360 ? 0 : _currentRotation.z + 90;
+            Rotation(_currentRotation);
+
+            return true;
         }
 
         public void ResetRotation()
         {
+            Rotation(_previousRotation);
             _targetPosition = _previousPosition;
-            _containerForRotation.eulerAngles = _previousRotation;
         }
 
         public void ChangeOffset(Vector2 offset) =>
             _targetPosition = (Vector2)transform.position + offset;
+
+        private void Rotation(Vector3 target)
+        {
+            _rotationTween.SimpleKill();
+            _rotationTween = _containerForRotation
+                .DORotate(target, DurationRotate)
+                .SetEase(EaseType);
+        }
 
         #region Gizmo
 
@@ -91,7 +113,7 @@ namespace Code.Game.Item
 
             Color previousColor = Gizmos.color;
 
-            RotationType rotationType = ItemHelper.GetRotationType(_containerForRotation.eulerAngles.z);
+            RotationType rotationType = ItemHelper.GetRotationType(_currentRotation.z);
 
             ItemHelper.CalculateBounds(rotationType, transform.position, _distanceBetweenCells,
                 new Vector2Int(Width, Height), out Vector2 startPoint, out Vector2 endPoint);

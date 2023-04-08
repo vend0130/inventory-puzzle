@@ -32,7 +32,7 @@ namespace Code.Game.Inventory
 
         public void Down(PointerEventData eventData)
         {
-            if(!_isEnabled)
+            if (!_isEnabled)
                 return;
 
             if (CellsChecker.TryTapOnCell(_inventory, eventData.position, out CellView cell))
@@ -68,7 +68,7 @@ namespace Code.Game.Inventory
         {
             _tween.SimpleKill();
             PreviousCellsExit();
-            
+
             _currentItem = item;
             _currentItem.BeginDrag();
             _currentItem.ParentCells.ForEach((cell) => cell.RemoveItem());
@@ -134,7 +134,6 @@ namespace Code.Game.Inventory
                 .OnComplete(EndItemMove);
 
             _currentItem.ParentCells.ForEach((cell) => cell.AddItem(_currentItem));
-
         }
 
         private void EndItemMove()
@@ -149,8 +148,8 @@ namespace Code.Game.Inventory
             if (_currentItem == null)
                 return;
 
-            _currentItem.Rotate();
-            ChangeCellsWhenDragItem();
+            if (_currentItem.TryRotation())
+                ChangeCellsWhenDragItem();
         }
 
         private void PreviousCellsEnter() =>

@@ -42,6 +42,7 @@ namespace Code.Game.Inventory
 #if UNITY_EDITOR
         [Space, SerializeField] private bool _drawLineInEditor;
 
+        //TODO: to editor script; calculate distance for screens
         [ContextMenu("Refresh Grid")]
         private void Refresh()
         {
