@@ -43,6 +43,7 @@ namespace Code.Infrastructure.StateMachine.States
 
         private async UniTask CreateObjects()
         {
+            _gameFactory.CreateBackground();
             _gameFactory.CreateGamePlayUI();
 
             await UniTask.Yield(cancellationToken: _tokenSource.Token);

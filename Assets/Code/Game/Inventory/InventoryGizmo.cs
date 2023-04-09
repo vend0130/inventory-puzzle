@@ -27,6 +27,9 @@ namespace Code.Game.Inventory
 
         private void DrawBox(CellView cell)
         {
+            if(!cell.Free)
+                return;
+            
             Vector2 startPoint = cell.StartPoint;
             Vector2 endPoint = cell.EndPoint;
             Vector2 point = cell.CenterPoint;

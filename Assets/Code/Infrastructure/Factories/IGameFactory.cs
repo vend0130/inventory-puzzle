@@ -6,5 +6,6 @@ namespace Code.Infrastructure.Factories
     {
         void CreateGamePlayUI();
         GamePlayUI GamePlayUI { get; }
+        void CreateBackground();
     }
 }
