@@ -13,7 +13,7 @@ namespace Code.Game.ItemInfo
 
         private const string InformationText = "ИНФОРМАЦИЯ";
 
-        private ItemView _currentItem;
+        private BaseItem _item;
 
         private void Start()
         {
@@ -33,9 +33,9 @@ namespace Code.Game.ItemInfo
             _backgroundLock.CloseHandler -= Close;
         }
 
-        public void Open(ItemView item, Vector2 position)
+        public void Open(BaseItem item, Vector2 position)
         {
-            _currentItem = item;
+            _item = item;
             _backgroundLock.On();
 
             _buttonsData[0].gameObject.SetActive(true);
@@ -47,7 +47,7 @@ namespace Code.Game.ItemInfo
         private void OpenInformation()
         {
             Close();
-            _info.Open(_currentItem.Data);
+            // _info.Open(_item.GetData());
         }
 
         private void Close()

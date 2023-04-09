@@ -2,7 +2,6 @@
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.Item;
-using Code.Infrastructure.Factories;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,19 +14,14 @@ namespace Code.Game.Inventory
 
         private const float DurationMove = .1f;
 
-        private ItemView _currentItem;
+        private BaseItem _item;
         private Vector2 _offset;
         private List<CellView> _previousDragCells = new List<CellView>();
         private Tween _tween;
         private bool _isEnabled = true;
-        private IGameFactory _gameFactory;
 
         private void OnDestroy() =>
             _tween.SimpleKill();
-
-        //TODO: rework when create in factory
-        public void Init(IGameFactory gameFactory) =>
-            _gameFactory = gameFactory;
 
         public void LeftDown(PointerEventData eventData)
         {
@@ -37,22 +31,21 @@ namespace Code.Game.Inventory
             if (CellsHelper.TryTapOnCell(_inventory, eventData.position, out CellView cell))
                 BeginDrag(cell.Item, eventData);
             else
-                _currentItem = null;
+                _item = null;
         }
 
         public void RightClick(PointerEventData eventData)
         {
-            if (!_isEnabled || _currentItem != null)
+            if (!_isEnabled || _item != null)
                 return;
 
-            //TODO: rework when create in factory
             if (CellsHelper.TryTapOnCell(_inventory, eventData.position, out CellView cell))
-                _gameFactory.ItemMenu.Open(cell.Item, eventData.position);
+                cell.Item.OpenMenu(eventData.position);
         }
 
         public void RightDown()
         {
-            if (!_isEnabled || _currentItem == null)
+            if (!_isEnabled || _item == null)
                 return;
 
             RotationItem();
@@ -60,7 +53,7 @@ namespace Code.Game.Inventory
 
         public void Drag(PointerEventData eventData)
         {
-            if (_currentItem == null || !_isEnabled)
+            if (_item == null || !_isEnabled)
                 return;
 
             DragItem(eventData.position);
@@ -69,41 +62,41 @@ namespace Code.Game.Inventory
 
         public void Up()
         {
-            if (_currentItem == null || !_isEnabled)
+            if (_item == null || !_isEnabled)
                 return;
 
             //note: if drop in new cells updated parent cells for item
-            if (CellsHelper.TryDropInNewCells(_previousDragCells, _currentItem.CellsCountForItem))
-                _currentItem.ChangeCell(_previousDragCells.Clone());
+            if (CellsHelper.TryDropInNewCells(_previousDragCells, _item.CellsCountForItem))
+                _item.ChangeCell(_previousDragCells.Clone());
             else
-                _currentItem.ResetRotation();
+                _item.ResetRotation();
 
             EndDrag();
         }
 
-        private void BeginDrag(ItemView item, PointerEventData eventData)
+        private void BeginDrag(BaseItem item, PointerEventData eventData)
         {
             _tween.SimpleKill();
             PreviousCellsExit();
 
-            _currentItem = item;
-            _currentItem.BeginDrag();
-            _currentItem.ParentCells.ForEach((cell) => cell.RemoveItem());
+            _item = item;
+            _item.BeginDrag();
+            _item.ParentCells.ForEach((cell) => cell.RemoveItem());
 
-            _offset = (Vector2)_currentItem.transform.position - eventData.position;
+            _offset = (Vector2)_item.transform.position - eventData.position;
 
-            _previousDragCells = _currentItem.ParentCells;
+            _previousDragCells = _item.ParentCells;
             PreviousCellsEnter();
         }
 
         private void DragItem(Vector2 position) =>
-            _currentItem.transform.position = position + _offset;
+            _item.transform.position = position + _offset;
 
         private void ChangeCellsWhenDragItem()
         {
-            if (CellsHelper.TryEnterOnCell(_inventory, _currentItem, out List<CellView> cells))
+            if (CellsHelper.TryEnterOnCell(_inventory, _item, out List<CellView> cells))
             {
-                _currentItem.ChangeOffset();
+                _item.ChangeOffset();
 
                 PreviousCellsExit();
                 _previousDragCells = cells;
@@ -119,7 +112,7 @@ namespace Code.Game.Inventory
 
         private void EnterCellsWhenDragItem(List<CellView> cells)
         {
-            if (cells.Count != _currentItem.CellsCountForItem)
+            if (cells.Count != _item.CellsCountForItem)
             {
                 PreviousCellsBadEnter();
                 return;
@@ -142,28 +135,28 @@ namespace Code.Game.Inventory
 
             _tween.SimpleKill();
 
-            Vector2 target = _currentItem.GetTargetPosition();
+            Vector2 target = _item.GetTargetPosition();
 
-            _tween = _currentItem.transform.DOMove(target, DurationMove)
+            _tween = _item.transform.DOMove(target, DurationMove)
                 .SetEase(Ease.Linear)
                 .OnComplete(EndItemMove);
 
-            _currentItem.ParentCells.ForEach((cell) => cell.AddItem(_currentItem));
+            _item.ParentCells.ForEach((cell) => cell.AddItem(_item));
         }
 
         private void EndItemMove()
         {
-            _currentItem.ResetOrder();
-            _currentItem = null;
+            _item.ResetOrder();
+            _item = null;
             _isEnabled = true;
         }
 
         private void RotationItem()
         {
-            if (_currentItem == null)
+            if (_item == null)
                 return;
 
-            if (_currentItem.TryRotation())
+            if (_item.TryRotation())
                 ChangeCellsWhenDragItem();
         }
 

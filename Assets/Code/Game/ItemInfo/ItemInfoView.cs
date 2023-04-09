@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Game.ItemInfo
 {
-    public class ItemInfoView : MonoBehaviour
+    public class ItemInfoView : MonoBehaviour, IInfo
     {
         [SerializeField] private GameObject _info;
         [SerializeField] private LockView _backgroundLock;
@@ -18,6 +18,8 @@ namespace Code.Game.ItemInfo
         [SerializeField] private TextMeshProUGUI _maxDistance;
         [SerializeField] private TextMeshProUGUI _typeArmo;
 
+        private GameObject _currentPanel;
+
         private void Start()
         {
             _info.SetActive(false);
@@ -27,6 +29,11 @@ namespace Code.Game.ItemInfo
 
         private void OnDestroy() =>
             _backgroundLock.CloseHandler -= Close;
+
+        public void Open()
+        {
+            //TODO: текст - неизвестный объект
+        }
 
         public void Open(GunData data)
         {
@@ -39,9 +46,11 @@ namespace Code.Game.ItemInfo
             _typeArmo.text = data.TypeArmo;
 
             _info.SetActive(true);
+
+            _currentPanel = _info;
         }
 
-        private void Close() =>
-            _info.SetActive(false);
+        public void Close() =>
+            _currentPanel.SetActive(false);
     }
 }

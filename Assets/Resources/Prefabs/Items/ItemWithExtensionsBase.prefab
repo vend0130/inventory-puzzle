@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &842716884942630733
+--- !u!1001 &2871530809683352302
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,38 +8,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 583020645705077559, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: m_Sprite
+    - target: {fileID: 3340403456290972883, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
+      propertyPath: _item
       value: 
-      objectReference: {fileID: 21300000, guid: 738b4312ce7543c4f8453d7676cd034f, type: 3}
-    - target: {fileID: 7120606017701920986, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: <Width>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120606017701920986, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: <Height>k__BackingField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120606017701920986, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: <Grid>k__BackingField.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120606017701920986, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: <CellsCountForItem>k__BackingField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120606017701920986, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: <Grid>k__BackingField.Array.data[0].<Width>k__BackingField.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120606017701920986, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7120606017701920986, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8769402394292424511}
     - target: {fileID: 7120606017701920987, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -50,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7120606017701920987, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7120606017701920987, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -106,11 +78,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7120606017701920987, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 335.3
+      value: 330
       objectReference: {fileID: 0}
     - target: {fileID: 7120606017701920987, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.9
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 7120606017701920987, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -126,32 +98,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7120606017701920988, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_Name
-      value: Ak-47 Magazine
-      objectReference: {fileID: 0}
-    - target: {fileID: 7667698147637243997, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 275
-      objectReference: {fileID: 0}
-    - target: {fileID: 7667698147637243997, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 275
-      objectReference: {fileID: 0}
-    - target: {fileID: 7667698147637243997, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9846863
-      objectReference: {fileID: 0}
-    - target: {fileID: 7667698147637243997, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.17433569
-      objectReference: {fileID: 0}
-    - target: {fileID: 7667698147637243997, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 10.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7667698147637243997, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -20.08
+      value: ItemWithExtensionsBase
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
+--- !u!224 &1472727262269502622 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3722673326995238512, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
+  m_PrefabInstance: {fileID: 2871530809683352302}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4974440730042161714 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7120606017701920988, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
+  m_PrefabInstance: {fileID: 2871530809683352302}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8769402394292424511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4974440730042161714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b94ba4313ed479989c95a3be8d3fc46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ItemTyper>k__BackingField: 0
+  _canvasOrder: {fileID: 4974440730042161719}
+  _containerForRotation: {fileID: 1472727262269502622}
+  _distanceBetweenCells: 50
+  <Width>k__BackingField: 1
+  <Height>k__BackingField: 1
+  <Grid>k__BackingField: []
+  _defaultSortingOrder: 0
+  _currentRotation: {x: 0, y: 0, z: 0}
+  <CellsCountForItem>k__BackingField: 0
+  <ParentCells>k__BackingField: []
+  <LastOffset>k__BackingField: {x: 0, y: 0}
+  <Data>k__BackingField: {fileID: 11400000, guid: 4c66e404947cee94c8c57aba784d5f58, type: 2}
+--- !u!223 &4974440730042161719 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 7120606017701920985, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
+  m_PrefabInstance: {fileID: 2871530809683352302}
+  m_PrefabAsset: {fileID: 0}

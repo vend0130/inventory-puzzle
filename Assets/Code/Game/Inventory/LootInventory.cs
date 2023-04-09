@@ -15,7 +15,7 @@ namespace Code.Game.Inventory
         [field: SerializeField] public GridLayoutGroup LayoutGroup { get; private set; }
         [field: SerializeField] public RectTransform ParentForCells { get; private set; }
         [field: SerializeField, ReadOnly] public CellView[] Cells { get; private set; }
-        [field: SerializeField, ReadOnly] public List<ItemView> Items { get; private set; }
+        [field: SerializeField, ReadOnly] public List<BaseItem> Items { get; private set; }
 
         private Vector2Int _previousScreenSize;
 
@@ -55,7 +55,7 @@ namespace Code.Game.Inventory
         public void CreateArray()
         {
             Cells = new CellView[ParentForCells.childCount];
-            Items = new List<ItemView>(CanvasWithItems.transform.childCount);
+            Items = new List<BaseItem>(CanvasWithItems.transform.childCount);
         }
 
         public void UpdateGrid()

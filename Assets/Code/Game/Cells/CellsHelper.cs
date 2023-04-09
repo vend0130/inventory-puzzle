@@ -57,7 +57,7 @@ namespace Code.Game.Cells
             return false;
         }
 
-        public static bool TryEnterOnCell(IInventory inventory, ItemView item, out List<CellView> cells)
+        public static bool TryEnterOnCell(IInventory inventory, BaseItem item, out List<CellView> cells)
         {
             List<Vector2> positions = item.GetCellsPositions();
             cells = new List<CellView>();
@@ -68,7 +68,7 @@ namespace Code.Game.Cells
             return cells.Count > 0;
         }
 
-        public static void ChangeOffsetItem(ItemView item)
+        public static void ChangeOffsetItem(BaseItem item)
         {
             List<Vector2> positions = item.GetCellsPositions();
 
@@ -112,7 +112,7 @@ namespace Code.Game.Cells
             return false;
         }
 
-        private static void EnterOnCell(CellView currentCell, ItemView item,
+        private static void EnterOnCell(CellView currentCell, BaseItem item,
             List<Vector2> positions, List<CellView> cells)
         {
             bool first = false;

@@ -6,7 +6,7 @@ namespace Code.Game.Item
 {
     public class ItemGizmo : MonoBehaviour
     {
-        [SerializeField] private ItemView _item;
+        [SerializeField] private BaseItem _item;
         [SerializeField] private bool _debug = true;
 
         private void OnDrawGizmos()
@@ -22,7 +22,7 @@ namespace Code.Game.Item
                 new Vector2Int(_item.Width, _item.Height), out Vector2 startPoint, out Vector2 endPoint);
             DrawBorder(startPoint, endPoint);
 
-            if (_item.Grid != null)
+            if (_item.Grid != null && _item.Grid.Length != 0)
                 DrawCells(rotationType, startPoint);
 
             Gizmos.color = previousColor;

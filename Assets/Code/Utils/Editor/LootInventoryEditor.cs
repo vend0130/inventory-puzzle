@@ -70,8 +70,8 @@ namespace Code.Utils.Editor
         {
             for (int i = 0; i < _lootInventory.CanvasWithItems.transform.childCount; i++)
             {
-                var item = _lootInventory.CanvasWithItems.transform.GetChild(i).GetComponent<ItemView>();
-                item.Init(_lootInventory.CanvasWithItems.sortingOrder);
+                var item = _lootInventory.CanvasWithItems.transform.GetChild(i).GetComponent<BaseItem>();
+                item.LoadItem(_lootInventory.CanvasWithItems.sortingOrder);
                 item.ChangeDistance(distance);
 
                 _lootInventory.Items.Add(item);

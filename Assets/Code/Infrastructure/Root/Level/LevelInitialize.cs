@@ -15,7 +15,8 @@ namespace Code.Infrastructure.Root.Level
             _dragItems = dragItems;
         }
 
-        public void Initialize() =>
-            _dragItems.Init(_gameFactory);
+        public void Initialize()
+        {
+        }
     }
 }

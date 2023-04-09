@@ -1,31 +1,32 @@
 ﻿using System.Collections.Generic;
-using Code.Data;
 using Code.Extensions;
 using Code.Game.Cells;
+using Code.Game.ItemInfo;
 using DG.Tweening;
 using UnityEngine;
 
 namespace Code.Game.Item
 {
-    public class ItemView : MonoBehaviour
+    public class BaseItem : MonoBehaviour
     {
-        [field: SerializeField] public GunData Data { get; private set; }
-        [SerializeField] private Canvas _canvasOrder;
-        [SerializeField] private Transform _containerForRotation;
-        [SerializeField] public float _distanceBetweenCells = 69f;
+        [field: SerializeField] public ItemType ItemTyper { get; private set; }
 
-        [field: SerializeField, Space(20)] public int Width { get; private set; } = 1;
+        [SerializeField, Space] private Canvas _canvasOrder;
+        [SerializeField] private Transform _containerForRotation;
+
+        [SerializeField, Space(20)] private float _distanceBetweenCells = 50f;
+        [field: SerializeField] public int Width { get; private set; } = 1;
         [field: SerializeField] public int Height { get; private set; } = 1;
         [field: SerializeField, Space] public WidthData[] Grid { get; set; }
+
+        [SerializeField, HideInInspector] private int _defaultSortingOrder;
+        [SerializeField, HideInInspector] private Vector3 _currentRotation;
 
         [field: SerializeField, HideInInspector]
         public int CellsCountForItem { get; set; }
 
         [field: SerializeField, HideInInspector]
         public List<CellView> ParentCells { get; private set; }
-
-        [SerializeField, HideInInspector] private int _defaultSortingOrder;
-        [SerializeField, HideInInspector] private Vector3 _currentRotation;
 
         [field: SerializeField, HideInInspector]
         public Vector2 LastOffset { get; private set; }
@@ -42,6 +43,9 @@ namespace Code.Game.Item
         private Vector2 _previousPosition;
         private Vector2 _targetPosition;
 
+        private ItemMenu _itemMenu;
+        private IInfo _itemInfo;
+
         private void Awake()
         {
             _targetPosition = _previousPosition = transform.position;
@@ -51,13 +55,25 @@ namespace Code.Game.Item
         private void OnDestroy() =>
             _rotationTween.SimpleKill();
 
-        public void Init(int defaultSortingOrder)
+        public void LoadItem(int defaultSortingOrder)
         {
             _defaultSortingOrder = defaultSortingOrder + UpSortingOrder;
             _currentRotation = _containerForRotation.eulerAngles;
 
             ResetOrder();
         }
+
+        public void Init(ItemMenu itemMenu, IInfo itemInfo)
+        {
+            _itemMenu = itemMenu;
+            _itemInfo = itemInfo;
+        }
+
+        public virtual void OpenMenu(Vector2 position) =>
+            _itemMenu.Open(this, position);
+
+        public virtual void OpenInfo() =>
+            _itemInfo.Open();
 
         public void ChangeDistance(float distanceBetweenCells) =>
             _distanceBetweenCells = distanceBetweenCells;
