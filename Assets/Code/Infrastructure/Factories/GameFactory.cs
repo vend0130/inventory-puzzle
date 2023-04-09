@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.Extensions;
+using Code.Game.ItemInfo;
 using Code.UI;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Code.Infrastructure.Factories
     public class GameFactory : IGameFactory
     {
         public GamePlayUI GamePlayUI { get; private set; }
+        public ItemMenu ItemMenu { get; private set; }
 
         private readonly List<string> _backgroundsPaths;
 
@@ -19,15 +21,14 @@ namespace Code.Infrastructure.Factories
             };
         }
 
-        public void CreateBackground()
-        {
-            Instantiate(_backgroundsPaths.GetRandomElement()).GetComponent<GamePlayUI>();
-        }
+        public void CreateBackground() =>
+            Instantiate(_backgroundsPaths.GetRandomElement());
 
-        public void CreateGamePlayUI()
-        {
+        public void CreateInfoPanel() =>
+            ItemMenu = Instantiate(AssetPath.InfoPanelsPath).GetComponent<ItemMenu>();
+
+        public void CreateGamePlayUI() =>
             GamePlayUI = Instantiate(AssetPath.GamePlayUIPath).GetComponent<GamePlayUI>();
-        }
 
         private GameObject Instantiate(string path)
         {

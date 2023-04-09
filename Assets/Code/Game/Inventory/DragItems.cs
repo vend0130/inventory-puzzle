@@ -2,6 +2,7 @@
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.Item;
+using Code.Infrastructure.Factories;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,9 +20,14 @@ namespace Code.Game.Inventory
         private List<CellView> _previousDragCells = new List<CellView>();
         private Tween _tween;
         private bool _isEnabled = true;
+        private IGameFactory _gameFactory;
 
         private void OnDestroy() =>
             _tween.SimpleKill();
+
+        //TODO: rework when create in factory
+        public void Init(IGameFactory gameFactory) =>
+            _gameFactory = gameFactory;
 
         public void LeftDown(PointerEventData eventData)
         {
@@ -32,6 +38,16 @@ namespace Code.Game.Inventory
                 BeginDrag(cell.Item, eventData);
             else
                 _currentItem = null;
+        }
+
+        public void RightClick(PointerEventData eventData)
+        {
+            if (!_isEnabled || _currentItem != null)
+                return;
+
+            //TODO: rework when create in factory
+            if (CellsHelper.TryTapOnCell(_inventory, eventData.position, out CellView cell))
+                _gameFactory.ItemMenu.Open(cell.Item, eventData.position);
         }
 
         public void RightDown()

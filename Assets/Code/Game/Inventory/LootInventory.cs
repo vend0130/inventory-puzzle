@@ -25,6 +25,7 @@ namespace Code.Game.Inventory
             _pointerHandler.RightDownHandler += _dragItems.RightDown;
             _pointerHandler.DragHandler += _dragItems.Drag;
             _pointerHandler.UpHandler += _dragItems.Up;
+            _pointerHandler.RightClickHandler += _dragItems.RightClick;
         }
 
         private void Start()
@@ -48,6 +49,7 @@ namespace Code.Game.Inventory
             _pointerHandler.RightDownHandler -= _dragItems.RightDown;
             _pointerHandler.DragHandler -= _dragItems.Drag;
             _pointerHandler.UpHandler -= _dragItems.Up;
+            _pointerHandler.RightClickHandler -= _dragItems.RightClick;
         }
 
         public void CreateArray()

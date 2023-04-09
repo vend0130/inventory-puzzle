@@ -8,6 +8,7 @@ namespace Code.Game.Inventory
     {
         public event Action<PointerEventData> LeftDownHandler;
         public event Action RightDownHandler;
+        public event Action<PointerEventData> RightClickHandler;
         public event Action<PointerEventData> DragHandler;
         public event Action UpHandler;
 
@@ -38,6 +39,9 @@ namespace Code.Game.Inventory
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            if (_pointerId == null)
+                RightClickHandler?.Invoke(eventData);
+
             if (_pointerId != eventData.pointerId)
                 return;
 

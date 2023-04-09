@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Data;
 using Code.Extensions;
 using Code.Game.Cells;
 using DG.Tweening;
@@ -8,6 +9,7 @@ namespace Code.Game.Item
 {
     public class ItemView : MonoBehaviour
     {
+        [field: SerializeField] public GunData Data { get; private set; }
         [SerializeField] private Canvas _canvasOrder;
         [SerializeField] private Transform _containerForRotation;
         [SerializeField] public float _distanceBetweenCells = 69f;
