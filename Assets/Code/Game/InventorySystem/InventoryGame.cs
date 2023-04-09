@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using Code.Game.Cells;
+using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item;
 using Code.Utils.Readonly;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Code.Game.Inventory
+namespace Code.Game.InventorySystem
 {
-    public class LootInventory : MonoBehaviour, IInventory
+    public class InventoryGame : MonoBehaviour
     {
         [SerializeField] private PointerHandler _pointerHandler;
         [SerializeField] private DragItems _dragItems;
-        [field: SerializeField] public Canvas CanvasWithItems { get; private set; }
-        [field: SerializeField] public GridLayoutGroup LayoutGroup { get; private set; }
-        [field: SerializeField] public RectTransform ParentForCells { get; private set; }
-        [field: SerializeField, ReadOnly] public CellView[] Cells { get; private set; }
+
+        [field: SerializeField, Space] public LootInventory LootInventory;
+
+        [field: SerializeField, Space] public Canvas CanvasWithItems { get; private set; }
         [field: SerializeField, ReadOnly] public List<BaseItem> Items { get; private set; }
 
         private Vector2Int _previousScreenSize;
@@ -30,15 +30,14 @@ namespace Code.Game.Inventory
 
         private void Start()
         {
-            UpdateGrid();
+            LootInventory.UpdateGrid(Items);
             _previousScreenSize = CellsHelper.CurrentSizeScreen();
         }
 
-        //TODO: to main class
         private void Update()
         {
             if (CellsHelper.CurrentSizeScreen() != _previousScreenSize)
-                UpdateGrid();
+                LootInventory.UpdateGrid(Items);
 
             _previousScreenSize = CellsHelper.CurrentSizeScreen();
         }
@@ -52,40 +51,7 @@ namespace Code.Game.Inventory
             _pointerHandler.RightClickHandler -= _dragItems.RightClick;
         }
 
-        public void CreateArray()
-        {
-            Cells = new CellView[ParentForCells.childCount];
+        public void CreateArrayItems() =>
             Items = new List<BaseItem>(CanvasWithItems.transform.childCount);
-        }
-
-        public void UpdateGrid()
-        {
-            RefreshGrid();
-
-            float distance = GetCurrentDistance(LayoutGroup.cellSize.x + LayoutGroup.spacing.x);
-
-            for (int i = 0; i < Cells.Length; i++)
-                Cells[i].RecalculatePoints(distance);
-
-            foreach (var item in Items)
-            {
-                item.ChangeDistance(distance);
-
-                CellsHelper.ChangeOffsetItem(item);
-
-                item.ChangeOffset();
-                item.transform.position = item.GetTargetPosition();
-            }
-        }
-
-        public void RefreshGrid()
-        {
-            LayoutGroup.enabled = true;
-            Canvas.ForceUpdateCanvases();
-            LayoutGroup.enabled = false;
-        }
-
-        public float GetCurrentDistance(float distance) =>
-            CellsHelper.GetCurrentDistance(distance);
     }
 }

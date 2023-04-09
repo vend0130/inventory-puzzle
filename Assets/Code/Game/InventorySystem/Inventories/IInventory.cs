@@ -1,6 +1,6 @@
 ﻿using Code.Game.Cells;
 
-namespace Code.Game.Inventory
+namespace Code.Game.InventorySystem.Inventories
 {
     public interface IInventory
     {

@@ -1,4 +1,4 @@
-﻿using Code.Game.Inventory;
+﻿using Code.Game.InventorySystem;
 using UnityEngine;
 using Zenject;
 

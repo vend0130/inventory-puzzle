@@ -34,6 +34,9 @@ namespace Code.Game.Item
         public float DistanceBetweenCells => _distanceBetweenCells;
         public Vector3 CurrentRotation => _currentRotation;
 
+        protected ItemMenu _itemMenu;
+        protected IInfo _itemInfo;
+
         private const int UpSortingOrder = 1;
         private const float DurationRotate = .05f;
         private const Ease EaseType = Ease.Linear;
@@ -43,8 +46,6 @@ namespace Code.Game.Item
         private Vector2 _previousPosition;
         private Vector2 _targetPosition;
 
-        private ItemMenu _itemMenu;
-        private IInfo _itemInfo;
 
         private void Awake()
         {
@@ -52,8 +53,12 @@ namespace Code.Game.Item
             _currentRotation = _previousRotation = _containerForRotation.eulerAngles;
         }
 
-        private void OnDestroy() =>
+        private void OnDestroy()
+        {
+            _itemMenu.OpenInfoHandler -= OpenInfo;
+
             _rotationTween.SimpleKill();
+        }
 
         public void LoadItem(int defaultSortingOrder)
         {
@@ -67,12 +72,14 @@ namespace Code.Game.Item
         {
             _itemMenu = itemMenu;
             _itemInfo = itemInfo;
+
+            _itemMenu.OpenInfoHandler += OpenInfo;
         }
 
         public virtual void OpenMenu(Vector2 position) =>
             _itemMenu.Open(this, position);
 
-        public virtual void OpenInfo() =>
+        protected virtual void OpenInfo() =>
             _itemInfo.Open();
 
         public void ChangeDistance(float distanceBetweenCells) =>

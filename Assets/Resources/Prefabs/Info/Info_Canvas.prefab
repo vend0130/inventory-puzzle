@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee6b40d07dc4d249c8b4bf03948430e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Info>k__BackingField: {fileID: 1838326714564237999}
   _buttonsData:
   - {fileID: 4643307638807287713}
   - {fileID: 3154391202264115349}
@@ -126,7 +127,6 @@ MonoBehaviour:
   - {fileID: 6319838098627585743}
   _menu: {fileID: 5039501311552795273}
   _backgroundLock: {fileID: 8507327237409779207}
-  _info: {fileID: 1838326714564237999}
 --- !u!1 &8925875876879081702
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,11 +747,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8678596839808676689, guid: b9f2a1f76e8c3774197b392bcae64d6d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8678596839808676689, guid: b9f2a1f76e8c3774197b392bcae64d6d, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8678596839808676689, guid: b9f2a1f76e8c3774197b392bcae64d6d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -767,7 +767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8678596839808676689, guid: b9f2a1f76e8c3774197b392bcae64d6d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -117.010994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9161501381270319450, guid: b9f2a1f76e8c3774197b392bcae64d6d, type: 3}
       propertyPath: m_AnchorMax.y

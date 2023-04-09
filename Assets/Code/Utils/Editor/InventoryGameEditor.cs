@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.Cells;
-using Code.Game.Inventory;
+using Code.Game.InventorySystem;
+using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -11,34 +12,33 @@ using UnityEngine.SceneManagement;
 
 namespace Code.Utils.Editor
 {
-    [CustomEditor(typeof(LootInventory))]
-    public class LootInventoryEditor : UnityEditor.Editor
+    [CustomEditor(typeof(InventoryGame))]
+    public class InventoryGameEditor : UnityEditor.Editor
     {
-        private LootInventory _lootInventory;
-        private CellView[] Cells => _lootInventory.Cells;
+        private InventoryGame _inventory;
+        private LootInventory _lootInventory => _inventory.LootInventory;
+        private CellView[] Cells => _inventory.LootInventory.Cells;
 
-        private void OnEnable()
-        {
-            _lootInventory = (LootInventory)serializedObject.targetObject;
-        }
+        private void OnEnable() =>
+            _inventory = (InventoryGame)serializedObject.targetObject;
 
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
-            if (GUILayout.Button("Refresh Grid And Items"))
+            if (GUILayout.Button("Load and Refresh"))
                 Refresh();
 
-            if (GUILayout.Button("Update Grid"))
-                _lootInventory.UpdateGrid();
+            if (GUILayout.Button("Update Inventories"))
+                _lootInventory.UpdateGrid(_inventory.Items);
         }
 
         private void Refresh()
         {
-            float distance =
-                _lootInventory.GetCurrentDistance(_lootInventory.LayoutGroup.cellSize.x +
-                                                  _lootInventory.LayoutGroup.spacing.x);
+            float distance = _lootInventory
+                .GetCurrentDistance(_lootInventory.LayoutGroup.cellSize.x + _lootInventory.LayoutGroup.spacing.x);
 
+            _inventory.CreateArrayItems();
             _lootInventory.RefreshGrid();
             _lootInventory.CreateArray();
 
@@ -48,8 +48,8 @@ namespace Code.Utils.Editor
             for (int i = 0; i < Cells.Length; i++)
                 PrefabUtility.RecordPrefabInstancePropertyModifications(Cells[i]);
 
-            for (int i = 0; i < _lootInventory.Items.Count; i++)
-                PrefabUtility.RecordPrefabInstancePropertyModifications(_lootInventory.Items[i]);
+            for (int i = 0; i < _inventory.Items.Count; i++)
+                PrefabUtility.RecordPrefabInstancePropertyModifications(_inventory.Items[i]);
 
             Canvas.ForceUpdateCanvases();
             if (!Application.isPlaying)
@@ -68,16 +68,16 @@ namespace Code.Utils.Editor
 
         private void LoadItems(float distance)
         {
-            for (int i = 0; i < _lootInventory.CanvasWithItems.transform.childCount; i++)
+            for (int i = 0; i < _inventory.CanvasWithItems.transform.childCount; i++)
             {
-                var item = _lootInventory.CanvasWithItems.transform.GetChild(i).GetComponent<BaseItem>();
-                item.LoadItem(_lootInventory.CanvasWithItems.sortingOrder);
+                var item = _inventory.CanvasWithItems.transform.GetChild(i).GetComponent<BaseItem>();
+                item.LoadItem(_inventory.CanvasWithItems.sortingOrder);
                 item.ChangeDistance(distance);
 
-                _lootInventory.Items.Add(item);
+                _inventory.Items.Add(item);
             }
 
-            foreach (var item in _lootInventory.Items)
+            foreach (var item in _inventory.Items)
             {
                 if (CellsHelper.TryEnterOnCell(_lootInventory, item, out List<CellView> cells))
                 {

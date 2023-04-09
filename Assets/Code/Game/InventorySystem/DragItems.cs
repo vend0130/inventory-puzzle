@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.Cells;
+using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Code.Game.Inventory
+namespace Code.Game.InventorySystem
 {
     public class DragItems : MonoBehaviour
     {
+        //TODO: rework when added another inventories
         [SerializeField] private LootInventory _inventory;
 
         private const float DurationMove = .1f;

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Code.Game.Inventory
+namespace Code.Game.InventorySystem
 {
     public class PointerHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {

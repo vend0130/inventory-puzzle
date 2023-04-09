@@ -5,7 +5,7 @@ using Code.Infrastructure.StateMachine.States;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Infrastructure.Root
+namespace Code.Infrastructure.Root.Boot
 {
     public class BootstrapInstaller : MonoInstaller, IInitializable
     {

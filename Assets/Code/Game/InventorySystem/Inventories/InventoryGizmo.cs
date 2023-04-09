@@ -2,7 +2,7 @@
 using Code.Game.Cells;
 using UnityEngine;
 
-namespace Code.Game.Inventory
+namespace Code.Game.InventorySystem.Inventories
 {
     public class InventoryGizmo : MonoBehaviour
     {

@@ -11,5 +11,6 @@ namespace Code.Infrastructure.Factories
         void CreateGamePlayUI();
         void CreateBackground();
         void CreateInfoPanel();
+        void CreateLevel();
     }
 }

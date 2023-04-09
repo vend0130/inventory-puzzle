@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Game.Inventory;
+using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item;
 using UnityEditor;
 using UnityEngine;
