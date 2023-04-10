@@ -1,4 +1,5 @@
-﻿using Code.Game.Item;
+﻿using System.Linq;
+using Code.Game.Item;
 using Code.Game.Item.Items;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -11,7 +12,8 @@ namespace Code.Utils.Editor
     public class ItemViewEditor : UnityEditor.Editor
     {
         private BaseItem _item;
-        private bool[,] _grid;
+        private CellInItemData[,] _grid;
+        private int _popupIndex = 0;
 
         private void OnEnable()
         {
@@ -24,13 +26,33 @@ namespace Code.Utils.Editor
         {
             base.OnInspectorGUI();
 
+            var additionalsUpdate = UpdateAdditionals();
             UpdateArray();
             DrawGrid();
 
-            if (IsRefresh())
+            if (IsRefresh() || additionalsUpdate)
             {
                 Refresh();
             }
+        }
+
+        private bool UpdateAdditionals()
+        {
+            if (!IsAdditional())
+                return false;
+
+            bool isUpdated = false;
+
+            foreach (AdditionalData additional in _item.AdditionalDatas)
+            {
+                if (additional.Activate != additional.Image.enabled)
+                {
+                    additional.Image.enabled = additional.Activate;
+                    isUpdated = true;
+                }
+            }
+
+            return isUpdated;
         }
 
         private bool IsRefresh()
@@ -45,7 +67,7 @@ namespace Code.Utils.Editor
 
                 for (int x = 0; x < _grid.GetLength(1); x++)
                 {
-                    if (_grid[y, x] != _item.Grid[y].Width[x])
+                    if (_grid[y, x].Value != _item.Grid[y].Width[x].Value)
                         return true;
                 }
             }
@@ -63,12 +85,12 @@ namespace Code.Utils.Editor
             {
                 _item.Grid[y] = new WidthData();
 
-                _item.Grid[y].Width = new bool[_grid.GetLength(1)];
+                _item.Grid[y].Width = CreateData(_grid.GetLength(1));
                 for (int x = 0; x < _item.Grid[y].Width.Length; x++)
                 {
                     _item.Grid[y].Width[x] = _grid[y, x];
 
-                    if (_grid[y, x])
+                    if (_grid[y, x].Value)
                         counter++;
                 }
             }
@@ -82,7 +104,7 @@ namespace Code.Utils.Editor
 
         private void UpdateArray()
         {
-            _grid = new bool[_item.Height, _item.Width];
+            _grid = CreateData(_item.Height, _item.Width);
 
             if (_item.Grid == null)
             {
@@ -98,7 +120,7 @@ namespace Code.Utils.Editor
             for (int y = 0; y < _grid.GetLength(0); y++)
             {
                 for (int x = 0; x < _grid.GetLength(1); x++)
-                    _grid[y, x] = false;
+                    _grid[y, x].Value = false;
             }
         }
 
@@ -111,16 +133,17 @@ namespace Code.Utils.Editor
                 for (int x = 0; x < _item.Width; x++)
                 {
                     if (y < yLenght && x < _item.Grid[y].Width.Length)
-                        _grid[y, x] =
-                            _item.Grid[y].Width[x];
+                        _grid[y, x] = new CellInItemData(_item.Grid[y].Width[x].Value, _item.Grid[y].Width[x].Type);
                     else
-                        _grid[y, x] = false;
+                        _grid[y, x] = new CellInItemData(false, ItemType.None);
                 }
             }
         }
 
         private void DrawGrid()
         {
+            ItemType typeDraw = GetTypeDraw();
+
             GUIStyle style = new GUIStyle();
             style.fixedWidth = 1;
 
@@ -129,10 +152,84 @@ namespace Code.Utils.Editor
                 EditorGUILayout.BeginHorizontal(style);
 
                 for (int x = 0; x < _grid.GetLength(1); x++)
-                    _grid[y, x] = EditorGUILayout.Toggle(_grid[y, x]);
+                    DrawToggle(typeDraw, _grid[y, x]);
 
                 EditorGUILayout.EndHorizontal();
             }
         }
+
+        private void DrawToggle(ItemType typeDraw, CellInItemData data)
+        {
+            bool disable = data.Type != ItemType.None && data.Type != typeDraw;
+
+            if (disable)
+            {
+                EditorGUI.BeginDisabledGroup(true);
+                EditorGUILayout.Toggle(data.Value);
+                EditorGUI.EndDisabledGroup();
+            }
+            else
+            {
+                data.Value = EditorGUILayout.Toggle(data.Value);
+
+                data.Type = !data.Value
+                    ? ItemType.None
+                    : typeDraw == ItemType.None
+                        ? _item.ItemType
+                        : typeDraw;
+            }
+        }
+
+        private ItemType GetTypeDraw()
+        {
+            ItemType type = _item.ItemType;
+
+            if (IsAdditional())
+            {
+                ItemType[] names = new ItemType[_item.AdditionalDatas.Length + 1];
+                names[0] = type;
+
+                for (int i = 1; i < names.Length; i++)
+                {
+                    names[i] = _item.AdditionalDatas[i - 1].Type;
+                }
+
+                string[] stringNames = names.Select(x => x.ToString()).ToArray();
+                _popupIndex = EditorGUILayout.Popup(_popupIndex, stringNames);
+                type = names[_popupIndex];
+            }
+
+            return type;
+        }
+
+        private CellInItemData[] CreateData(int lenght)
+        {
+            CellInItemData[] datas = new CellInItemData[lenght];
+
+            for (int i = 0; i < datas.Length; i++)
+            {
+                datas[i] = new CellInItemData(false, ItemType.None);
+            }
+
+            return datas;
+        }
+
+        private CellInItemData[,] CreateData(int lenght1, int lenght2)
+        {
+            CellInItemData[,] datas = new CellInItemData[lenght1, lenght2];
+
+            for (int i = 0; i < lenght1; i++)
+            {
+                for (int j = 0; j < lenght2; j++)
+                {
+                    datas[i, j] = new CellInItemData(false, ItemType.None);
+                }
+            }
+
+            return datas;
+        }
+
+        private bool IsAdditional() =>
+            _item.AdditionalDatas != null && _item.AdditionalDatas.Length > 0;
     }
 }

@@ -9,7 +9,7 @@ namespace Code.Game.Item.Items
 {
     public class BaseItem : MonoBehaviour
     {
-        [field: SerializeField] public ItemType ItemTyper { get; private set; }
+        [field: SerializeField] public ItemType ItemType { get; private set; }
 
         [SerializeField, Space] private Canvas _canvasOrder;
         [SerializeField] private Transform _containerForRotation;
@@ -18,6 +18,7 @@ namespace Code.Game.Item.Items
         [field: SerializeField] public int Width { get; private set; } = 1;
         [field: SerializeField] public int Height { get; private set; } = 1;
         [field: SerializeField, Space] public WidthData[] Grid { get; set; }
+        [field: SerializeField] public AdditionalData[] AdditionalDatas { get; private set; }
 
         [SerializeField, HideInInspector] private int _defaultSortingOrder;
         [SerializeField, HideInInspector] private Vector3 _currentRotation;
@@ -34,18 +35,17 @@ namespace Code.Game.Item.Items
         public float DistanceBetweenCells => _distanceBetweenCells;
         public Vector3 CurrentRotation => _currentRotation;
 
-        protected ItemMenu _itemMenu;
-        protected IInfo _itemInfo;
+        protected IInfo ItemInfo;
 
         private const int UpSortingOrder = 1;
         private const float DurationRotate = .05f;
         private const Ease EaseType = Ease.Linear;
 
+        private ItemMenu _itemMenu;
         private Tween _rotationTween;
         private Vector3 _previousRotation;
         private Vector2 _previousPosition;
         private Vector2 _targetPosition;
-
 
         private void Awake()
         {
@@ -71,16 +71,16 @@ namespace Code.Game.Item.Items
         public void Init(ItemMenu itemMenu, IInfo itemInfo)
         {
             _itemMenu = itemMenu;
-            _itemInfo = itemInfo;
+            ItemInfo = itemInfo;
 
             _itemMenu.OpenInfoHandler += OpenInfo;
         }
 
-        public virtual void OpenMenu(Vector2 position) =>
+        public void OpenMenu(Vector2 position) =>
             _itemMenu.Open(position);
 
         protected virtual void OpenInfo() =>
-            _itemInfo.Open();
+            ItemInfo.Open();
 
         public void ChangeDistance(float distanceBetweenCells) =>
             _distanceBetweenCells = distanceBetweenCells;

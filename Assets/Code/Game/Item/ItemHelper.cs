@@ -79,70 +79,75 @@ namespace Code.Game.Item
             float distance, Vector2 startPointCell)
         {
             List<Vector2> positions = new List<Vector2>(grid.Length * grid[0].Width.Length);
-            (int multiplyX, int multiplyY) = GetMultiply(rotationType);
+            Vector2Int multiply = GetMultiply(rotationType);
 
             for (int y = 0; y < grid.Length; y++)
             {
                 for (int x = 0; x < grid[y].Width.Length; x++)
                 {
-                    if (grid[y].Width[x] == false)
+                    if (grid[y].Width[x].Value == false)
                         continue;
 
-                    Vector2 position = startPointCell;
+                    Vector2 position = GetCellPosition(startPointCell, new Vector2Int(x, y),
+                        rotationType, distance, multiply);
 
-                    int tempX = x;
-                    int tempY = y;
-                    Calculate(rotationType, ref tempX, ref tempY);
-
-                    position.x += (distance * tempX + SmallOffset) * multiplyX;
-                    position.y -= (distance * tempY + SmallOffset) * multiplyY;
                     positions.Add(position);
                 }
             }
 
             return positions;
         }
-        
-        public static Vector2 GetFirstCellPosition(RotationType rotationType, WidthData[] grid,
+
+        public static List<(Vector2, ItemType)> GetCellsPositionsWithType(RotationType rotationType, WidthData[] grid,
             float distance, Vector2 startPointCell)
         {
-            (int multiplyX, int multiplyY) = GetMultiply(rotationType);
+            List<(Vector2, ItemType)> positions = new List<(Vector2, ItemType)>(grid.Length * grid[0].Width.Length);
+            Vector2Int multiply = GetMultiply(rotationType);
 
             for (int y = 0; y < grid.Length; y++)
             {
                 for (int x = 0; x < grid[y].Width.Length; x++)
                 {
-                    if (grid[y].Width[x] == false)
+                    if (grid[y].Width[x].Value == false)
                         continue;
 
-                    Vector2 position = startPointCell;
+                    Vector2 position = GetCellPosition(startPointCell, new Vector2Int(x, y),
+                        rotationType, distance, multiply);
 
-                    int tempX = x;
-                    int tempY = y;
-                    Calculate(rotationType, ref tempX, ref tempY);
-
-                    position.x += (distance * tempX + SmallOffset) * multiplyX;
-                    position.y -= (distance * tempY + SmallOffset) * multiplyY;
-
-                    return position;
+                    positions.Add((position, grid[y].Width[x].Type));
                 }
             }
 
-            return Vector2.zero;
+            return positions;
         }
 
-        private static (int, int) GetMultiply(RotationType rotationType)
+        private static Vector2 GetCellPosition(Vector2 startPointCell, Vector2Int indexes,
+            RotationType rotationType, float distance, Vector2Int multiply)
+        {
+            Vector2 position = startPointCell;
+
+            int tempX = indexes.x;
+            int tempY = indexes.y;
+            Calculate(rotationType, ref tempX, ref tempY);
+
+            position.x += (distance * tempX + SmallOffset) * multiply.x;
+            position.y -= (distance * tempY + SmallOffset) * multiply.y;
+
+            return position;
+        }
+
+        private static Vector2Int GetMultiply(RotationType rotationType)
         {
             switch (rotationType)
             {
                 case RotationType.Top:
-                    return (1, 1);
+                    return new Vector2Int(1, 1);
                 case RotationType.Bottom:
-                    return (-1, -1);
+                    return new Vector2Int(-1, -1);
                 case RotationType.Left:
-                    return (1, -1);
+                    return new Vector2Int(1, -1);
                 case RotationType.Right:
-                    return (-1, 1);
+                    return new Vector2Int(-1, 1);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

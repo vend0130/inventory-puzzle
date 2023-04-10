@@ -2,7 +2,8 @@
 {
     public enum ItemType
     {
-        Ak47 = 0,
-        Ak47Magazine = 1,
+        None = 0,
+        Ak47 = 1,
+        Ak47Magazine = 2,
     }
 }

@@ -32,12 +32,15 @@ namespace Code.Game.Item
         private void DrawCells(RotationType rotationType, Vector2 startPoint)
         {
             Vector2 startPointCell = ItemHelper.GetStartPointCell(rotationType, startPoint, _item.DistanceBetweenCells);
-            List<Vector2> positions = ItemHelper.GetCellsPositions(rotationType, _item.Grid,
+            List<(Vector2, ItemType)> positions = ItemHelper.GetCellsPositionsWithType(rotationType, _item.Grid,
                 _item.DistanceBetweenCells, startPointCell);
 
             Gizmos.color = Color.magenta;
-            foreach (Vector2 position in positions)
-                Gizmos.DrawSphere(position, 10);
+            foreach (var position in positions)
+            {
+                Gizmos.color = position.Item2 == _item.ItemType ? Color.green : Color.yellow;
+                Gizmos.DrawSphere(position.Item1, 10);
+            }
         }
 
         private void DrawBorder(Vector2 startPoint, Vector2 endPoint)
