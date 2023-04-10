@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.Game.InventorySystem.Inventories;
-using Code.Game.Item;
+using Code.Game.Item.Items;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,16 +23,6 @@ namespace Code.Game.Cells
             float currentScaler = scaler.x < scaler.y ? scaler.x : scaler.y;
 
             return currentScaler * distance;
-        }
-
-        public static Vector2 GetScaler()
-        {
-            Vector2Int currentSize = CurrentSizeScreen();
-
-            float scalerX = (float)currentSize.x / DefaultWidthScreen;
-            float scalerY = (float)currentSize.y / DefaultHeightScreen;
-
-            return new Vector2(scalerX, scalerY);
         }
 
         public static Vector2Int CurrentSizeScreen()
@@ -94,6 +84,16 @@ namespace Code.Game.Cells
             }
 
             return previousDragCells.Count > 0 && previousDragCells.Count == cellsCountForItem;
+        }
+
+        private static Vector2 GetScaler()
+        {
+            Vector2Int currentSize = CurrentSizeScreen();
+
+            float scalerX = (float)currentSize.x / DefaultWidthScreen;
+            float scalerY = (float)currentSize.y / DefaultHeightScreen;
+
+            return new Vector2(scalerX, scalerY);
         }
 
         private static bool TapOnCell(CellView currentCell, Vector2 position, out CellView cell)

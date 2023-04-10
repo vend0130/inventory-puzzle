@@ -1,4 +1,4 @@
-﻿using Code.Game.Item;
+﻿using Code.Game.Item.Items;
 using Code.Utils.Readonly;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,7 +17,6 @@ namespace Code.Game.Cells
         [SerializeField] private Color _freeColor;
         [SerializeField] private Color _busyColor;
 
-
         private Color _defaultColor;
 
         public void Init()
@@ -26,7 +25,6 @@ namespace Code.Game.Cells
 
             Free = true;
             Item = null;
-            ;
         }
 
         public void RecalculatePoints(float distanceBetweenCells)

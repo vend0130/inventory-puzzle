@@ -1,6 +1,5 @@
 ﻿using System;
 using Code.Extensions;
-using Code.Game.Item;
 using UnityEngine;
 
 namespace Code.Game.ItemInfo
@@ -16,8 +15,6 @@ namespace Code.Game.ItemInfo
         public event Action OpenInfoHandler;
         
         private const string InformationText = "ИНФОРМАЦИЯ";
-
-        private BaseItem _item;
 
         private void Start()
         {
@@ -37,9 +34,8 @@ namespace Code.Game.ItemInfo
             _backgroundLock.CloseHandler -= Close;
         }
 
-        public void Open(BaseItem item, Vector2 position)
+        public void Open(Vector2 position)
         {
-            _item = item;
             _backgroundLock.On();
 
             _buttonsData[0].gameObject.SetActive(true);

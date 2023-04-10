@@ -2,7 +2,7 @@
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.InventorySystem.Inventories;
-using Code.Game.Item;
+using Code.Game.Item.Items;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;

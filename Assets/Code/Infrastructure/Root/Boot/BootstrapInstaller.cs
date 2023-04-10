@@ -26,6 +26,7 @@ namespace Code.Infrastructure.Root.Boot
             Container.BindInterfacesTo<GameStateMachine>().AsSingle();
             Container.Bind<LoadSceneState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
+            Container.Bind<ExitState>().AsSingle();
         }
 
         private void BindLoadScene()

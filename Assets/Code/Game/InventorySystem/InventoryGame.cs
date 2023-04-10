@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Code.Game.Cells;
 using Code.Game.InventorySystem.Inventories;
-using Code.Game.Item;
+using Code.Game.Item.Items;
 using Code.Utils.Readonly;
 using UnityEngine;
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.InventorySystem;
-using Code.Game.Item;
+using Code.Game.Item.Items;
 using Code.Game.ItemInfo;
 using Code.UI;
 using UnityEngine;

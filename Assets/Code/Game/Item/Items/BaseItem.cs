@@ -5,7 +5,7 @@ using Code.Game.ItemInfo;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Code.Game.Item
+namespace Code.Game.Item.Items
 {
     public class BaseItem : MonoBehaviour
     {
@@ -77,7 +77,7 @@ namespace Code.Game.Item
         }
 
         public virtual void OpenMenu(Vector2 position) =>
-            _itemMenu.Open(this, position);
+            _itemMenu.Open(position);
 
         protected virtual void OpenInfo() =>
             _itemInfo.Open();

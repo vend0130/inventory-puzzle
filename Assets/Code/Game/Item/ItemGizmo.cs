@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
+using Code.Game.Item.Items;
 using UnityEngine;
 
 namespace Code.Game.Item
