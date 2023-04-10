@@ -32,6 +32,8 @@ namespace Code.Game.ItemInfo
 
         public void Open()
         {
+            Debug.Log("open");
+
             //TODO: текст - неизвестный объект
         }
 
@@ -50,7 +52,10 @@ namespace Code.Game.ItemInfo
             _currentPanel = _info;
         }
 
-        public void Close() =>
-            _currentPanel.SetActive(false);
+        public void Close()
+        {
+            if (_currentPanel != null)
+                _currentPanel.SetActive(false);
+        }
     }
 }

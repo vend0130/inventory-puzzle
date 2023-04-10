@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.InventorySystem;
+using Code.Game.Item;
 using Code.Game.Item.Items;
 using Code.Game.ItemInfo;
 using Code.UI;
@@ -12,9 +13,13 @@ namespace Code.Infrastructure.Factories
     {
         public GamePlayUI GamePlayUI { get; private set; }
         public ItemMenu ItemMenu { get; private set; }
-        public ItemInfoView ItemInfo { get; private set; }
+        public DragItems DragItems { get; private set; }
+        public PointerHandler PointerHandler { get; private set; }
 
         private readonly List<string> _backgroundsPaths;
+
+        private ItemInfoView _itemInfo;
+        private InventoryGame _inventoryGame;
 
         public GameFactory()
         {
@@ -31,7 +36,7 @@ namespace Code.Infrastructure.Factories
         {
             GameObject panel = Instantiate(AssetPath.InfoPanelsPath);
             ItemMenu = panel.GetComponent<ItemMenu>();
-            ItemInfo = ItemMenu.Info;
+            _itemInfo = ItemMenu.Info;
         }
 
         public void CreateGamePlayUI() =>
@@ -39,16 +44,30 @@ namespace Code.Infrastructure.Factories
 
         public void CreateLevel()
         {
-            InventoryGame inventory = Instantiate(AssetPath.LevelPath).GetComponent<InventoryGame>();
+            _inventoryGame = Instantiate(AssetPath.LevelPath).GetComponent<InventoryGame>();
+            DragItems = _inventoryGame.DragItems;
+            PointerHandler = _inventoryGame.PointerHandler;
 
-            foreach (BaseItem item in inventory.Items)
-                item.Init(ItemMenu, ItemInfo);
+            foreach (BaseItem item in _inventoryGame.Items)
+                item.Init(ItemMenu, _itemInfo);
+        }
+
+        public BaseItem CreateItem(ItemType itemType, Vector2 position)
+        {
+            Transform parent = _inventoryGame.CanvasWithItems.transform;
+            return Instantiate(parent, AssetPath.MagazinePath, position).GetComponent<BaseItem>();
         }
 
         private GameObject Instantiate(string path)
         {
             GameObject prefab = Resources.Load<GameObject>(path);
             return Object.Instantiate(prefab);
+        }
+
+        private GameObject Instantiate(Transform parent, string path, Vector2 at)
+        {
+            GameObject prefab = Resources.Load<GameObject>(path);
+            return Object.Instantiate(prefab, at, Quaternion.identity, parent);
         }
     }
 }

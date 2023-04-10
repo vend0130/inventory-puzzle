@@ -1,5 +1,7 @@
 ﻿using System;
 using Code.Extensions;
+using Code.Game.Item;
+using Code.Game.Item.Items;
 using Code.Infrastructure.Factories;
 
 namespace Code.Infrastructure.StateMachine.States
@@ -21,17 +23,28 @@ namespace Code.Infrastructure.StateMachine.States
         {
             _gameFactory.GamePlayUI.AgainButton.Add(OnAgain);
             _gameFactory.GamePlayUI.ExitButton.Add(OnExit);
+
+            _gameFactory.ItemMenu.CreateItemHandler += CreateItem;
         }
 
         public void Exit()
         {
             _gameFactory.GamePlayUI.AgainButton.Remove(OnAgain);
             _gameFactory.GamePlayUI.ExitButton.Remove(OnExit);
+
+            _gameFactory.ItemMenu.CreateItemHandler -= CreateItem;
         }
 
         public void Dispose()
         {
             _gameFactory.GamePlayUI.AgainButton.RemoveAll();
+        }
+
+        private void CreateItem(ItemType itemType)
+        {
+            BaseItem item = _gameFactory.CreateItem(itemType, _gameFactory.PointerHandler.MousePosition);
+            _gameFactory.DragItems.AddDragItem(item);
+            _gameFactory.PointerHandler.SetMouseDrag();
         }
 
         private void OnAgain() =>

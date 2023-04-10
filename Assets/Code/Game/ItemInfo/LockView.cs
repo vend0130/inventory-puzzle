@@ -28,7 +28,7 @@ namespace Code.Game.ItemInfo
         public void OnPointerDown(PointerEventData eventData) =>
             Close();
 
-        private void Close()
+        public void Close()
         {
             CloseHandler?.Invoke();
             _current.SetActive(false);

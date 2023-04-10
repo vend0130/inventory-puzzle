@@ -1,5 +1,6 @@
 ﻿using System;
-using Code.Extensions;
+using Code.Game.Item;
+using Code.Game.Item.Items;
 using UnityEngine;
 
 namespace Code.Game.ItemInfo
@@ -7,47 +8,81 @@ namespace Code.Game.ItemInfo
     public class ItemMenu : MonoBehaviour
     {
         [field: SerializeField] public ItemInfoView Info { get; private set; }
-        
+
         [SerializeField] private MenuButtonData[] _buttonsData;
         [SerializeField] private GameObject _menu;
         [SerializeField] private LockView _backgroundLock;
 
         public event Action OpenInfoHandler;
-        
+        public event Action<ItemType> CreateItemHandler;
+
         private const string InformationText = "ИНФОРМАЦИЯ";
+        private const string PrefixText = "Снять";
+
+        private BaseItem _lastItem;
 
         private void Start()
         {
             _menu.SetActive(false);
-
-            _buttonsData[0].Button.Add(OpenInformation);
             _buttonsData[0].Text.text = InformationText;
+
+            for (int i = 0; i < _buttonsData.Length; i++)
+            {
+                _buttonsData[i].ChangeIndex(i);
+
+                if (i == 0)
+                    _buttonsData[i].DownHandler += OpenInformation;
+                else
+                    _buttonsData[i].DownHandler += Buttons;
+            }
 
             _backgroundLock.CloseHandler += Close;
         }
 
         private void OnDestroy()
         {
-            foreach (MenuButtonData buttonData in _buttonsData)
-                buttonData.Button.RemoveAll();
+            for (int i = 0; i < _buttonsData.Length; i++)
+            {
+                if (i == 0)
+                    _buttonsData[i].DownHandler -= OpenInformation;
+                else
+                    _buttonsData[i].DownHandler -= Buttons;
+            }
 
             _backgroundLock.CloseHandler -= Close;
         }
 
-        public void Open(Vector2 position)
+        public void Open(Vector2 position, BaseItem item)
         {
+            _lastItem = item;
             _backgroundLock.On();
 
             _buttonsData[0].gameObject.SetActive(true);
+
+            if (item.AdditionalDatas != null)
+            {
+                for (int i = 0; i < item.AdditionalDatas.Length; i++)
+                {
+                    _buttonsData[i + 1].Text.text = $"{PrefixText} {GetText(item.AdditionalDatas[i].AdditionalType)}";
+                    _buttonsData[i + 1].gameObject.SetActive(true);
+                }
+            }
 
             _menu.transform.position = position;
             _menu.SetActive(true);
         }
 
-        private void OpenInformation()
+        private void OpenInformation(int _)
         {
             Close();
             OpenInfoHandler?.Invoke();
+        }
+
+        private void Buttons(int index)
+        {
+            CreateItemHandler?.Invoke(_lastItem.AdditionalDatas[index - 1].Type);
+            _lastItem = null;
+            _backgroundLock.Close();
         }
 
         private void Close()
@@ -56,6 +91,18 @@ namespace Code.Game.ItemInfo
                 buttonData.gameObject.SetActive(false);
 
             _menu.SetActive(false);
+            _lastItem = null;
+        }
+
+        private string GetText(AdditionalType type)
+        {
+            switch (type)
+            {
+                case AdditionalType.Magazine:
+                    return "Магазин";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
         }
     }
 }

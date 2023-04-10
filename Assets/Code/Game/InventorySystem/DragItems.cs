@@ -5,7 +5,7 @@ using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item.Items;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.Assertions;
 
 namespace Code.Game.InventorySystem
 {
@@ -25,24 +25,33 @@ namespace Code.Game.InventorySystem
         private void OnDestroy() =>
             _tween.SimpleKill();
 
-        public void LeftDown(PointerEventData eventData)
+        public void AddDragItem(BaseItem item)
+        {
+            if (_item != null)
+                Assert.IsNotNull(_item, "bug in logic");
+
+
+            _item = item;
+        }
+
+        public void LeftDown(Vector2 position)
         {
             if (!_isEnabled)
                 return;
 
-            if (CellsHelper.TryTapOnCell(_inventory, eventData.position, out CellView cell))
-                BeginDrag(cell.Item, eventData);
+            if (CellsHelper.TryTapOnCell(_inventory, position, out CellView cell))
+                BeginDrag(cell.Item, position);
             else
                 _item = null;
         }
 
-        public void RightClick(PointerEventData eventData)
+        public void RightClick(Vector2 position)
         {
             if (!_isEnabled || _item != null)
                 return;
 
-            if (CellsHelper.TryTapOnCell(_inventory, eventData.position, out CellView cell))
-                cell.Item.OpenMenu(eventData.position);
+            if (CellsHelper.TryTapOnCell(_inventory, position, out CellView cell))
+                cell.Item.OpenMenu(position);
         }
 
         public void RightDown()
@@ -53,12 +62,12 @@ namespace Code.Game.InventorySystem
             RotationItem();
         }
 
-        public void Drag(PointerEventData eventData)
+        public void Drag(Vector2 position)
         {
             if (_item == null || !_isEnabled)
                 return;
 
-            DragItem(eventData.position);
+            DragItem(position);
             ChangeCellsWhenDragItem();
         }
 
@@ -76,7 +85,7 @@ namespace Code.Game.InventorySystem
             EndDrag();
         }
 
-        private void BeginDrag(BaseItem item, PointerEventData eventData)
+        private void BeginDrag(BaseItem item, Vector2 position)
         {
             _tween.SimpleKill();
             PreviousCellsExit();
@@ -85,7 +94,7 @@ namespace Code.Game.InventorySystem
             _item.BeginDrag();
             _item.ParentCells.ForEach((cell) => cell.RemoveItem());
 
-            _offset = (Vector2)_item.transform.position - eventData.position;
+            _offset = (Vector2)_item.transform.position - position;
 
             _previousDragCells = _item.ParentCells;
             PreviousCellsEnter();

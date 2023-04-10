@@ -77,7 +77,7 @@ namespace Code.Game.Item.Items
         }
 
         public void OpenMenu(Vector2 position) =>
-            _itemMenu.Open(position);
+            _itemMenu.Open(position, this);
 
         protected virtual void OpenInfo() =>
             ItemInfo.Open();

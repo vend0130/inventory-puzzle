@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabe668d506c42e88e7762641796b067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointerHandler: {fileID: 6635254148288766829}
-  _dragItems: {fileID: 6635254148288766831}
+  <PointerHandler>k__BackingField: {fileID: 6635254148288766829}
+  <DragItems>k__BackingField: {fileID: 6635254148288766831}
   LootInventory: {fileID: 6635254148574353202}
   <CanvasWithItems>k__BackingField: {fileID: 6635254149041930817}
   <Items>k__BackingField: []

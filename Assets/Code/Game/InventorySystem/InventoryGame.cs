@@ -9,8 +9,8 @@ namespace Code.Game.InventorySystem
 {
     public class InventoryGame : MonoBehaviour
     {
-        [SerializeField] private PointerHandler _pointerHandler;
-        [SerializeField] private DragItems _dragItems;
+        [field: SerializeField] public PointerHandler PointerHandler { get; private set; }
+        [field: SerializeField] public DragItems DragItems { get; private set; }
 
         [field: SerializeField, Space] public LootInventory LootInventory;
 
@@ -21,11 +21,11 @@ namespace Code.Game.InventorySystem
 
         private void Awake()
         {
-            _pointerHandler.LeftDownHandler += _dragItems.LeftDown;
-            _pointerHandler.RightDownHandler += _dragItems.RightDown;
-            _pointerHandler.DragHandler += _dragItems.Drag;
-            _pointerHandler.UpHandler += _dragItems.Up;
-            _pointerHandler.RightClickHandler += _dragItems.RightClick;
+            PointerHandler.LeftDownHandler += DragItems.LeftDown;
+            PointerHandler.RightDownHandler += DragItems.RightDown;
+            PointerHandler.DragHandler += DragItems.Drag;
+            PointerHandler.UpHandler += DragItems.Up;
+            PointerHandler.RightClickHandler += DragItems.RightClick;
         }
 
         private void Start()
@@ -44,11 +44,11 @@ namespace Code.Game.InventorySystem
 
         private void OnDestroy()
         {
-            _pointerHandler.LeftDownHandler -= _dragItems.LeftDown;
-            _pointerHandler.RightDownHandler -= _dragItems.RightDown;
-            _pointerHandler.DragHandler -= _dragItems.Drag;
-            _pointerHandler.UpHandler -= _dragItems.Up;
-            _pointerHandler.RightClickHandler -= _dragItems.RightClick;
+            PointerHandler.LeftDownHandler -= DragItems.LeftDown;
+            PointerHandler.RightDownHandler -= DragItems.RightDown;
+            PointerHandler.DragHandler -= DragItems.Drag;
+            PointerHandler.UpHandler -= DragItems.Up;
+            PointerHandler.RightClickHandler -= DragItems.RightClick;
         }
 
         public void CreateArrayItems() =>

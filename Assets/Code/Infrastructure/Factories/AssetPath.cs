@@ -8,5 +8,6 @@
         public const string Background2Path = "Prefabs/Backgrounds/Background_2";
 
         public const string LevelPath = "Prefabs/Levels/TestLevel";
+        public const string MagazinePath = "Prefabs/Items/Guns/Ak-47/Ak-47";
     }
 }
