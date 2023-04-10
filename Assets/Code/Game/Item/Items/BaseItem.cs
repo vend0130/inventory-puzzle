@@ -134,6 +134,12 @@ namespace Code.Game.Item.Items
         public void ChangeOffset() =>
             _targetPosition = (Vector2)transform.position + LastOffset;
 
+        public void ChangeAdditionalState(int index, bool activate)
+        {
+            AdditionalDatas[index].Activate = activate;
+            AdditionalDatas[index].Image.enabled = activate;
+        }
+
         private void GetData(out RotationType rotationType, out Vector2 startPointCell)
         {
             rotationType = ItemHelper.GetRotationType(_currentRotation.z);

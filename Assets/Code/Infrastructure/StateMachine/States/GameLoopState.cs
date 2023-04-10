@@ -43,7 +43,7 @@ namespace Code.Infrastructure.StateMachine.States
         private void CreateItem(ItemType itemType)
         {
             BaseItem item = _gameFactory.CreateItem(itemType, _gameFactory.PointerHandler.MousePosition);
-            _gameFactory.DragItems.AddDragItem(item);
+            _gameFactory.DragItems.AddSpawnedItem(item);
             _gameFactory.PointerHandler.SetMouseDrag();
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.InventorySystem.Inventories;
@@ -14,9 +15,12 @@ namespace Code.Game.InventorySystem
         //TODO: rework when added another inventories
         [SerializeField] private LootInventory _inventory;
 
+        public event Action<BaseItem> DropNewItemHandler;
+        
         private const float DurationMove = .1f;
 
         private BaseItem _item;
+        private bool _isSpawned = false;
         private Vector2 _offset;
         private List<CellView> _previousDragCells = new List<CellView>();
         private Tween _tween;
@@ -25,12 +29,13 @@ namespace Code.Game.InventorySystem
         private void OnDestroy() =>
             _tween.SimpleKill();
 
-        public void AddDragItem(BaseItem item)
+        public void AddSpawnedItem(BaseItem item)
         {
             if (_item != null)
                 Assert.IsNotNull(_item, "bug in logic");
 
 
+            _isSpawned = true;
             _item = item;
         }
 
@@ -78,9 +83,19 @@ namespace Code.Game.InventorySystem
 
             //note: if drop in new cells updated parent cells for item
             if (CellsHelper.TryDropInNewCells(_previousDragCells, _item.CellsCountForItem))
+            {
                 _item.ChangeCell(_previousDragCells.Clone());
+            }
             else
+            {
+                if (_isSpawned)
+                {
+                    SpawnedItemDestroy();
+                    return;
+                }
+
                 _item.ResetRotation();
+            }
 
             EndDrag();
         }
@@ -138,8 +153,22 @@ namespace Code.Game.InventorySystem
             }
         }
 
+        private void SpawnedItemDestroy()
+        {
+            PreviousCellsExit();
+            _previousDragCells.Clear();
+
+            _tween.SimpleKill();
+            
+            Destroy(_item.gameObject);
+            EndItemMove();
+        }
+
         private void EndDrag()
         {
+            if(_isSpawned)
+                DropNewItemHandler?.Invoke(_item);
+            
             _isEnabled = false;
             PreviousCellsExit();
             _previousDragCells.Clear();
@@ -160,6 +189,7 @@ namespace Code.Game.InventorySystem
             _item.ResetOrder();
             _item = null;
             _isEnabled = true;
+            _isSpawned = false;
         }
 
         private void RotationItem()

@@ -55,7 +55,10 @@ namespace Code.Infrastructure.Factories
         public BaseItem CreateItem(ItemType itemType, Vector2 position)
         {
             Transform parent = _inventoryGame.CanvasWithItems.transform;
-            return Instantiate(parent, AssetPath.MagazinePath, position).GetComponent<BaseItem>();
+            BaseItem baseItem = Instantiate(parent, AssetPath.MagazinePath, position).GetComponent<BaseItem>();
+            baseItem.LoadItem(_inventoryGame.CanvasWithItems.sortingOrder);
+            baseItem.Init(ItemMenu, ItemMenu.Info);
+            return baseItem;
         }
 
         private GameObject Instantiate(string path)

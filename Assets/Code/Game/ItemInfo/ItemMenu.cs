@@ -80,6 +80,7 @@ namespace Code.Game.ItemInfo
 
         private void Buttons(int index)
         {
+            _lastItem.ChangeAdditionalState(index - 1, false);
             CreateItemHandler?.Invoke(_lastItem.AdditionalDatas[index - 1].Type);
             _lastItem = null;
             _backgroundLock.Close();

@@ -26,6 +26,8 @@ namespace Code.Game.InventorySystem
             PointerHandler.DragHandler += DragItems.Drag;
             PointerHandler.UpHandler += DragItems.Up;
             PointerHandler.RightClickHandler += DragItems.RightClick;
+
+            DragItems.DropNewItemHandler += AddItem;
         }
 
         private void Start()
@@ -49,9 +51,14 @@ namespace Code.Game.InventorySystem
             PointerHandler.DragHandler -= DragItems.Drag;
             PointerHandler.UpHandler -= DragItems.Up;
             PointerHandler.RightClickHandler -= DragItems.RightClick;
+
+            DragItems.DropNewItemHandler -= AddItem;
         }
 
         public void CreateArrayItems() =>
             Items = new List<BaseItem>(CanvasWithItems.transform.childCount);
+
+        private void AddItem(BaseItem item) =>
+            Items.Add(item);
     }
 }
