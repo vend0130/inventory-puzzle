@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.InventorySystem;
-using Code.Game.InventorySystem.Inventories;
-using Code.Game.Item;
 using Code.Game.Item.Items;
 using Code.Game.ItemInfo;
 using Code.UI;
@@ -53,13 +51,17 @@ namespace Code.Infrastructure.Factories
                 item.Init(ItemMenu, _itemInfo);
         }
 
-        public BaseItem CreateItem(ItemType itemType, Vector2 position, BaseInventory inventory)
+        public BaseItem CreateItem(BaseItem parentItem, int index, Vector2 position)
         {
+            //TODO: parentItem.AdditionalDatas[index].Type;
             Transform parent = _inventoryGame.CanvasWithItems.transform;
             BaseItem baseItem = Instantiate(parent, AssetPath.MagazinePath, position).GetComponent<BaseItem>();
+
             baseItem.LoadItem(_inventoryGame.CanvasWithItems.sortingOrder);
             baseItem.Init(ItemMenu, ItemMenu.Info);
-            baseItem.ChangeInventory(inventory);
+            baseItem.ChangeInventory(parentItem.CurrentInventor);
+            baseItem.AddParentItem(parentItem);
+
             return baseItem;
         }
 

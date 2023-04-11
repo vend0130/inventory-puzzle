@@ -1,6 +1,4 @@
 using Code.Game.InventorySystem;
-using Code.Game.InventorySystem.Inventories;
-using Code.Game.Item;
 using Code.Game.Item.Items;
 using Code.Game.ItemInfo;
 using Code.UI;
@@ -19,6 +17,6 @@ namespace Code.Infrastructure.Factories
         void CreateBackground();
         void CreateInfoPanel();
         void CreateLevel();
-        BaseItem CreateItem(ItemType itemType, Vector2 position, BaseInventory inventory);
+        BaseItem CreateItem(BaseItem parentItem, int index, Vector2 position);
     }
 }

@@ -159,6 +159,14 @@ namespace Code.Game.InventorySystem
 
             _tween.SimpleKill();
 
+            _item.ParentItem.ChangeAdditionalState(_item.ItemType, true);
+
+            _item.ParentItem.ParentCells.ForEach((cell) => cell.RemoveItem());
+            if (CellsHelper.TryEnterOnCell(_item.ParentItem.CurrentInventor, _item.ParentItem,
+                    out List<CellView> cells))
+                _item.ParentItem.ChangeCell(cells);
+            _item.ParentItem.ParentCells.ForEach((cell) => cell.AddItem(_item.ParentItem));
+
             Destroy(_item.gameObject);
             EndItemMove();
         }

@@ -33,6 +33,7 @@ namespace Code.Game.Item.Items
         public int CellsCountForItem => DefaultCellsCountForItem + AdditionalsCellsCountForItem;
         public float DistanceBetweenCells => _distanceBetweenCells;
         public Vector3 CurrentRotation => _currentRotation;
+        public BaseItem ParentItem { get; private set; }
 
         protected IInfo ItemInfo;
 
@@ -77,6 +78,12 @@ namespace Code.Game.Item.Items
 
         public void ChangeInventory(BaseInventory inventory) =>
             CurrentInventor = inventory;
+
+        public void AddParentItem(BaseItem item)
+        {
+            ItemType = ItemType.Ak47Magazine;
+            ParentItem = item;
+        }
 
         public void OpenMenu(Vector2 position) =>
             _itemMenu.Open(position, this);
@@ -144,6 +151,27 @@ namespace Code.Game.Item.Items
 
             UpdateAdditionalsCellsCount();
         }
+
+        public void ChangeAdditionalState(ItemType type, bool activate)
+        {
+            AdditionalData data = null;
+
+            foreach (AdditionalData additional in AdditionalDatas)
+            {
+                if (additional.Type == type)
+                {
+                    data = additional;
+                    break;
+                }
+            }
+
+            data.Activate = activate;
+            data.Image.enabled = activate;
+            Grid[data.Indexes.y].Width[data.Indexes.x].Activate = activate;
+
+            UpdateAdditionalsCellsCount();
+        }
+
 
         public void UpdateAdditionalsCellsCount()
         {

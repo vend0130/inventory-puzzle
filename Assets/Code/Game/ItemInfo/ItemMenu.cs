@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Code.Game.Cells;
-using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item;
 using Code.Game.Item.Items;
 using UnityEngine;
@@ -17,7 +16,7 @@ namespace Code.Game.ItemInfo
         [SerializeField] private LockView _backgroundLock;
 
         public event Action OpenInfoHandler;
-        public event Action<ItemType, BaseInventory> CreateItemHandler;
+        public event Action<BaseItem, int> CreateItemHandler;
 
         private const string InformationText = "ИНФОРМАЦИЯ";
         private const string PrefixText = "Снять";
@@ -87,7 +86,7 @@ namespace Code.Game.ItemInfo
         private void Buttons(int index)
         {
             _lastItem.ChangeAdditionalState(index - 1, false);
-            CreateItemHandler?.Invoke(_lastItem.AdditionalDatas[index - 1].Type, _lastItem.CurrentInventor);
+            CreateItemHandler?.Invoke(_lastItem, (index - 1));
 
             _lastItem.ParentCells.ForEach((cell) => cell.RemoveItem());
             if (CellsHelper.TryEnterOnCell(_lastItem.CurrentInventor, _lastItem, out List<CellView> cells))
@@ -112,7 +111,7 @@ namespace Code.Game.ItemInfo
             switch (type)
             {
                 case AdditionalType.Magazine:
-                    return "Магазин";//note: move to constants file
+                    return "Магазин"; //note: move to constants file
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
