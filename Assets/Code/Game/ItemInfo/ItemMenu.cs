@@ -10,12 +10,10 @@ namespace Code.Game.ItemInfo
     public class ItemMenu : MonoBehaviour
     {
         [field: SerializeField] public ItemInfoView Info { get; private set; }
-
         [SerializeField] private MenuButtonData[] _buttonsData;
         [SerializeField] private GameObject _menu;
         [SerializeField] private LockView _backgroundLock;
 
-        public event Action OpenInfoHandler;
         public event Action<BaseItem, int> CreateItemHandler;
 
         private const string InformationText = "ИНФОРМАЦИЯ";
@@ -79,8 +77,8 @@ namespace Code.Game.ItemInfo
 
         private void OpenInformation(int _)
         {
+            _lastItem.OpenInfo();
             Close();
-            OpenInfoHandler?.Invoke();
         }
 
         private void Buttons(int index)

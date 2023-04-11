@@ -53,9 +53,9 @@ namespace Code.Infrastructure.Factories
 
         public BaseItem CreateItem(BaseItem parentItem, int index, Vector2 position)
         {
-            //TODO: parentItem.AdditionalDatas[index].Type;
+            GameObject prefab = parentItem.AdditionalDatas[index].Prefab;
             Transform parent = _inventoryGame.CanvasWithItems.transform;
-            BaseItem baseItem = Instantiate(parent, AssetPath.MagazinePath, position).GetComponent<BaseItem>();
+            BaseItem baseItem = Instantiate(parent, prefab, position).GetComponent<BaseItem>();
 
             baseItem.LoadItem(_inventoryGame.CanvasWithItems.sortingOrder);
             baseItem.Init(ItemMenu, ItemMenu.Info);
@@ -71,10 +71,7 @@ namespace Code.Infrastructure.Factories
             return Object.Instantiate(prefab);
         }
 
-        private GameObject Instantiate(Transform parent, string path, Vector2 at)
-        {
-            GameObject prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab, at, Quaternion.identity, parent);
-        }
+        private GameObject Instantiate(Transform parent, GameObject prefab, Vector2 at) =>
+            Object.Instantiate(prefab, at, Quaternion.identity, parent);
     }
 }

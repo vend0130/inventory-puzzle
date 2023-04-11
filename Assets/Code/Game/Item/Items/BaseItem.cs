@@ -3,7 +3,6 @@ using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.InventorySystem.Inventories;
 using Code.Game.ItemInfo;
-using Code.Utils.Readonly;
 using DG.Tweening;
 using UnityEngine;
 
@@ -16,19 +15,32 @@ namespace Code.Game.Item.Items
         [SerializeField, Space] private Canvas _canvasOrder;
         [SerializeField] private Transform _containerForRotation;
 
-        [SerializeField, Space(20)] private float _distanceBetweenCells = 50f;
-        [field: SerializeField] public int Width { get; private set; } = 1;
+        [SerializeField, Space] private float _distanceBetweenCells = 50f;
+        [field: SerializeField, Space] public int Width { get; private set; } = 1;
         [field: SerializeField] public int Height { get; private set; } = 1;
-        [field: SerializeField, Space] public WidthData[] Grid { get; set; }
+
         [field: SerializeField] public AdditionalData[] AdditionalDatas { get; private set; }
 
-        [SerializeField, ReadOnly] private int _defaultSortingOrder;
-        [SerializeField, ReadOnly] private Vector3 _currentRotation;
-        [field: SerializeField, ReadOnly] public int DefaultCellsCountForItem { get; set; }
-        [field: SerializeField, ReadOnly] public int AdditionalsCellsCountForItem { get; set; }
-        [field: SerializeField, ReadOnly] public List<CellView> ParentCells { get; private set; }
-        [field: SerializeField, ReadOnly] public Vector2 LastOffset { get; private set; }
-        [field: SerializeField, ReadOnly] public BaseInventory CurrentInventor { get; private set; }
+        [SerializeField, HideInInspector] private int _defaultSortingOrder;
+        [SerializeField, HideInInspector] private Vector3 _currentRotation;
+
+        [field: SerializeField, HideInInspector]
+        public WidthData[] Grid { get; set; }
+
+        [field: SerializeField, HideInInspector]
+        public int DefaultCellsCountForItem { get; set; }
+
+        [field: SerializeField, HideInInspector]
+        public int AdditionalsCellsCountForItem { get; set; }
+
+        [field: SerializeField, HideInInspector]
+        public List<CellView> ParentCells { get; private set; }
+
+        [field: SerializeField, HideInInspector]
+        public Vector2 LastOffset { get; private set; }
+
+        [field: SerializeField, HideInInspector]
+        public BaseInventory CurrentInventor { get; private set; }
 
         public int CellsCountForItem => DefaultCellsCountForItem + AdditionalsCellsCountForItem;
         public float DistanceBetweenCells => _distanceBetweenCells;
@@ -53,12 +65,8 @@ namespace Code.Game.Item.Items
             _currentRotation = _previousRotation = _containerForRotation.eulerAngles;
         }
 
-        private void OnDestroy()
-        {
-            _itemMenu.OpenInfoHandler -= OpenInfo;
-
+        private void OnDestroy() =>
             _rotationTween.SimpleKill();
-        }
 
         public void LoadItem(int defaultSortingOrder)
         {
@@ -72,8 +80,6 @@ namespace Code.Game.Item.Items
         {
             _itemMenu = itemMenu;
             ItemInfo = itemInfo;
-
-            _itemMenu.OpenInfoHandler += OpenInfo;
         }
 
         public void ChangeInventory(BaseInventory inventory) =>
@@ -88,8 +94,8 @@ namespace Code.Game.Item.Items
         public void OpenMenu(Vector2 position) =>
             _itemMenu.Open(position, this);
 
-        protected virtual void OpenInfo() =>
-            ItemInfo.Open();
+        public virtual void OpenInfo() =>
+            Debug.LogError("not override method");
 
         public void ChangeDistance(float distanceBetweenCells) =>
             _distanceBetweenCells = distanceBetweenCells;

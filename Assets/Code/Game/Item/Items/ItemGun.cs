@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Code.Game.Item.Items
 {
-    public class ItemGunView : BaseItem
+    public class ItemGun : BaseItem
     {
         [field: SerializeField] public GunData Data { get; private set; }
 
-        protected override void OpenInfo() =>
+        public override void OpenInfo() =>
             ItemInfo.Open(Data);
     }
 }

@@ -36,6 +36,7 @@ namespace Code.Game.InventorySystem
             _previousScreenSize = CellsHelper.CurrentSizeScreen();
         }
 
+#if UNITY_EDITOR || UNITY_WEBGL
         private void Update()
         {
             if (CellsHelper.CurrentSizeScreen() != _previousScreenSize)
@@ -43,6 +44,7 @@ namespace Code.Game.InventorySystem
 
             _previousScreenSize = CellsHelper.CurrentSizeScreen();
         }
+#endif
 
         private void OnDestroy()
         {

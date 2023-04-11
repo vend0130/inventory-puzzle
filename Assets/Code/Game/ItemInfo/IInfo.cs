@@ -4,8 +4,7 @@ namespace Code.Game.ItemInfo
 {
     public interface IInfo
     {
-        void Open();
         void Open(GunData data);
-        void Close();
+        void Open(MagazineData data);
     }
 }
