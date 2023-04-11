@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: e990b0e2da4ba2a4f9fa7af8386a2928, type: 3}
     - target: {fileID: 4974440730042161714, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: m_Name
-      value: Ak-47
+      value: Ak-47 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4974440730042161717, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: m_Pivot.x
@@ -213,11 +213,19 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <DefaultCellsCountForItem>k__BackingField
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <AdditionalData>k__BackingField.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <AdditionalDatas>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalsCellsCountForItem>k__BackingField
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
@@ -290,6 +298,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Indexes>k__BackingField.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Indexes>k__BackingField.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Cell>k__BackingField.<Type>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Cell>k__BackingField.<Value>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Cell>k__BackingField.<Activate>k__BackingField
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
@@ -370,6 +398,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.data[3].<Value>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[0].<Width>k__BackingField.Array.data[0].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[0].<Width>k__BackingField.Array.data[1].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[0].<Width>k__BackingField.Array.data[2].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[0].<Width>k__BackingField.Array.data[3].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[0].<Width>k__BackingField.Array.data[4].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[0].<Width>k__BackingField.Array.data[5].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.data[0].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.data[1].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.data[2].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.data[3].<Activate>k__BackingField
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

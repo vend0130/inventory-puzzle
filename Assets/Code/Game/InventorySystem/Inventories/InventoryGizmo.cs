@@ -8,11 +8,11 @@ namespace Code.Game.InventorySystem.Inventories
     {
         [Space, SerializeField] private bool _debug = false;
 
-        private IInventory _inventory;
+        private BaseInventory _inventory;
 
         private void OnDrawGizmos()
         {
-            _inventory ??= GetComponent<IInventory>();
+            _inventory ??= GetComponent<BaseInventory>();
 
             if (!_debug || _inventory.Cells == null || _inventory.Cells.Length == 0)
                 return;
@@ -27,9 +27,9 @@ namespace Code.Game.InventorySystem.Inventories
 
         private void DrawBox(CellView cell)
         {
-            if(!cell.Free)
+            if (!cell.Free)
                 return;
-            
+
             Vector2 startPoint = cell.StartPoint;
             Vector2 endPoint = cell.EndPoint;
             Vector2 point = cell.CenterPoint;

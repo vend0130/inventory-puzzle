@@ -85,6 +85,7 @@ namespace Code.Utils.Editor
                         throw new Exception("not correct position item: " + item.name);
 
                     item.ChangeOffset();
+                    item.ChangeInventory(_lootInventory);
 
                     item.ChangeCell(cells.Clone());
                     item.ParentCells.ForEach((cell) => cell.AddItem(item));

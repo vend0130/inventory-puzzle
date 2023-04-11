@@ -1,20 +1,14 @@
 ﻿using System.Collections.Generic;
 using Code.Game.Cells;
 using Code.Game.Item.Items;
-using Code.Utils.Readonly;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Code.Game.InventorySystem.Inventories
 {
-    public class LootInventory : MonoBehaviour, IInventory
+    public class LootInventory : BaseInventory
     {
         [field: SerializeField] public GridLayoutGroup LayoutGroup { get; private set; }
-        [field: SerializeField] public RectTransform ParentForCells { get; private set; }
-        [field: SerializeField, ReadOnly] public CellView[] Cells { get; private set; }
-
-        public void CreateArray() =>
-            Cells = new CellView[ParentForCells.childCount];
 
         public void UpdateGrid(List<BaseItem> items)
         {

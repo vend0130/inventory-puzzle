@@ -85,7 +85,7 @@ namespace Code.Game.Item
             {
                 for (int x = 0; x < grid[y].Width.Length; x++)
                 {
-                    if (grid[y].Width[x].Value == false)
+                    if (grid[y].Width[x].Activate == false)
                         continue;
 
                     Vector2 position = GetCellPosition(startPointCell, new Vector2Int(x, y),
@@ -108,7 +108,7 @@ namespace Code.Game.Item
             {
                 for (int x = 0; x < grid[y].Width.Length; x++)
                 {
-                    if (grid[y].Width[x].Value == false)
+                    if (grid[y].Width[x].Activate == false)
                         continue;
 
                     Vector2 position = GetCellPosition(startPointCell, new Vector2Int(x, y),

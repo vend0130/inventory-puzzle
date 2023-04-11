@@ -31,9 +31,7 @@ namespace Code.Utils.Editor
             DrawGrid();
 
             if (IsRefresh() || additionalsUpdate)
-            {
                 Refresh();
-            }
         }
 
         private bool UpdateAdditionals()
@@ -50,9 +48,26 @@ namespace Code.Utils.Editor
                     additional.Image.enabled = additional.Activate;
                     isUpdated = true;
                 }
+
+                UpdateIndexesCellInAdditionals(additional);
             }
 
             return isUpdated;
+        }
+
+        private void UpdateIndexesCellInAdditionals(AdditionalData additional)
+        {
+            for (int y = 0; y < _grid.GetLength(0); y++)
+            {
+                for (int x = 0; x < _grid.GetLength(1); x++)
+                {
+                    if (_grid[y, x].Type == additional.Type)
+                    {
+                        additional.Indexes = new Vector2Int(x, y);
+                        _grid[y, x].Activate = additional.Activate;
+                    }
+                }
+            }
         }
 
         private bool IsRefresh()
@@ -90,12 +105,13 @@ namespace Code.Utils.Editor
                 {
                     _item.Grid[y].Width[x] = _grid[y, x];
 
-                    if (_grid[y, x].Value)
+                    if (_grid[y, x].Value && _grid[y, x].Type == _item.ItemType)
                         counter++;
                 }
             }
 
-            _item.CellsCountForItem = counter;
+            _item.DefaultCellsCountForItem = counter;
+            _item.UpdateAdditionalsCellsCount();
 
             PrefabUtility.RecordPrefabInstancePropertyModifications(_item);
             Canvas.ForceUpdateCanvases();
@@ -178,6 +194,8 @@ namespace Code.Utils.Editor
                         ? _item.ItemType
                         : typeDraw;
             }
+
+            data.Activate = data.Value;
         }
 
         private ItemType GetTypeDraw()

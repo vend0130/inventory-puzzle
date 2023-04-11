@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.Cells;
+using Code.Game.InventorySystem.Inventories;
 using Code.Game.ItemInfo;
+using Code.Utils.Readonly;
 using DG.Tweening;
 using UnityEngine;
 
@@ -20,18 +22,15 @@ namespace Code.Game.Item.Items
         [field: SerializeField, Space] public WidthData[] Grid { get; set; }
         [field: SerializeField] public AdditionalData[] AdditionalDatas { get; private set; }
 
-        [SerializeField, HideInInspector] private int _defaultSortingOrder;
-        [SerializeField, HideInInspector] private Vector3 _currentRotation;
+        [SerializeField, ReadOnly] private int _defaultSortingOrder;
+        [SerializeField, ReadOnly] private Vector3 _currentRotation;
+        [field: SerializeField, ReadOnly] public int DefaultCellsCountForItem { get; set; }
+        [field: SerializeField, ReadOnly] public int AdditionalsCellsCountForItem { get; set; }
+        [field: SerializeField, ReadOnly] public List<CellView> ParentCells { get; private set; }
+        [field: SerializeField, ReadOnly] public Vector2 LastOffset { get; private set; }
+        [field: SerializeField, ReadOnly] public BaseInventory CurrentInventor { get; private set; }
 
-        [field: SerializeField, HideInInspector]
-        public int CellsCountForItem { get; set; }
-
-        [field: SerializeField, HideInInspector]
-        public List<CellView> ParentCells { get; private set; }
-
-        [field: SerializeField, HideInInspector]
-        public Vector2 LastOffset { get; private set; }
-
+        public int CellsCountForItem => DefaultCellsCountForItem + AdditionalsCellsCountForItem;
         public float DistanceBetweenCells => _distanceBetweenCells;
         public Vector3 CurrentRotation => _currentRotation;
 
@@ -75,6 +74,9 @@ namespace Code.Game.Item.Items
 
             _itemMenu.OpenInfoHandler += OpenInfo;
         }
+
+        public void ChangeInventory(BaseInventory inventory) =>
+            CurrentInventor = inventory;
 
         public void OpenMenu(Vector2 position) =>
             _itemMenu.Open(position, this);
@@ -138,6 +140,19 @@ namespace Code.Game.Item.Items
         {
             AdditionalDatas[index].Activate = activate;
             AdditionalDatas[index].Image.enabled = activate;
+            Grid[AdditionalDatas[index].Indexes.y].Width[AdditionalDatas[index].Indexes.x].Activate = activate;
+
+            UpdateAdditionalsCellsCount();
+        }
+
+        public void UpdateAdditionalsCellsCount()
+        {
+            AdditionalsCellsCountForItem = 0;
+            foreach (AdditionalData additional in AdditionalDatas)
+            {
+                if (additional.Activate)
+                    AdditionalsCellsCountForItem++;
+            }
         }
 
         private void GetData(out RotationType rotationType, out Vector2 startPointCell)

@@ -1,5 +1,6 @@
 ﻿using System;
 using Code.Extensions;
+using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item;
 using Code.Game.Item.Items;
 using Code.Infrastructure.Factories;
@@ -40,9 +41,9 @@ namespace Code.Infrastructure.StateMachine.States
             _gameFactory.GamePlayUI.AgainButton.RemoveAll();
         }
 
-        private void CreateItem(ItemType itemType)
+        private void CreateItem(ItemType itemType, BaseInventory inventory)
         {
-            BaseItem item = _gameFactory.CreateItem(itemType, _gameFactory.PointerHandler.MousePosition);
+            BaseItem item = _gameFactory.CreateItem(itemType, _gameFactory.PointerHandler.MousePosition, inventory);
             _gameFactory.DragItems.AddSpawnedItem(item);
             _gameFactory.PointerHandler.SetMouseDrag();
         }

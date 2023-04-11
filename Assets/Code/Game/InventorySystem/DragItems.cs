@@ -16,7 +16,7 @@ namespace Code.Game.InventorySystem
         [SerializeField] private LootInventory _inventory;
 
         public event Action<BaseItem> DropNewItemHandler;
-        
+
         private const float DurationMove = .1f;
 
         private BaseItem _item;
@@ -33,7 +33,6 @@ namespace Code.Game.InventorySystem
         {
             if (_item != null)
                 Assert.IsNotNull(_item, "bug in logic");
-
 
             _isSpawned = true;
             _item = item;
@@ -104,8 +103,8 @@ namespace Code.Game.InventorySystem
         {
             _tween.SimpleKill();
             PreviousCellsExit();
-
             _item = item;
+
             _item.BeginDrag();
             _item.ParentCells.ForEach((cell) => cell.RemoveItem());
 
@@ -159,16 +158,16 @@ namespace Code.Game.InventorySystem
             _previousDragCells.Clear();
 
             _tween.SimpleKill();
-            
+
             Destroy(_item.gameObject);
             EndItemMove();
         }
 
         private void EndDrag()
         {
-            if(_isSpawned)
+            if (_isSpawned)
                 DropNewItemHandler?.Invoke(_item);
-            
+
             _isEnabled = false;
             PreviousCellsExit();
             _previousDragCells.Clear();

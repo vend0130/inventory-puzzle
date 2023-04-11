@@ -11,5 +11,6 @@ namespace Code.Game.Item.Items
         [field: SerializeField] public Image Image { get; private set; }
         [field: SerializeField] public bool Activate { get; set; }
         [field: SerializeField] public AdditionalType AdditionalType { get; private set; }
+        [field: SerializeField] public Vector2Int Indexes { get; set; }
     }
 }

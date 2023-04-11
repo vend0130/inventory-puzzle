@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using Code.Game.Cells;
+using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item;
 using Code.Game.Item.Items;
 using UnityEngine;
@@ -14,7 +17,7 @@ namespace Code.Game.ItemInfo
         [SerializeField] private LockView _backgroundLock;
 
         public event Action OpenInfoHandler;
-        public event Action<ItemType> CreateItemHandler;
+        public event Action<ItemType, BaseInventory> CreateItemHandler;
 
         private const string InformationText = "ИНФОРМАЦИЯ";
         private const string PrefixText = "Снять";
@@ -63,6 +66,9 @@ namespace Code.Game.ItemInfo
             {
                 for (int i = 0; i < item.AdditionalDatas.Length; i++)
                 {
+                    if (!item.AdditionalDatas[i].Activate)
+                        continue;
+
                     _buttonsData[i + 1].Text.text = $"{PrefixText} {GetText(item.AdditionalDatas[i].AdditionalType)}";
                     _buttonsData[i + 1].gameObject.SetActive(true);
                 }
@@ -81,7 +87,13 @@ namespace Code.Game.ItemInfo
         private void Buttons(int index)
         {
             _lastItem.ChangeAdditionalState(index - 1, false);
-            CreateItemHandler?.Invoke(_lastItem.AdditionalDatas[index - 1].Type);
+            CreateItemHandler?.Invoke(_lastItem.AdditionalDatas[index - 1].Type, _lastItem.CurrentInventor);
+
+            _lastItem.ParentCells.ForEach((cell) => cell.RemoveItem());
+            if (CellsHelper.TryEnterOnCell(_lastItem.CurrentInventor, _lastItem, out List<CellView> cells))
+                _lastItem.ChangeCell(cells);
+            _lastItem.ParentCells.ForEach((cell) => cell.AddItem(_lastItem));
+
             _lastItem = null;
             _backgroundLock.Close();
         }
@@ -100,7 +112,7 @@ namespace Code.Game.ItemInfo
             switch (type)
             {
                 case AdditionalType.Magazine:
-                    return "Магазин";
+                    return "Магазин";//note: move to constants file
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

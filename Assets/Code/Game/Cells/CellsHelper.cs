@@ -35,7 +35,7 @@ namespace Code.Game.Cells
 #endif
         }
 
-        public static bool TryTapOnCell(IInventory inventory, Vector2 position, out CellView cell)
+        public static bool TryTapOnCell(BaseInventory inventory, Vector2 position, out CellView cell)
         {
             for (int i = 0; i < inventory.Cells.Length; i++)
             {
@@ -47,7 +47,7 @@ namespace Code.Game.Cells
             return false;
         }
 
-        public static bool TryEnterOnCell(IInventory inventory, BaseItem item, out List<CellView> cells)
+        public static bool TryEnterOnCell(BaseInventory inventory, BaseItem item, out List<CellView> cells)
         {
             List<Vector2> positions = item.GetCellsPositions();
             cells = new List<CellView>();
