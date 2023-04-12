@@ -135,6 +135,7 @@ MonoBehaviour:
   _coloringImage: {fileID: 5198127335816773572}
   _freeColor: {r: 0.48235294, g: 0.77254903, b: 0.42745098, a: 0.019607844}
   _busyColor: {r: 0.77254903, g: 0.45882353, b: 0.42745098, a: 0.019607844}
+  _combineColor: {r: 0.77254903, g: 0.76862746, b: 0.42745098, a: 0.05882353}
 --- !u!1 &7191508305830745911
 GameObject:
   m_ObjectHideFlags: 0

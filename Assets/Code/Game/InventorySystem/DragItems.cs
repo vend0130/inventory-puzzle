@@ -16,6 +16,7 @@ namespace Code.Game.InventorySystem
         [SerializeField] private LootInventory _inventory;
 
         public event Action<BaseItem> DropNewItemHandler;
+        public event Action<BaseItem> DestroyItemHandler;
 
         private const float DurationMove = .1f;
 
@@ -36,6 +37,7 @@ namespace Code.Game.InventorySystem
 
             _isSpawned = true;
             _item = item;
+            DropNewItemHandler?.Invoke(_item);
         }
 
         public void LeftDown(Vector2 position)
@@ -80,21 +82,19 @@ namespace Code.Game.InventorySystem
             if (_item == null || !_isEnabled)
                 return;
 
-            //note: if drop in new cells updated parent cells for item
-            if (CellsHelper.TryDropInNewCells(_previousDragCells, _item.CellsCountForItem))
-            {
-                _item.ChangeCell(_previousDragCells.Clone());
-            }
-            else
-            {
-                if (_isSpawned)
-                {
-                    SpawnedItemDestroy();
-                    return;
-                }
+            DropType dropType = CellsHelper.TryDropInNewCells(_previousDragCells,
+                _item.CellsCountForItem, _item.ItemType, out CellView dropCell);
 
-                _item.ResetRotation();
+            if (dropType == DropType.Combine)
+            {
+                Combine(dropCell.Item);
+                return;
             }
+
+            if (dropType == DropType.Drop)
+                _item.ChangeCell(_previousDragCells.Clone());
+            else
+                FailDrop();
 
             EndDrag();
         }
@@ -106,7 +106,7 @@ namespace Code.Game.InventorySystem
             _item = item;
 
             _item.BeginDrag();
-            _item.ParentCells.ForEach((cell) => cell.RemoveItem());
+            RemoveItemInCell(_item.ParentCells);
 
             _offset = (Vector2)_item.transform.position - position;
 
@@ -145,11 +145,41 @@ namespace Code.Game.InventorySystem
 
             foreach (CellView cell in cells)
             {
-                if (cell.Free)
+                if (!cell.Free && cell.Item.CombineItem(_item.ItemType))
+                    cell.CombineEnter();
+                else if (cell.Free)
                     cell.Enter();
                 else
                     cell.BadEnter();
             }
+        }
+
+        private void Combine(BaseItem item)
+        {
+            PreviousCellsExit();
+            _previousDragCells.Clear();
+
+            item.ChangeAdditionalState(_item.ItemType, true);
+
+            RemoveItemInCell(item.ParentCells);
+            if (CellsHelper.TryEnterOnCell(item.CurrentInventor, item, out List<CellView> cells))
+                item.ChangeCell(cells);
+            AddItemInCell(item.ParentCells, item);
+
+            DestroyItemHandler?.Invoke(_item);
+            Destroy(_item.gameObject);
+            EndItemMove();
+        }
+
+        private void FailDrop()
+        {
+            if (_isSpawned)
+            {
+                SpawnedItemDestroy();
+                return;
+            }
+
+            _item.ResetRotation();
         }
 
         private void SpawnedItemDestroy()
@@ -157,25 +187,22 @@ namespace Code.Game.InventorySystem
             PreviousCellsExit();
             _previousDragCells.Clear();
 
-            _tween.SimpleKill();
+            BaseItem item = _item.ParentItem;
 
-            _item.ParentItem.ChangeAdditionalState(_item.ItemType, true);
+            item.ChangeAdditionalState(_item.ItemType, true);
 
-            _item.ParentItem.ParentCells.ForEach((cell) => cell.RemoveItem());
-            if (CellsHelper.TryEnterOnCell(_item.ParentItem.CurrentInventor, _item.ParentItem,
-                    out List<CellView> cells))
-                _item.ParentItem.ChangeCell(cells);
-            _item.ParentItem.ParentCells.ForEach((cell) => cell.AddItem(_item.ParentItem));
+            RemoveItemInCell(item.ParentCells);
+            if (CellsHelper.TryEnterOnCell(item.CurrentInventor, item, out List<CellView> cells))
+                item.ChangeCell(cells);
+            AddItemInCell(item.ParentCells, item);
 
+            DestroyItemHandler?.Invoke(_item);
             Destroy(_item.gameObject);
             EndItemMove();
         }
 
         private void EndDrag()
         {
-            if (_isSpawned)
-                DropNewItemHandler?.Invoke(_item);
-
             _isEnabled = false;
             PreviousCellsExit();
             _previousDragCells.Clear();
@@ -188,11 +215,12 @@ namespace Code.Game.InventorySystem
                 .SetEase(Ease.Linear)
                 .OnComplete(EndItemMove);
 
-            _item.ParentCells.ForEach((cell) => cell.AddItem(_item));
+            AddItemInCell(_item.ParentCells, _item);
         }
 
         private void EndItemMove()
         {
+            _tween.SimpleKill();
             _item.ResetOrder();
             _item = null;
             _isEnabled = true;
@@ -207,6 +235,12 @@ namespace Code.Game.InventorySystem
             if (_item.TryRotation())
                 ChangeCellsWhenDragItem();
         }
+
+        private void AddItemInCell(List<CellView> cells, BaseItem item) =>
+            cells.ForEach((cell) => cell.AddItem(item));
+
+        private void RemoveItemInCell(List<CellView> cells) =>
+            cells.ForEach((cell) => cell.RemoveItem());
 
         private void PreviousCellsEnter() =>
             _previousDragCells.ForEach((cell) => cell.Enter());

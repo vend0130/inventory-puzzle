@@ -109,7 +109,7 @@ namespace Code.Game.ItemInfo
             switch (type)
             {
                 case AdditionalType.Magazine:
-                    return "Магазин"; //note: move to constants file
+                    return Constants.AdditionalTypeMagazine; //note: move to constants file
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

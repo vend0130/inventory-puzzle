@@ -16,6 +16,7 @@ namespace Code.Game.Cells
         [Space, SerializeField] private Image _coloringImage;
         [SerializeField] private Color _freeColor;
         [SerializeField] private Color _busyColor;
+        [SerializeField] private Color _combineColor;
 
         private Color _defaultColor;
 
@@ -39,6 +40,9 @@ namespace Code.Game.Cells
 
         public void BadEnter() =>
             _coloringImage.color = _busyColor;
+        
+        public void CombineEnter() =>
+            _coloringImage.color = _combineColor;
 
         public void Exit() =>
             _coloringImage.color = _defaultColor;

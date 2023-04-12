@@ -189,6 +189,17 @@ namespace Code.Game.Item.Items
             }
         }
 
+        public bool CombineItem(ItemType type)
+        {
+            foreach (AdditionalData additional in AdditionalDatas)
+            {
+                if (!additional.Activate && additional.Type == type)
+                    return true;
+            }
+
+            return false;
+        }
+
         private void GetData(out RotationType rotationType, out Vector2 startPointCell)
         {
             rotationType = ItemHelper.GetRotationType(_currentRotation.z);

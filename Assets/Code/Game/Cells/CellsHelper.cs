@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.Game.InventorySystem.Inventories;
+using Code.Game.Item;
 using Code.Game.Item.Items;
 using UnityEditor;
 using UnityEngine;
@@ -75,15 +76,28 @@ namespace Code.Game.Cells
             }
         }
 
-        public static bool TryDropInNewCells(List<CellView> previousDragCells, int cellsCountForItem)
+        public static DropType TryDropInNewCells(List<CellView> previousDragCells,
+            int cellsCountForItem, ItemType itemType, out CellView dropCell)
         {
-            foreach (CellView cells in previousDragCells)
+            bool oneIsNotFree = false;
+            dropCell = null;
+
+            foreach (CellView cell in previousDragCells)
             {
-                if (!cells.Free)
-                    return false;
+                if (!cell.Free && cell.Item.CombineItem(itemType))
+                {
+                    dropCell = cell;
+                    return DropType.Combine;
+                }
+
+                if (!cell.Free)
+                    oneIsNotFree = true;
             }
 
-            return previousDragCells.Count > 0 && previousDragCells.Count == cellsCountForItem;
+            if (oneIsNotFree || previousDragCells.Count == 0 || previousDragCells.Count != cellsCountForItem)
+                return DropType.Fail;
+
+            return DropType.Drop;
         }
 
         private static Vector2 GetScaler()

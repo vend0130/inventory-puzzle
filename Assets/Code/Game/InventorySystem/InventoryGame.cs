@@ -28,6 +28,7 @@ namespace Code.Game.InventorySystem
             PointerHandler.RightClickHandler += DragItems.RightClick;
 
             DragItems.DropNewItemHandler += AddItem;
+            DragItems.DestroyItemHandler += RemoveItem;
         }
 
         private void Start()
@@ -44,6 +45,7 @@ namespace Code.Game.InventorySystem
 
             _previousScreenSize = CellsHelper.CurrentSizeScreen();
         }
+
 #endif
 
         private void OnDestroy()
@@ -55,6 +57,7 @@ namespace Code.Game.InventorySystem
             PointerHandler.RightClickHandler -= DragItems.RightClick;
 
             DragItems.DropNewItemHandler -= AddItem;
+            DragItems.DestroyItemHandler -= RemoveItem;
         }
 
         public void CreateArrayItems() =>
@@ -62,5 +65,8 @@ namespace Code.Game.InventorySystem
 
         private void AddItem(BaseItem item) =>
             Items.Add(item);
+
+        private void RemoveItem(BaseItem item) =>
+            Items.Remove(item);
     }
 }
