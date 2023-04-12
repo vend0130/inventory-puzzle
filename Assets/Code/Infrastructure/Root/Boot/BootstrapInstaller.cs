@@ -15,7 +15,7 @@ namespace Code.Infrastructure.Root.Boot
         {
             BindStateMachine();
             BindLoadScene();
-            
+
             Container.BindInterfacesTo<GameFactory>().AsSingle();
 
             Container.BindInterfacesTo<BootstrapInstaller>().FromInstance(this).AsSingle();
@@ -35,7 +35,10 @@ namespace Code.Infrastructure.Root.Boot
             Container.BindInterfacesTo<LoadSceneService>().AsSingle();
         }
 
-        public void Initialize() =>
+        public void Initialize()
+        {
+            Application.targetFrameRate = 60;
             Container.Resolve<IGameStateMachine>().Enter<LoadSceneState, string>(Constants.MainSceneName);
+        }
     }
 }

@@ -24,7 +24,8 @@ namespace Code.Infrastructure.Factories
         {
             _backgroundsPaths = new List<string>()
             {
-                AssetPath.Background1Path, AssetPath.Background2Path
+                AssetPath.Background1Path, AssetPath.Background2Path,
+                AssetPath.Background3Path, AssetPath.Background4Path
             };
         }
 
