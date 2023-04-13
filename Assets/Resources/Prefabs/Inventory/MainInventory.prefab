@@ -6082,10 +6082,15 @@ MonoBehaviour:
   - {fileID: 9007087265333018579}
   - {fileID: 9007087264850745332}
   - {fileID: 9007087264164784127}
+  <Rect>k__BackingField:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   <ParentForCells>k__BackingField: {fileID: 4297176553945030403}
-  <LayoutGroup>k__BackingField: {fileID: 4297176553945030402}
+  _layoutGroup: {fileID: 4297176553945030402}
   _background: {fileID: 4297176552338715674}
-  _test: {fileID: 0}
 --- !u!114 &4297176553945030402 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8760052546890726890, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}

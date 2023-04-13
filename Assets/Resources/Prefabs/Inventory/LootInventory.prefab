@@ -8724,10 +8724,15 @@ MonoBehaviour:
   - {fileID: 5120288755522393438}
   - {fileID: 9183581372847641358}
   - {fileID: 4074787624532656953}
+  <Rect>k__BackingField:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   <ParentForCells>k__BackingField: {fileID: 4994781676609984547}
-  <LayoutGroup>k__BackingField: {fileID: 4994781676609984546}
+  _layoutGroup: {fileID: 4994781676609984546}
   _background: {fileID: 4994781677142766394}
-  _test: {fileID: 0}
 --- !u!1001 &4851557770798606048
 PrefabInstance:
   m_ObjectHideFlags: 0
