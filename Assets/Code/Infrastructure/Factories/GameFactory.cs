@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.Extensions;
+using Code.Game.Cells;
 using Code.Game.InventorySystem;
 using Code.Game.Item.Items;
 using Code.Game.ItemInfo;
@@ -62,6 +63,10 @@ namespace Code.Infrastructure.Factories
             baseItem.Init(ItemMenu, ItemMenu.Info);
             baseItem.ChangeInventory(parentItem.CurrentInventor);
             baseItem.AddParentItem(parentItem);
+
+            baseItem.ChangeDistance(baseItem.CurrentInventor.GetCurrentDistance());
+            CellsHelper.ChangeOffsetItem(baseItem);
+            baseItem.ChangeOffset();
 
             return baseItem;
         }

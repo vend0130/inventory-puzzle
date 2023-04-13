@@ -90,14 +90,20 @@ namespace Code.Game.Item.Items
             ParentItem = item;
         }
 
+        public void ChangeDistance(float distanceBetweenCells) =>
+            _distanceBetweenCells = distanceBetweenCells;
+
+        public void ChangeLastOffset(Vector2 lastOffset) =>
+            LastOffset = lastOffset;
+
+        public void ChangeOffset() =>
+            _targetPosition = (Vector2)transform.position + LastOffset;
+
         public void OpenMenu(Vector2 position) =>
             _itemMenu.Open(position, this);
 
         public virtual void OpenInfo() =>
             Debug.LogError("not override method");
-
-        public void ChangeDistance(float distanceBetweenCells) =>
-            _distanceBetweenCells = distanceBetweenCells;
 
         public void BeginDrag()
         {
@@ -105,9 +111,6 @@ namespace Code.Game.Item.Items
             _currentRotation = _previousRotation = _containerForRotation.eulerAngles;
             _canvasOrder.sortingOrder = _defaultSortingOrder + UpSortingOrder;
         }
-
-        public void ChangeLastOffset(Vector2 lastOffset) =>
-            LastOffset = lastOffset;
 
         public List<(Vector2, CellInItemData)> GetCellsPositions()
         {
@@ -147,9 +150,6 @@ namespace Code.Game.Item.Items
             _targetPosition = _previousPosition;
             _currentRotation = _previousRotation;
         }
-
-        public void ChangeOffset() =>
-            _targetPosition = (Vector2)transform.position + LastOffset;
 
         public void ChangeAdditionalState(int index, bool activate)
         {

@@ -17,8 +17,11 @@ namespace Code.Utils.Editor
     public class InventoryGameEditor : UnityEditor.Editor
     {
         private InventoryGame _inventory;
-        private LootInventory _lootInventory => _inventory.LootInventory;
-        private CellView[] Cells => _inventory.LootInventory.Cells;
+
+        private LootInventory LootInventory => _inventory.LootInventory;
+        private MainInventory MainInventory => _inventory.MainInventory;
+        private CellView[] LootCells => _inventory.LootInventory.Cells;
+        private CellView[] MainCells => _inventory.LootInventory.Cells;
 
         private void OnEnable() =>
             _inventory = (InventoryGame)serializedObject.targetObject;
@@ -27,44 +30,31 @@ namespace Code.Utils.Editor
         {
             base.OnInspectorGUI();
 
-            if (GUILayout.Button("Load and Refresh"))
+            if (GUILayout.Button("Update"))
                 Refresh();
-
-            if (GUILayout.Button("Update Inventories"))
-                _lootInventory.UpdateGrid(_inventory.Items);
         }
 
         private void Refresh()
         {
-            float distance = _lootInventory
-                .GetCurrentDistance(_lootInventory.LayoutGroup.cellSize.x + _lootInventory.LayoutGroup.spacing.x);
+            float distance = LootInventory.GetCurrentDistance();
 
+            ResetCells();
             _inventory.CreateArrayItems();
-            _lootInventory.RefreshGrid();
-            _lootInventory.CreateArray();
-
-            LoadCells(distance);
             LoadItems(distance);
 
-            for (int i = 0; i < Cells.Length; i++)
-                PrefabUtility.RecordPrefabInstancePropertyModifications(Cells[i]);
-
-            for (int i = 0; i < _inventory.Items.Count; i++)
-                PrefabUtility.RecordPrefabInstancePropertyModifications(_inventory.Items[i]);
-
-            Canvas.ForceUpdateCanvases();
-            if (!Application.isPlaying)
-                EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+            Save();
         }
 
-        private void LoadCells(float distance)
+        private void ResetCells()
         {
-            for (int i = 0; i < Cells.Length; i++)
-            {
-                Cells[i] = _lootInventory.ParentForCells.GetChild(i).GetComponent<CellView>();
-                Cells[i].Init();
-                Cells[i].RecalculatePoints(distance);
-            }
+            for (int i = 0; i < LootCells.Length; i++)
+                LootCells[i].Init();
+
+            for (int i = 0; i < MainCells.Length; i++)
+                MainCells[i].Init();
+
+            LootInventory.ChangeRect();
+            MainInventory.ChangeRect();
         }
 
         private void LoadItems(float distance)
@@ -90,7 +80,7 @@ namespace Code.Utils.Editor
             CheckItemPosition(item, out List<ItemCellData> cells);
 
             item.ChangeOffset();
-            item.ChangeInventory(_lootInventory);
+            item.ChangeInventory(LootInventory);
 
             item.ChangeCell(cells.Clone());
             item.ParentCells.ForEach((cell) =>
@@ -104,7 +94,7 @@ namespace Code.Utils.Editor
 
         private void CheckItemPosition(BaseItem item, out List<ItemCellData> cells)
         {
-            if (!CellsHelper.TryEnterOnCell(_lootInventory, item, out cells))
+            if (!CellsHelper.TryEnterOnCell(LootInventory, item, out cells))
                 throw new Exception($"not correct position: {item.name}");
 
             if (CellsHelper.DropCellCount(cells, item.CellsCountForItem)
@@ -115,8 +105,27 @@ namespace Code.Utils.Editor
             {
                 if (!cell.CellOnGrid.Free && cell.CellInItem.Activate)
                     throw new Exception($"{item.name} on" +
-                                        $" {cell.CellOnGrid.Item}. Name cell: {cell.CellOnGrid.name}");
+                                        $" {cell.CellOnGrid.Item.name}. Name cell: {cell.CellOnGrid.name}");
             }
+        }
+
+        private void Save()
+        {
+            PrefabUtility.RecordPrefabInstancePropertyModifications(LootInventory);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(MainInventory);
+
+            for (int i = 0; i < LootCells.Length; i++)
+                PrefabUtility.RecordPrefabInstancePropertyModifications(LootCells[i]);
+
+            for (int i = 0; i < MainCells.Length; i++)
+                PrefabUtility.RecordPrefabInstancePropertyModifications(MainCells[i]);
+
+            for (int i = 0; i < _inventory.Items.Count; i++)
+                PrefabUtility.RecordPrefabInstancePropertyModifications(_inventory.Items[i]);
+
+            Canvas.ForceUpdateCanvases();
+            if (!Application.isPlaying)
+                EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         }
     }
 }

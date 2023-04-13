@@ -1,6 +1,6 @@
 ﻿namespace Code.Game.InventorySystem.Inventories
 {
-    public class LootInventory : BaseInventory
+    public class MainInventory : BaseInventory
     {
     }
 }

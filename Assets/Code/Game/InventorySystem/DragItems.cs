@@ -13,8 +13,7 @@ namespace Code.Game.InventorySystem
 {
     public class DragItems : MonoBehaviour
     {
-        //TODO: rework when added another inventories
-        [SerializeField] private LootInventory _inventory;
+        [SerializeField] private BaseInventory[] _inventories;
 
         public event Action<BaseItem> DropNewItemHandler;
         public event Action<BaseItem> DestroyItemHandler;
@@ -46,7 +45,10 @@ namespace Code.Game.InventorySystem
             if (!_isEnabled)
                 return;
 
-            if (CellsHelper.TryTapOnCell(_inventory, position, out CellView cell))
+            if (!TryGetInventory(position, out BaseInventory inventory))
+                return;
+
+            if (CellsHelper.TryTapOnCell(inventory, position, out CellView cell))
                 BeginDrag(cell.Item, position);
             else
                 _item = null;
@@ -57,7 +59,10 @@ namespace Code.Game.InventorySystem
             if (!_isEnabled || _item != null)
                 return;
 
-            if (CellsHelper.TryTapOnCell(_inventory, position, out CellView cell))
+            if (!TryGetInventory(position, out BaseInventory inventory))
+                return;
+
+            if (CellsHelper.TryTapOnCell(inventory, position, out CellView cell))
                 cell.Item.OpenMenu(position);
         }
 
@@ -128,7 +133,14 @@ namespace Code.Game.InventorySystem
 
         private void ChangeCellsWhenDragItem()
         {
-            if (CellsHelper.TryEnterOnCell(_inventory, _item, out List<ItemCellData> cells))
+            if (!TryGetInventory(_item.transform.position, out BaseInventory inventory))
+            {
+                PreviousCellsExit();
+                _previousDragCells.Clear();
+                return;
+            }
+
+            if (CellsHelper.TryEnterOnCell(inventory, _item, out List<ItemCellData> cells))
             {
                 _item.ChangeOffset();
 
@@ -136,12 +148,11 @@ namespace Code.Game.InventorySystem
                 _previousDragCells = cells;
 
                 EnterCellsWhenDragItem(cells);
+                return;
             }
-            else
-            {
-                PreviousCellsExit();
-                _previousDragCells.Clear();
-            }
+
+            PreviousCellsExit();
+            _previousDragCells.Clear();
         }
 
         private void EnterCellsWhenDragItem(List<ItemCellData> cells)
@@ -153,7 +164,6 @@ namespace Code.Game.InventorySystem
                 return;
             }
 
-            
             //TODO: окрашивать все клетки одним цветом
             foreach (var cell in cells)
             {
@@ -220,6 +230,11 @@ namespace Code.Game.InventorySystem
                 .OnComplete(EndItemMove);
 
             AddItemInCell(_item.ParentCells, _item);
+
+            if (!TryGetInventory(_item.transform.position, out BaseInventory inventory))
+                inventory = _item.CurrentInventor;
+
+            _item.ChangeInventory(inventory);
         }
 
         private void EndItemMove()
@@ -274,5 +289,20 @@ namespace Code.Game.InventorySystem
                 if (cell.CellInItem.Activate)
                     cell.CellOnGrid.Exit();
             });
+
+        private bool TryGetInventory(Vector2 position, out BaseInventory inventory)
+        {
+            for (int i = 0; i < _inventories.Length; i++)
+            {
+                if (InventoryHelper.Collision(position, _inventories[i].Rect))
+                {
+                    inventory = _inventories[i];
+                    return true;
+                }
+            }
+
+            inventory = null;
+            return false;
+        }
     }
 }

@@ -23,9 +23,7 @@ namespace Code.Game.Cells
         public void Init()
         {
             _defaultColor = _coloringImage.color;
-
-            Free = true;
-            Item = null;
+            RemoveItem();
         }
 
         public void RecalculatePoints(float distanceBetweenCells)
@@ -40,7 +38,7 @@ namespace Code.Game.Cells
 
         public void BadEnter() =>
             _coloringImage.color = _busyColor;
-        
+
         public void CombineEnter() =>
             _coloringImage.color = _combineColor;
 

@@ -23,6 +23,16 @@ namespace Code.Game.InventorySystem.Inventories
                 DrawBox(_inventory.Cells[i]);
 
             Gizmos.color = previousColor;
+
+            DrawRect();
+        }
+
+        private void DrawRect()
+        {
+            Gizmos.DrawSphere(_inventory.Rect.min, 10);
+            Gizmos.DrawSphere(_inventory.Rect.max, 10);
+            Gizmos.DrawSphere(new Vector2(_inventory.Rect.min.x, _inventory.Rect.max.y), 10);
+            Gizmos.DrawSphere(new Vector2(_inventory.Rect.max.x, _inventory.Rect.min.y), 10);
         }
 
         private void DrawBox(CellView cell)
