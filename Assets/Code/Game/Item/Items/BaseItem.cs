@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Code.Extensions;
-using Code.Game.Cells;
 using Code.Game.InventorySystem.Inventories;
 using Code.Game.ItemInfo;
 using DG.Tweening;
@@ -34,7 +33,7 @@ namespace Code.Game.Item.Items
         public int AdditionalsCellsCountForItem { get; set; }
 
         [field: SerializeField, HideInInspector]
-        public List<CellView> ParentCells { get; private set; }
+        public List<ItemCellData> ParentCells { get; private set; }
 
         [field: SerializeField, HideInInspector]
         public Vector2 LastOffset { get; private set; }
@@ -110,7 +109,7 @@ namespace Code.Game.Item.Items
         public void ChangeLastOffset(Vector2 lastOffset) =>
             LastOffset = lastOffset;
 
-        public List<Vector2> GetCellsPositions()
+        public List<(Vector2, CellInItemData)> GetCellsPositions()
         {
             GetData(out RotationType rotationType, out Vector2 startPointCell);
 
@@ -123,7 +122,10 @@ namespace Code.Game.Item.Items
         public void ResetOrder() =>
             _canvasOrder.sortingOrder = _defaultSortingOrder;
 
-        public void ChangeCell(List<CellView> cellDatas) =>
+        public void ClearCells() =>
+            ParentCells.Clear();
+
+        public void ChangeCell(List<ItemCellData> cellDatas) =>
             ParentCells = cellDatas;
 
         public bool TryRotation()

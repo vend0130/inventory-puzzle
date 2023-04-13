@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.InventorySystem.Inventories;
+using Code.Game.Item;
 using Code.Game.Item.Items;
 using DG.Tweening;
 using UnityEngine;
@@ -23,7 +24,7 @@ namespace Code.Game.InventorySystem
         private BaseItem _item;
         private bool _isSpawned = false;
         private Vector2 _offset;
-        private List<CellView> _previousDragCells = new List<CellView>();
+        private List<ItemCellData> _previousDragCells = new List<ItemCellData>();
         private Tween _tween;
         private bool _isEnabled = true;
 
@@ -83,7 +84,7 @@ namespace Code.Game.InventorySystem
                 return;
 
             DropType dropType = CellsHelper.TryDropInNewCells(_previousDragCells,
-                _item.CellsCountForItem, _item.ItemType, out CellView dropCell);
+                CellsHelper.DropCellCount(_item.ParentCells, _item.CellsCountForItem), _item, out CellView dropCell);
 
             if (dropType == DropType.Combine)
             {
@@ -92,9 +93,17 @@ namespace Code.Game.InventorySystem
             }
 
             if (dropType == DropType.Drop)
-                _item.ChangeCell(_previousDragCells.Clone());
+                _item.ChangeCell(new List<ItemCellData>(_previousDragCells));
             else
-                FailDrop();
+            {
+                if (_isSpawned)
+                {
+                    SpawnedItemDestroy();
+                    return;
+                }
+
+                _item.ResetRotation();
+            }
 
             EndDrag();
         }
@@ -119,7 +128,7 @@ namespace Code.Game.InventorySystem
 
         private void ChangeCellsWhenDragItem()
         {
-            if (CellsHelper.TryEnterOnCell(_inventory, _item, out List<CellView> cells))
+            if (CellsHelper.TryEnterOnCell(_inventory, _item, out List<ItemCellData> cells))
             {
                 _item.ChangeOffset();
 
@@ -135,22 +144,28 @@ namespace Code.Game.InventorySystem
             }
         }
 
-        private void EnterCellsWhenDragItem(List<CellView> cells)
+        private void EnterCellsWhenDragItem(List<ItemCellData> cells)
         {
-            if (cells.Count != _item.CellsCountForItem)
+            if (CellsHelper.DropCellCount(cells, _item.CellsCountForItem) !=
+                CellsHelper.DropCellCount(_item.ParentCells, _item.CellsCountForItem))
             {
                 PreviousCellsBadEnter();
                 return;
             }
 
-            foreach (CellView cell in cells)
+            
+            //TODO: окрашивать все клетки одним цветом
+            foreach (var cell in cells)
             {
-                if (!cell.Free && cell.Item.CombineItem(_item.ItemType))
-                    cell.CombineEnter();
-                else if (cell.Free)
-                    cell.Enter();
+                if (!cell.CellInItem.Activate)
+                    continue;
+
+                if (!cell.CellOnGrid.Free && cell.CellOnGrid.Item.CombineItem(_item.ItemType))
+                    cell.CellOnGrid.CombineEnter();
+                else if (cell.CellOnGrid.Free)
+                    cell.CellOnGrid.Enter();
                 else
-                    cell.BadEnter();
+                    cell.CellOnGrid.BadEnter();
             }
         }
 
@@ -162,24 +177,13 @@ namespace Code.Game.InventorySystem
             item.ChangeAdditionalState(_item.ItemType, true);
 
             RemoveItemInCell(item.ParentCells);
-            if (CellsHelper.TryEnterOnCell(item.CurrentInventor, item, out List<CellView> cells))
+            if (CellsHelper.TryEnterOnCell(item.CurrentInventor, item, out List<ItemCellData> cells))
                 item.ChangeCell(cells);
             AddItemInCell(item.ParentCells, item);
 
             DestroyItemHandler?.Invoke(_item);
             Destroy(_item.gameObject);
             EndItemMove();
-        }
-
-        private void FailDrop()
-        {
-            if (_isSpawned)
-            {
-                SpawnedItemDestroy();
-                return;
-            }
-
-            _item.ResetRotation();
         }
 
         private void SpawnedItemDestroy()
@@ -192,7 +196,7 @@ namespace Code.Game.InventorySystem
             item.ChangeAdditionalState(_item.ItemType, true);
 
             RemoveItemInCell(item.ParentCells);
-            if (CellsHelper.TryEnterOnCell(item.CurrentInventor, item, out List<CellView> cells))
+            if (CellsHelper.TryEnterOnCell(item.CurrentInventor, item, out List<ItemCellData> cells))
                 item.ChangeCell(cells);
             AddItemInCell(item.ParentCells, item);
 
@@ -236,19 +240,39 @@ namespace Code.Game.InventorySystem
                 ChangeCellsWhenDragItem();
         }
 
-        private void AddItemInCell(List<CellView> cells, BaseItem item) =>
-            cells.ForEach((cell) => cell.AddItem(item));
+        private void AddItemInCell(List<ItemCellData> cells, BaseItem item) =>
+            cells.ForEach((cell) =>
+            {
+                if (cell.CellInItem.Activate)
+                    cell.CellOnGrid.AddItem(item);
+            });
 
-        private void RemoveItemInCell(List<CellView> cells) =>
-            cells.ForEach((cell) => cell.RemoveItem());
+        private void RemoveItemInCell(List<ItemCellData> cells) =>
+            cells.ForEach((cell) =>
+            {
+                if (cell.CellInItem.Activate)
+                    cell.CellOnGrid.RemoveItem();
+            });
 
         private void PreviousCellsEnter() =>
-            _previousDragCells.ForEach((cell) => cell.Enter());
+            _previousDragCells.ForEach((cell) =>
+            {
+                if (cell.CellInItem.Activate)
+                    cell.CellOnGrid.Enter();
+            });
 
         private void PreviousCellsBadEnter() =>
-            _previousDragCells.ForEach((cell) => cell.BadEnter());
+            _previousDragCells.ForEach((cell) =>
+            {
+                if (cell.CellInItem.Activate)
+                    cell.CellOnGrid.BadEnter();
+            });
 
         private void PreviousCellsExit() =>
-            _previousDragCells.ForEach((cell) => cell.Exit());
+            _previousDragCells.ForEach((cell) =>
+            {
+                if (cell.CellInItem.Activate)
+                    cell.CellOnGrid.Exit();
+            });
     }
 }

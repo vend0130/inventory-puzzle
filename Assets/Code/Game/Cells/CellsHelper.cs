@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item;
 using Code.Game.Item.Items;
@@ -48,10 +49,10 @@ namespace Code.Game.Cells
             return false;
         }
 
-        public static bool TryEnterOnCell(BaseInventory inventory, BaseItem item, out List<CellView> cells)
+        public static bool TryEnterOnCell(BaseInventory inventory, BaseItem item, out List<ItemCellData> cells)
         {
-            List<Vector2> positions = item.GetCellsPositions();
-            cells = new List<CellView>();
+            List<(Vector2, CellInItemData)> positions = item.GetCellsPositions();
+            cells = new List<ItemCellData>();
 
             for (int i = 0; i < inventory.Cells.Length; i++)
                 EnterOnCell(inventory.Cells[i], item, positions, cells);
@@ -61,43 +62,82 @@ namespace Code.Game.Cells
 
         public static void ChangeOffsetItem(BaseItem item)
         {
-            List<Vector2> positions = item.GetCellsPositions();
+            List<(Vector2, CellInItemData)> positions = item.GetCellsPositions();
 
             foreach (var position in positions)
             {
                 foreach (var cell in item.ParentCells)
                 {
-                    if (Collision(position, cell))
+                    if (position.Item2.Activate && Collision(position.Item1, cell.CellOnGrid))
                     {
-                        item.ChangeLastOffset(cell.CenterPoint - position);
+                        item.ChangeLastOffset(cell.CellOnGrid.CenterPoint - position.Item1);
                         return;
                     }
                 }
             }
         }
 
-        public static DropType TryDropInNewCells(List<CellView> previousDragCells,
-            int cellsCountForItem, ItemType itemType, out CellView dropCell)
+        public static DropType TryDropInNewCells(List<ItemCellData> previousDragCells,
+            int cellsCountForItem, BaseItem item, out CellView dropCell)
         {
             bool oneIsNotFree = false;
             dropCell = null;
 
-            foreach (CellView cell in previousDragCells)
-            {
-                if (!cell.Free && cell.Item.CombineItem(itemType))
-                {
-                    dropCell = cell;
-                    return DropType.Combine;
-                }
 
-                if (!cell.Free)
+            foreach (var cell in previousDragCells)
+            {
+                if (ItemDropInItem(cell, item.ItemType, out dropCell))
+                    return DropType.Combine;
+
+                if (!cell.CellOnGrid.Free && cell.CellInItem.Activate)
                     oneIsNotFree = true;
             }
 
-            if (oneIsNotFree || previousDragCells.Count == 0 || previousDragCells.Count != cellsCountForItem)
+            int dropCellCount = DropCellCount(previousDragCells, item.CellsCountForItem);
+            if (oneIsNotFree || previousDragCells.Count == 0 || dropCellCount != cellsCountForItem)
                 return DropType.Fail;
 
             return DropType.Drop;
+        }
+
+        private static bool ItemDropInItem(ItemCellData cell, ItemType type, out CellView dropCell)
+        {
+            dropCell = null;
+
+            if (cell.CellOnGrid.Free)
+                return false;
+
+            foreach (var cellitemItem in cell.CellOnGrid.Item.ParentCells)
+            {
+                if (cellitemItem.CellOnGrid.Free &&
+                    cellitemItem.CellInItem.Type == type && !cellitemItem.CellInItem.Activate)
+                {
+                    dropCell = cell.CellOnGrid;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static int DropCellCount(List<ItemCellData> cells, int count)
+        {
+            if (cells == null || cells.Count == 0)
+            {
+                if (count == 0)
+                    throw new Exception("not cell in item");
+
+                return count;
+            }
+
+            int counter = 0;
+            foreach (var cell in cells)
+            {
+                if (cell.CellInItem.Activate)
+                    counter++;
+            }
+
+            return counter;
         }
 
         private static Vector2 GetScaler()
@@ -127,20 +167,20 @@ namespace Code.Game.Cells
         }
 
         private static void EnterOnCell(CellView currentCell, BaseItem item,
-            List<Vector2> positions, List<CellView> cells)
+            List<(Vector2, CellInItemData)> positions, List<ItemCellData> cells)
         {
             bool first = false;
             foreach (var position in positions)
             {
-                if (!Collision(position, currentCell))
+                if (!Collision(position.Item1, currentCell))
                     continue;
 
-                cells.Add(currentCell);
+                cells.Add(new ItemCellData(currentCell, position.Item2));
 
-                if (first)
+                if (first || !position.Item2.Activate)
                     continue;
 
-                item.ChangeLastOffset(currentCell.CenterPoint - position);
+                item.ChangeLastOffset(currentCell.CenterPoint - position.Item1);
                 first = true;
             }
         }

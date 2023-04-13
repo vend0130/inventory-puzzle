@@ -4,6 +4,7 @@ using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.InventorySystem;
 using Code.Game.InventorySystem.Inventories;
+using Code.Game.Item;
 using Code.Game.Item.Items;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -77,21 +78,44 @@ namespace Code.Utils.Editor
                 _inventory.Items.Add(item);
             }
 
-            foreach (var item in _inventory.Items)
+            foreach (BaseItem item in _inventory.Items)
             {
-                if (CellsHelper.TryEnterOnCell(_lootInventory, item, out List<CellView> cells))
-                {
-                    if (cells.Count != item.CellsCountForItem)
-                        throw new Exception("not correct position item: " + item.name);
+                item.ClearCells();
+                ChangeItem(item);
+            }
+        }
 
-                    item.ChangeOffset();
-                    item.ChangeInventory(_lootInventory);
+        private void ChangeItem(BaseItem item)
+        {
+            CheckItemPosition(item, out List<ItemCellData> cells);
 
-                    item.ChangeCell(cells.Clone());
-                    item.ParentCells.ForEach((cell) => cell.AddItem(item));
+            item.ChangeOffset();
+            item.ChangeInventory(_lootInventory);
 
-                    item.transform.position = item.GetTargetPosition();
-                }
+            item.ChangeCell(cells.Clone());
+            item.ParentCells.ForEach((cell) =>
+            {
+                if (cell.CellInItem.Activate)
+                    cell.CellOnGrid.AddItem(item);
+            });
+
+            item.transform.position = item.GetTargetPosition();
+        }
+
+        private void CheckItemPosition(BaseItem item, out List<ItemCellData> cells)
+        {
+            if (!CellsHelper.TryEnterOnCell(_lootInventory, item, out cells))
+                throw new Exception($"not correct position: {item.name}");
+
+            if (CellsHelper.DropCellCount(cells, item.CellsCountForItem)
+                != CellsHelper.DropCellCount(item.ParentCells, item.CellsCountForItem))
+                throw new Exception($"not correct position item: {item.name}");
+
+            foreach (ItemCellData cell in cells)
+            {
+                if (!cell.CellOnGrid.Free && cell.CellInItem.Activate)
+                    throw new Exception($"{item.name} on" +
+                                        $" {cell.CellOnGrid.Item}. Name cell: {cell.CellOnGrid.name}");
             }
         }
     }

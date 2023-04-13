@@ -1,5 +1,5 @@
 ﻿using System;
-using Code.Utils.Readonly;
+using Code.Game.Cells;
 using UnityEngine;
 
 namespace Code.Game.Item
@@ -11,11 +11,24 @@ namespace Code.Game.Item
     }
 
     [Serializable]
+    public class ItemCellData
+    {
+        [field: SerializeField] public CellView CellOnGrid { get; set; }
+        [field: SerializeField] public CellInItemData CellInItem { get; set; }
+
+        public ItemCellData(CellView cellOnGrid, CellInItemData cellInItem)
+        {
+            CellOnGrid = cellOnGrid;
+            CellInItem = cellInItem;
+        }
+    }
+
+    [Serializable]
     public class CellInItemData
     {
-        [field: SerializeField, ReadOnly] public bool Value { get; set; }
-        [field: SerializeField, ReadOnly] public ItemType Type { get; set; }
-        [field: SerializeField, ReadOnly] public bool Activate { get; set; }
+        [field: SerializeField] public bool Value { get; set; }
+        [field: SerializeField] public ItemType Type { get; set; }
+        [field: SerializeField] public bool Activate { get; set; }
 
         public CellInItemData(bool value, ItemType type)
         {

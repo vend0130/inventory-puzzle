@@ -16,15 +16,12 @@ namespace Code.Game.ItemInfo
 
         public event Action<BaseItem, int> CreateItemHandler;
 
-        private const string InformationText = "ИНФОРМАЦИЯ";
-        private const string PrefixText = "Снять";
-
         private BaseItem _lastItem;
 
         private void Start()
         {
             _menu.SetActive(false);
-            _buttonsData[0].Text.text = InformationText;
+            _buttonsData[0].Text.text = Constants.InformationText;
 
             for (int i = 0; i < _buttonsData.Length; i++)
             {
@@ -66,7 +63,8 @@ namespace Code.Game.ItemInfo
                     if (!item.AdditionalDatas[i].Activate)
                         continue;
 
-                    _buttonsData[i + 1].Text.text = $"{PrefixText} {GetText(item.AdditionalDatas[i].AdditionalType)}";
+                    _buttonsData[i + 1].Text.text =
+                        $"{Constants.PrefixAdditionalText} {GetText(item.AdditionalDatas[i].AdditionalType)}";
                     _buttonsData[i + 1].gameObject.SetActive(true);
                 }
             }
@@ -83,13 +81,23 @@ namespace Code.Game.ItemInfo
 
         private void Buttons(int index)
         {
+            _lastItem.ParentCells.ForEach((cell) =>
+            {
+                if (cell.CellInItem.Activate)
+                    cell.CellOnGrid.RemoveItem();
+            });
+
             _lastItem.ChangeAdditionalState(index - 1, false);
             CreateItemHandler?.Invoke(_lastItem, (index - 1));
 
-            _lastItem.ParentCells.ForEach((cell) => cell.RemoveItem());
-            if (CellsHelper.TryEnterOnCell(_lastItem.CurrentInventor, _lastItem, out List<CellView> cells))
+            if (CellsHelper.TryEnterOnCell(_lastItem.CurrentInventor, _lastItem,
+                    out List<ItemCellData> cells))
                 _lastItem.ChangeCell(cells);
-            _lastItem.ParentCells.ForEach((cell) => cell.AddItem(_lastItem));
+            _lastItem.ParentCells.ForEach((cell) =>
+            {
+                if (cell.CellInItem.Activate)
+                    cell.CellOnGrid.AddItem(_lastItem);
+            });
 
             _lastItem = null;
             _backgroundLock.Close();
@@ -109,7 +117,7 @@ namespace Code.Game.ItemInfo
             switch (type)
             {
                 case AdditionalType.Magazine:
-                    return Constants.AdditionalTypeMagazine; //note: move to constants file
+                    return Constants.AdditionalTypeMagazine;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

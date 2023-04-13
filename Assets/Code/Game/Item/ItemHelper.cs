@@ -75,46 +75,40 @@ namespace Code.Game.Item
             }
         }
 
-        public static List<Vector2> GetCellsPositions(RotationType rotationType, WidthData[] grid,
+        public static List<(Vector2, CellInItemData)> GetCellsPositions(RotationType rotationType, WidthData[] grid,
             float distance, Vector2 startPointCell)
         {
-            List<Vector2> positions = new List<Vector2>(grid.Length * grid[0].Width.Length);
+            List<(Vector2, CellInItemData)> positions = new List<(Vector2, CellInItemData)>(grid.Length * grid[0].Width.Length);
             Vector2Int multiply = GetMultiply(rotationType);
 
             for (int y = 0; y < grid.Length; y++)
             {
                 for (int x = 0; x < grid[y].Width.Length; x++)
                 {
-                    if (grid[y].Width[x].Activate == false)
-                        continue;
-
                     Vector2 position = GetCellPosition(startPointCell, new Vector2Int(x, y),
                         rotationType, distance, multiply);
 
-                    positions.Add(position);
+                    positions.Add((position, grid[y].Width[x]));
                 }
             }
 
             return positions;
         }
 
-        public static List<(Vector2, ItemType)> GetCellsPositionsWithType(RotationType rotationType, WidthData[] grid,
+        public static List<(Vector2, CellInItemData)> GetCellsPositionsWithType(RotationType rotationType, WidthData[] grid,
             float distance, Vector2 startPointCell)
         {
-            List<(Vector2, ItemType)> positions = new List<(Vector2, ItemType)>(grid.Length * grid[0].Width.Length);
+            List<(Vector2, CellInItemData)> positions = new List<(Vector2, CellInItemData)>(grid.Length * grid[0].Width.Length);
             Vector2Int multiply = GetMultiply(rotationType);
 
             for (int y = 0; y < grid.Length; y++)
             {
                 for (int x = 0; x < grid[y].Width.Length; x++)
                 {
-                    if (grid[y].Width[x].Activate == false)
-                        continue;
-
                     Vector2 position = GetCellPosition(startPointCell, new Vector2Int(x, y),
                         rotationType, distance, multiply);
 
-                    positions.Add((position, grid[y].Width[x].Type));
+                    positions.Add((position, grid[y].Width[x]));
                 }
             }
 
