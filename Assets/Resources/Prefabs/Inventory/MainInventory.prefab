@@ -2960,6 +2960,22 @@ PrefabInstance:
       propertyPath: <CenterPoint>k__BackingField.y
       value: 250
       objectReference: {fileID: 0}
+    - target: {fileID: 6235729042116178308, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 257.2843
+      objectReference: {fileID: 0}
+    - target: {fileID: 6235729042116178308, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 594.6265
+      objectReference: {fileID: 0}
+    - target: {fileID: 6235729042116178308, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15.9656
+      objectReference: {fileID: 0}
+    - target: {fileID: 6235729042116178309, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+      propertyPath: m_Color.a
+      value: 0.6392157
+      objectReference: {fileID: 0}
     - target: {fileID: 6257338789847355776, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -5926,7 +5942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8760052545820701699, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
       propertyPath: m_Name
-      value: MainInventory
+      value: MainInventory (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8760052545820701701, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
       propertyPath: _debug
