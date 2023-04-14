@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Game.Cells;
 using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item.Items;
 using Code.Utils.Readonly;
+using TMPro;
 using UnityEngine;
 
 namespace Code.Game.InventorySystem
@@ -18,6 +20,10 @@ namespace Code.Game.InventorySystem
         [field: SerializeField, Space] public Canvas CanvasWithItems { get; private set; }
         [field: SerializeField, ReadOnly] public List<BaseItem> Items { get; private set; }
 
+        [SerializeField] private TextMeshProUGUI _levelText;
+
+        public event Action AllItemsInInventoryHandler;
+
         private Vector2Int _previousScreenSize;
 
         private void Awake()
@@ -30,6 +36,7 @@ namespace Code.Game.InventorySystem
 
             DragItems.DropNewItemHandler += AddItem;
             DragItems.DestroyItemHandler += RemoveItem;
+            DragItems.ItemEndMoveHandler += ItemEndMove;
         }
 
         private void Start()
@@ -58,6 +65,13 @@ namespace Code.Game.InventorySystem
 
             DragItems.DropNewItemHandler -= AddItem;
             DragItems.DestroyItemHandler -= RemoveItem;
+            DragItems.ItemEndMoveHandler -= ItemEndMove;
+        }
+
+        public void Init(int currentLevel, int maxLevel)
+        {
+            _levelText.text = $"{Constants.LevelTextPrefix} {currentLevel}";
+            _levelText.text += string.Format(Constants.LevelTextPostfix, maxLevel);
         }
 
         public void CreateArrayItems() =>
@@ -86,5 +100,18 @@ namespace Code.Game.InventorySystem
 
         private void RemoveItem(BaseItem item) =>
             Items.Remove(item);
+
+        private void ItemEndMove()
+        {
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i].CurrentInventor == LootInventory)
+                    return;
+            }
+
+            DragItems.enabled = false;
+            PointerHandler.enabled = false;
+            AllItemsInInventoryHandler?.Invoke();
+        }
     }
 }

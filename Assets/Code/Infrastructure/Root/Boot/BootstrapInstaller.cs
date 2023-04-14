@@ -1,5 +1,7 @@
-﻿using Code.Infrastructure.Factories;
+﻿using Code.Data;
+using Code.Infrastructure.Factories;
 using Code.Infrastructure.Services.LoadScene;
+using Code.Infrastructure.Services.Progress;
 using Code.Infrastructure.StateMachine;
 using Code.Infrastructure.StateMachine.States;
 using UnityEngine;
@@ -9,12 +11,16 @@ namespace Code.Infrastructure.Root.Boot
 {
     public class BootstrapInstaller : MonoInstaller, IInitializable
     {
+        [SerializeField] private LevelsData _levelsData;
         [SerializeField] private CurtainView _curtain;
 
         public override void InstallBindings()
         {
             BindStateMachine();
             BindLoadScene();
+            BindProgressService();
+
+            Container.Bind<LevelsData>().FromInstance(_levelsData).AsSingle();
 
             Container.BindInterfacesTo<GameFactory>().AsSingle();
 
@@ -24,6 +30,7 @@ namespace Code.Infrastructure.Root.Boot
         private void BindStateMachine()
         {
             Container.BindInterfacesTo<GameStateMachine>().AsSingle();
+            Container.Bind<BootstrapState>().AsSingle();
             Container.Bind<LoadSceneState>().AsSingle();
             Container.Bind<GameLoopState>().AsSingle();
             Container.Bind<ExitState>().AsSingle();
@@ -35,10 +42,16 @@ namespace Code.Infrastructure.Root.Boot
             Container.BindInterfacesTo<LoadSceneService>().AsSingle();
         }
 
+        private void BindProgressService()
+        {
+            Container.BindInterfacesTo<ProgressService>().AsSingle();
+            Container.Bind<ProgressData>().AsSingle();
+        }
+
         public void Initialize()
         {
             Application.targetFrameRate = 60;
-            Container.Resolve<IGameStateMachine>().Enter<LoadSceneState, string>(Constants.MainSceneName);
+            Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
         }
     }
 }

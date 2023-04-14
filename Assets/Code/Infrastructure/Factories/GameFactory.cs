@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using Code.Data;
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.InventorySystem;
 using Code.Game.Item.Items;
 using Code.Game.ItemInfo;
+using Code.Infrastructure.Services.Progress;
 using Code.UI;
 using UnityEngine;
 
@@ -11,6 +13,9 @@ namespace Code.Infrastructure.Factories
 {
     public class GameFactory : IGameFactory
     {
+        private readonly IProgressService _progressService;
+        private readonly LevelsData _levelsData;
+        public InventoryGame InventoryGame { get; private set; }
         public GamePlayUI GamePlayUI { get; private set; }
         public ItemMenu ItemMenu { get; private set; }
         public DragItems DragItems { get; private set; }
@@ -19,10 +24,12 @@ namespace Code.Infrastructure.Factories
         private readonly List<string> _backgroundsPaths;
 
         private ItemInfoView _itemInfo;
-        private InventoryGame _inventoryGame;
 
-        public GameFactory()
+        public GameFactory(IProgressService progressService, LevelsData levelsData)
         {
+            _progressService = progressService;
+            _levelsData = levelsData;
+
             _backgroundsPaths = new List<string>()
             {
                 AssetPath.Background1Path, AssetPath.Background2Path,
@@ -45,21 +52,25 @@ namespace Code.Infrastructure.Factories
 
         public void CreateLevel()
         {
-            _inventoryGame = Instantiate(AssetPath.LevelPath).GetComponent<InventoryGame>();
-            DragItems = _inventoryGame.DragItems;
-            PointerHandler = _inventoryGame.PointerHandler;
+            GameObject prefab = _levelsData.GetLevel(_progressService.ProgressData.CurrentLevel);
+            InventoryGame = Instantiate(prefab).GetComponent<InventoryGame>();
 
-            foreach (BaseItem item in _inventoryGame.Items)
+            InventoryGame.Init(_progressService.ProgressData.CurrentLevel + 1, _levelsData.CountLevels);
+
+            DragItems = InventoryGame.DragItems;
+            PointerHandler = InventoryGame.PointerHandler;
+
+            foreach (BaseItem item in InventoryGame.Items)
                 item.Init(ItemMenu, _itemInfo);
         }
 
         public BaseItem CreateItem(BaseItem parentItem, int index, Vector2 position)
         {
             GameObject prefab = parentItem.AdditionalDatas[index].Prefab;
-            Transform parent = _inventoryGame.CanvasWithItems.transform;
+            Transform parent = InventoryGame.CanvasWithItems.transform;
             BaseItem baseItem = Instantiate(parent, prefab, position).GetComponent<BaseItem>();
 
-            baseItem.LoadItem(_inventoryGame.CanvasWithItems.sortingOrder);
+            baseItem.LoadItem(InventoryGame.CanvasWithItems.sortingOrder);
             baseItem.Init(ItemMenu, ItemMenu.Info);
             baseItem.ChangeInventory(parentItem.CurrentInventor);
             baseItem.AddParentItem(parentItem);
@@ -76,6 +87,9 @@ namespace Code.Infrastructure.Factories
             GameObject prefab = Resources.Load<GameObject>(path);
             return Object.Instantiate(prefab);
         }
+
+        private GameObject Instantiate(GameObject prefab) =>
+            Object.Instantiate(prefab);
 
         private GameObject Instantiate(Transform parent, GameObject prefab, Vector2 at) =>
             Object.Instantiate(prefab, at, Quaternion.identity, parent);

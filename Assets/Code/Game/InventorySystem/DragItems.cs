@@ -15,6 +15,7 @@ namespace Code.Game.InventorySystem
     {
         [SerializeField] private BaseInventory[] _inventories;
 
+        public event Action ItemEndMoveHandler;
         public event Action<BaseItem> DropNewItemHandler;
         public event Action<BaseItem> DestroyItemHandler;
 
@@ -241,9 +242,14 @@ namespace Code.Game.InventorySystem
         {
             _tween.SimpleKill();
             _item.ResetOrder();
-            _item = null;
-            _isEnabled = true;
+
+            if (TryGetInventory(_item.transform.position, out BaseInventory inventory))
+                _item.ChangeInventory(inventory);
+
             _isSpawned = false;
+            _item = null;
+            ItemEndMoveHandler?.Invoke();
+            _isEnabled = true;
         }
 
         private void RotationItem()

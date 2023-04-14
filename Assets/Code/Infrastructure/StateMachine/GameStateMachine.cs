@@ -10,15 +10,18 @@ namespace Code.Infrastructure.StateMachine
 
         private IState _activeState;
 
-        public GameStateMachine(LoadSceneState loadSceneState, GameLoopState gameLoopState, ExitState exitState)
+        public GameStateMachine(BootstrapState bootstrapState, LoadSceneState loadSceneState,
+            GameLoopState gameLoopState, ExitState exitState)
         {
             _states = new Dictionary<Type, IState>()
             {
+                [typeof(BootstrapState)] = bootstrapState,
                 [typeof(LoadSceneState)] = loadSceneState,
                 [typeof(GameLoopState)] = gameLoopState,
                 [typeof(ExitState)] = exitState,
             };
 
+            bootstrapState.InitStateMachine(this);
             loadSceneState.InitStateMachine(this);
             gameLoopState.InitStateMachine(this);
         }

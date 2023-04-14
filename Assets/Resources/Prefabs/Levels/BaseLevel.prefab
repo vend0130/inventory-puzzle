@@ -133,7 +133,7 @@ Transform:
   - {fileID: 6635254148288766818}
   - {fileID: 6635254149041930816}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6635254149456877851
 MonoBehaviour:
@@ -153,6 +153,7 @@ MonoBehaviour:
   <MainInventory>k__BackingField: {fileID: 2169801902290137847}
   <CanvasWithItems>k__BackingField: {fileID: 6635254149041930817}
   <Items>k__BackingField: []
+  _levelText: {fileID: 9084480013065276797}
 --- !u!1001 &4100654344939843256
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2767,5 +2768,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa6840f8740b48fda44bf87ebd1c2a07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9084480013065276797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5114678598756295621, guid: bc508455b8296614d9b5a3ee5b88e041, type: 3}
+  m_PrefabInstance: {fileID: 4100654344939843256}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

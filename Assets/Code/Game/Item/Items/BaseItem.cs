@@ -38,7 +38,7 @@ namespace Code.Game.Item.Items
         [field: SerializeField, HideInInspector]
         public Vector2 LastOffset { get; private set; }
 
-        [field: SerializeField, HideInInspector]
+        [field: SerializeField]
         public BaseInventory CurrentInventor { get; private set; }
 
         public int CellsCountForItem => DefaultCellsCountForItem + AdditionalsCellsCountForItem;
