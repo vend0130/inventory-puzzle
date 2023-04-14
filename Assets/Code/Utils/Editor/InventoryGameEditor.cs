@@ -17,11 +17,12 @@ namespace Code.Utils.Editor
     public class InventoryGameEditor : UnityEditor.Editor
     {
         private InventoryGame _inventory;
+        private bool DrawButtonsInMainInventory = true;
 
         private LootInventory LootInventory => _inventory.LootInventory;
         private MainInventory MainInventory => _inventory.MainInventory;
-        private CellView[] LootCells => _inventory.LootInventory.Cells;
-        private CellView[] MainCells => _inventory.LootInventory.Cells;
+        private CellView[] LootCells => LootInventory.Cells;
+        private CellView[] MainCells => MainInventory.Cells;
 
         private void OnEnable() =>
             _inventory = (InventoryGame)serializedObject.targetObject;
@@ -30,8 +31,56 @@ namespace Code.Utils.Editor
         {
             base.OnInspectorGUI();
 
+            DrawButtonsInMainInventory = GUILayout.Toggle(DrawButtonsInMainInventory, "DrawButtonsInMainInventory");
+
             if (GUILayout.Button("Update"))
                 Refresh();
+        }
+
+        private void OnSceneGUI()
+        {
+            if (!DrawButtonsInMainInventory)
+                return;
+
+            Draw();
+            Event e = Event.current;
+            HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
+            if (e.type == EventType.MouseDown && e.button == 0)
+            {
+                Vector2 position = HandleUtility.GUIPointToWorldRay(e.mousePosition).origin;
+                if (TryGetCell(position, out CellView cell))
+                {
+                    cell.ChangeStateLock(!cell.Lock);
+                    SceneView.RepaintAll();
+                }
+            }
+        }
+
+        private void Draw()
+        {
+            for (int i = 0; i < MainCells.Length; i++)
+            {
+                if (MainCells[i].Lock)
+                {
+                    Handles.color = Color.red;
+                    Handles.DrawSolidDisc(MainCells[i].CenterPoint, Vector3.forward, 10);
+                }
+            }
+        }
+
+        private bool TryGetCell(Vector2 position, out CellView cell)
+        {
+            for (int i = 0; i < MainCells.Length; i++)
+            {
+                if (CellsHelper.Collision(position, MainCells[i]))
+                {
+                    cell = MainCells[i];
+                    return true;
+                }
+            }
+
+            cell = null;
+            return false;
         }
 
         private void Refresh()

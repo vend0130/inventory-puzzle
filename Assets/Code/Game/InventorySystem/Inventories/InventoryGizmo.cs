@@ -20,7 +20,17 @@ namespace Code.Game.InventorySystem.Inventories
             Color previousColor = Gizmos.color;
 
             for (int i = 0; i < _inventory.Cells.Length; i++)
-                DrawBox(_inventory.Cells[i]);
+            {
+                if (_inventory.Cells[i].Lock)
+                {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawSphere(_inventory.Cells[i].CenterPoint, 10);
+                }
+                else
+                {
+                    DrawBox(_inventory.Cells[i]);
+                }
+            }
 
             Gizmos.color = previousColor;
 

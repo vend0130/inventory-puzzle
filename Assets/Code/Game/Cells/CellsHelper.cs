@@ -172,7 +172,7 @@ namespace Code.Game.Cells
             bool first = false;
             foreach (var position in positions)
             {
-                if (!Collision(position.Item1, currentCell))
+                if (currentCell.Lock || !Collision(position.Item1, currentCell))
                     continue;
 
                 cells.Add(new ItemCellData(currentCell, position.Item2));
@@ -185,7 +185,7 @@ namespace Code.Game.Cells
             }
         }
 
-        private static bool Collision(Vector2 position, CellView currentCell) =>
+        public static bool Collision(Vector2 position, CellView currentCell) =>
             position.x >= currentCell.StartPoint.x && position.x < currentCell.EndPoint.x &&
             position.y >= currentCell.StartPoint.y && position.y < currentCell.EndPoint.y;
     }
