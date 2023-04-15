@@ -8,6 +8,7 @@ namespace Code.Game.ItemInfo
         [SerializeField] private ItemInfoPanel _infoGun;
         [SerializeField] private ItemInfoPanel _infoMagazine;
         [SerializeField] private ItemInfoPanel _infoBipod;
+        [SerializeField] private ItemInfoPanel _infoSimple;
         [SerializeField] private LockView _backgroundLock;
 
         private void Start()
@@ -15,6 +16,7 @@ namespace Code.Game.ItemInfo
             _backgroundLock.CloseHandler += _infoGun.Close;
             _backgroundLock.CloseHandler += _infoMagazine.Close;
             _backgroundLock.CloseHandler += _infoBipod.Close;
+            _backgroundLock.CloseHandler += _infoSimple.Close;
         }
 
         private void OnDestroy()
@@ -22,6 +24,7 @@ namespace Code.Game.ItemInfo
             _backgroundLock.CloseHandler -= _infoGun.Close;
             _backgroundLock.CloseHandler -= _infoMagazine.Close;
             _backgroundLock.CloseHandler -= _infoBipod.Close;
+            _backgroundLock.CloseHandler -= _infoSimple.Close;
         }
 
         public void Open(GunData data) =>
@@ -32,5 +35,8 @@ namespace Code.Game.ItemInfo
 
         public void Open(BipodData data) =>
             _infoBipod.Open(data.GetTexts());
+
+        public void Open(SimpleData data) =>
+            _infoSimple.Open(data.GetTexts());
     }
 }
