@@ -3,5 +3,6 @@
     public enum AdditionalType
     {
         Magazine = 0,
+        Bipod = 1,
     }
 }

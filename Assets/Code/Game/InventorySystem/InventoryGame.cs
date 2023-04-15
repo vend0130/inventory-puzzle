@@ -70,7 +70,7 @@ namespace Code.Game.InventorySystem
 
         public void Init(int currentLevel, int maxLevel)
         {
-            _levelText.text = $"{Constants.LevelTextPrefix} {currentLevel}";
+            _levelText.text = $"{Constants.LevelTextPrefix} {currentLevel} ";
             _levelText.text += string.Format(Constants.LevelTextPostfix, maxLevel);
         }
 

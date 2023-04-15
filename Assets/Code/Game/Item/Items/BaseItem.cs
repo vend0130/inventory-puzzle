@@ -84,9 +84,9 @@ namespace Code.Game.Item.Items
         public void ChangeInventory(BaseInventory inventory) =>
             CurrentInventor = inventory;
 
-        public void AddParentItem(BaseItem item)
+        public void AddParentItem(BaseItem item, ItemType type)
         {
-            ItemType = ItemType.Ak47Magazine;
+            ItemType = type;
             ParentItem = item;
         }
 

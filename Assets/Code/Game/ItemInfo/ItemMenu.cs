@@ -118,6 +118,8 @@ namespace Code.Game.ItemInfo
             {
                 case AdditionalType.Magazine:
                     return Constants.AdditionalTypeMagazine;
+                case AdditionalType.Bipod:
+                    return Constants.AdditionalTypeBipod;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

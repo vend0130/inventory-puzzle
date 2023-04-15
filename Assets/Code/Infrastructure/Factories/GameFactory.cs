@@ -73,7 +73,7 @@ namespace Code.Infrastructure.Factories
             baseItem.LoadItem(InventoryGame.CanvasWithItems.sortingOrder);
             baseItem.Init(ItemMenu, ItemMenu.Info);
             baseItem.ChangeInventory(parentItem.CurrentInventor);
-            baseItem.AddParentItem(parentItem);
+            baseItem.AddParentItem(parentItem, parentItem.AdditionalDatas[index].Type);
 
             baseItem.ChangeDistance(baseItem.CurrentInventor.GetCurrentDistance());
             CellsHelper.ChangeOffsetItem(baseItem);

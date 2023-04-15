@@ -9,7 +9,7 @@ namespace Code.UI
         [SerializeField] private Image _current;
         [SerializeField] private Color _defaultColor;
         [SerializeField] private Color _enterColor;
-        
+
         private void OnDisable() =>
             _current.color = _defaultColor;
 
