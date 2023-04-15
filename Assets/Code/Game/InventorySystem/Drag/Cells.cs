@@ -12,7 +12,7 @@ namespace Code.Game.InventorySystem.Drag
     public class Cells : MonoBehaviour
     {
         [SerializeField] private BaseInventory[] _inventories;
-        
+
         public List<ItemCellData> PreviousDragCells { get; private set; } = new List<ItemCellData>();
 
         public void ChangeCells(List<ItemCellData> cells) =>
@@ -62,12 +62,12 @@ namespace Code.Game.InventorySystem.Drag
         public DropType GetDropType(BaseItem item, out BaseItem combineItem)
         {
             combineItem = null;
-            
-            if (CellsHelper.DropCellCount(PreviousDragCells, item.CellsCountForItem) !=
-                CellsHelper.DropCellCount(item.ParentCells, item.CellsCountForItem))
-            {
+
+            int countCells = CellsHelper.DropCellCount(PreviousDragCells);
+            int countCellInItem = CellsHelper.DropCellCount(item.ParentCells, item.CellsCountForItem);
+
+            if (countCells != countCellInItem)
                 return DropType.FailDrop;
-            }
 
             bool isFailDrop = false;
 
@@ -104,7 +104,7 @@ namespace Code.Game.InventorySystem.Drag
         private bool TryCombine(ItemCellData cell, ItemType dragItemType, out BaseItem combineItem)
         {
             combineItem = null;
-            
+
             if (cell.CellOnGrid.Free ||
                 !cell.CellOnGrid.Item.TryGetCountCellsForAdditional(dragItemType, out int count))
                 return false;

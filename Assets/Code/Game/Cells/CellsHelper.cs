@@ -102,6 +102,21 @@ namespace Code.Game.Cells
             return counter;
         }
 
+        public static int DropCellCount(List<ItemCellData> cells)
+        {
+            if (cells == null || cells.Count == 0)
+                return 0;
+
+            int counter = 0;
+            foreach (var cell in cells)
+            {
+                if (cell.CellInItem.Activate)
+                    counter++;
+            }
+
+            return counter;
+        }
+
         private static Vector2 GetScaler()
         {
             Vector2Int currentSize = CurrentSizeScreen();
