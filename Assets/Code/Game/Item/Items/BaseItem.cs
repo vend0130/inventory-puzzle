@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.InventorySystem.Inventories;
 using Code.Game.ItemInfo;
@@ -23,14 +24,12 @@ namespace Code.Game.Item.Items
         [SerializeField, HideInInspector] private int _defaultSortingOrder;
         [SerializeField, HideInInspector] private Vector3 _currentRotation;
 
-        [field: SerializeField, HideInInspector]
-        public WidthData[] Grid { get; set; }
+        [field: SerializeField] public WidthData[] Grid { get; set; }
 
         [field: SerializeField, HideInInspector]
         public int DefaultCellsCountForItem { get; set; }
 
-        [field: SerializeField, HideInInspector]
-        public int AdditionalsCellsCountForItem { get; set; }
+        [field: SerializeField] public int AdditionalsCellsCountForItem { get; set; }
 
         [field: SerializeField, HideInInspector]
         public List<ItemCellData> ParentCells { get; private set; }
@@ -38,8 +37,7 @@ namespace Code.Game.Item.Items
         [field: SerializeField, HideInInspector]
         public Vector2 LastOffset { get; private set; }
 
-        [field: SerializeField]
-        public BaseInventory CurrentInventor { get; private set; }
+        [field: SerializeField] public BaseInventory CurrentInventor { get; private set; }
 
         public int CellsCountForItem => DefaultCellsCountForItem + AdditionalsCellsCountForItem;
         public float DistanceBetweenCells => _distanceBetweenCells;
@@ -155,7 +153,13 @@ namespace Code.Game.Item.Items
         {
             AdditionalDatas[index].Activate = activate;
             AdditionalDatas[index].Image.enabled = activate;
-            Grid[AdditionalDatas[index].Indexes.y].Width[AdditionalDatas[index].Indexes.x].Activate = activate;
+
+            for (int i = 0; i < AdditionalDatas[index].Indexes.Count; i++)
+            {
+                Grid[AdditionalDatas[index].Indexes[i].y]
+                    .Width[AdditionalDatas[index].Indexes[i].x].ChangeActivateState(activate);
+            }
+
 
             UpdateAdditionalsCellsCount();
         }
@@ -175,9 +179,26 @@ namespace Code.Game.Item.Items
 
             data.Activate = activate;
             data.Image.enabled = activate;
-            Grid[data.Indexes.y].Width[data.Indexes.x].Activate = activate;
+
+            for (int i = 0; i < data.Indexes.Count; i++)
+                Grid[data.Indexes[i].y].Width[data.Indexes[i].x].ChangeActivateState(activate);
 
             UpdateAdditionalsCellsCount();
+        }
+
+        public bool TryGetCountCellsForAdditional(ItemType itemType, out int count)
+        {
+            foreach (AdditionalData additional in AdditionalDatas)
+            {
+                if (additional.Type == itemType)
+                {
+                    count = additional.Indexes.Count;
+                    return true;
+                }
+            }
+
+            count = 0;
+            return false;
         }
 
 
@@ -187,7 +208,7 @@ namespace Code.Game.Item.Items
             foreach (AdditionalData additional in AdditionalDatas)
             {
                 if (additional.Activate)
-                    AdditionalsCellsCountForItem++;
+                    AdditionalsCellsCountForItem += additional.Indexes.Count;
             }
         }
 

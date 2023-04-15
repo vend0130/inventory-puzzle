@@ -378,7 +378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <AdditionalsCellsCountForItem>k__BackingField
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Type>k__BackingField
@@ -449,6 +449,38 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Indexes>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[1].<Indexes>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Indexes>k__BackingField.Array.data[0].x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Indexes>k__BackingField.Array.data[0].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[1].<Indexes>k__BackingField.Array.data[0].x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[1].<Indexes>k__BackingField.Array.data[0].y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[1].<Indexes>k__BackingField.Array.data[1].x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[1].<Indexes>k__BackingField.Array.data[1].y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <Grid>k__BackingField.Array.data[0].<Width>k__BackingField.Array.data[0].<Type>k__BackingField
       value: 3
       objectReference: {fileID: 0}
@@ -494,6 +526,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.data[6].<Type>k__BackingField
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[2].<Width>k__BackingField.Array.data[6].<Type>k__BackingField
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
@@ -545,6 +581,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[2].<Width>k__BackingField.Array.data[6].<Value>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <Grid>k__BackingField.Array.data[0].<Width>k__BackingField.Array.data[0].<Activate>k__BackingField
       value: 1
       objectReference: {fileID: 0}
@@ -590,6 +630,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <Grid>k__BackingField.Array.data[1].<Width>k__BackingField.Array.data[6].<Activate>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <Grid>k__BackingField.Array.data[2].<Width>k__BackingField.Array.data[6].<Activate>k__BackingField
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

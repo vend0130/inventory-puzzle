@@ -48,6 +48,7 @@ namespace Code.Infrastructure.StateMachine.States
             BaseItem item = _gameFactory.CreateItem(parentItem, index, _gameFactory.PointerHandler.MousePosition);
             _gameFactory.DragItems.AddSpawnedItem(item);
             _gameFactory.PointerHandler.SetMouseDrag();
+            _gameFactory.InventoryGame.AddItem(item);
         }
 
         private void EndGame()

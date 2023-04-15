@@ -13,6 +13,7 @@ namespace Code.Game.Cells
         private const int DefaultWidthScreen = 1920;
         private const int DefaultHeightScreen = 1080;
 
+        //note: высчитываем дистанцию с учетом размера экрана
         public static float GetCurrentDistance(float distance)
         {
 #if UNITY_EDITOR
@@ -37,6 +38,7 @@ namespace Code.Game.Cells
 #endif
         }
 
+        //note: проходим по всем ячейкм и если позиция тапа в ячейки совподают возвращяем true
         public static bool TryTapOnCell(BaseInventory inventory, Vector2 position, out CellView cell)
         {
             for (int i = 0; i < inventory.Cells.Length; i++)
@@ -49,8 +51,10 @@ namespace Code.Game.Cells
             return false;
         }
 
+        //note: получаем все клетки в инвентаре, над которыми есть объект (который мы драгаем)
         public static bool TryEnterOnCell(BaseInventory inventory, BaseItem item, out List<ItemCellData> cells)
         {
+            //получаем позиции асех ячеек в инвентаре, даже скрытые (например магазин отключен)
             List<(Vector2, CellInItemData)> positions = item.GetCellsPositions();
             cells = new List<ItemCellData>();
 
@@ -77,49 +81,7 @@ namespace Code.Game.Cells
             }
         }
 
-        public static DropType TryDropInNewCells(List<ItemCellData> previousDragCells,
-            int cellsCountForItem, BaseItem item, out CellView dropCell)
-        {
-            bool oneIsNotFree = false;
-            dropCell = null;
-
-
-            foreach (var cell in previousDragCells)
-            {
-                if (ItemDropInItem(cell, item.ItemType, out dropCell))
-                    return DropType.Combine;
-
-                if (!cell.CellOnGrid.Free && cell.CellInItem.Activate)
-                    oneIsNotFree = true;
-            }
-
-            int dropCellCount = DropCellCount(previousDragCells, item.CellsCountForItem);
-            if (oneIsNotFree || previousDragCells.Count == 0 || dropCellCount != cellsCountForItem)
-                return DropType.Fail;
-
-            return DropType.Drop;
-        }
-
-        private static bool ItemDropInItem(ItemCellData cell, ItemType type, out CellView dropCell)
-        {
-            dropCell = null;
-
-            if (cell.CellOnGrid.Free)
-                return false;
-
-            foreach (var cellitemItem in cell.CellOnGrid.Item.ParentCells)
-            {
-                if (cellitemItem.CellOnGrid.Free &&
-                    cellitemItem.CellInItem.Type == type && !cellitemItem.CellInItem.Activate)
-                {
-                    dropCell = cell.CellOnGrid;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
+        //note; считаем количество ячеек для объекта (убирая неактивные)
         public static int DropCellCount(List<ItemCellData> cells, int count)
         {
             if (cells == null || cells.Count == 0)
@@ -150,6 +112,7 @@ namespace Code.Game.Cells
             return new Vector2(scalerX, scalerY);
         }
 
+        //note: попали ли по ячейке
         private static bool TapOnCell(CellView currentCell, Vector2 position, out CellView cell)
         {
             cell = null;
@@ -166,6 +129,7 @@ namespace Code.Game.Cells
             return false;
         }
 
+        //note: проходим по позициям клеток в инвентаре
         private static void EnterOnCell(CellView currentCell, BaseItem item,
             List<(Vector2, CellInItemData)> positions, List<ItemCellData> cells)
         {

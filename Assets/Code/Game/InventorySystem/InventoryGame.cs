@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Code.Game.Cells;
+using Code.Game.InventorySystem.Drag;
 using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item.Items;
 using Code.Utils.Readonly;
@@ -34,7 +35,6 @@ namespace Code.Game.InventorySystem
             PointerHandler.UpHandler += DragItems.Up;
             PointerHandler.RightClickHandler += DragItems.RightClick;
 
-            DragItems.DropNewItemHandler += AddItem;
             DragItems.DestroyItemHandler += RemoveItem;
             DragItems.ItemEndMoveHandler += ItemEndMove;
         }
@@ -63,7 +63,6 @@ namespace Code.Game.InventorySystem
             PointerHandler.UpHandler -= DragItems.Up;
             PointerHandler.RightClickHandler -= DragItems.RightClick;
 
-            DragItems.DropNewItemHandler -= AddItem;
             DragItems.DestroyItemHandler -= RemoveItem;
             DragItems.ItemEndMoveHandler -= ItemEndMove;
         }
@@ -76,6 +75,9 @@ namespace Code.Game.InventorySystem
 
         public void CreateArrayItems() =>
             Items = new List<BaseItem>(CanvasWithItems.transform.childCount);
+
+        public void AddItem(BaseItem item) =>
+            Items.Add(item);
 
         private void ChangeInventory()
         {
@@ -94,9 +96,6 @@ namespace Code.Game.InventorySystem
                 item.transform.position = item.GetTargetPosition();
             }
         }
-
-        private void AddItem(BaseItem item) =>
-            Items.Add(item);
 
         private void RemoveItem(BaseItem item) =>
             Items.Remove(item);

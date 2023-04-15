@@ -28,7 +28,7 @@ namespace Code.Game.Item
     {
         [field: SerializeField] public bool Value { get; set; }
         [field: SerializeField] public ItemType Type { get; set; }
-        [field: SerializeField] public bool Activate { get; set; }
+        [field: SerializeField] public bool Activate { get; private set; }
 
         public CellInItemData(bool value, ItemType type)
         {
@@ -36,5 +36,8 @@ namespace Code.Game.Item
             Type = type;
             Activate = value;
         }
+
+        public void ChangeActivateState(bool value) =>
+            Activate = value;
     }
 }

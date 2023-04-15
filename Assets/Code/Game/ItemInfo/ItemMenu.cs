@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.Item;
 using Code.Game.Item.Items;
@@ -81,23 +82,15 @@ namespace Code.Game.ItemInfo
 
         private void Buttons(int index)
         {
-            _lastItem.ParentCells.ForEach((cell) =>
-            {
-                if (cell.CellInItem.Activate)
-                    cell.CellOnGrid.RemoveItem();
-            });
-
+            _lastItem.ParentCells.RemoveItemInCell();
             _lastItem.ChangeAdditionalState(index - 1, false);
             CreateItemHandler?.Invoke(_lastItem, (index - 1));
 
-            if (CellsHelper.TryEnterOnCell(_lastItem.CurrentInventor, _lastItem,
-                    out List<ItemCellData> cells))
+            //note: получаем все клетки в инвентаре, над которыми есть объект, который мы драгаем
+            if (CellsHelper.TryEnterOnCell(_lastItem.CurrentInventor, _lastItem, out List<ItemCellData> cells))
                 _lastItem.ChangeCell(cells);
-            _lastItem.ParentCells.ForEach((cell) =>
-            {
-                if (cell.CellInItem.Activate)
-                    cell.CellOnGrid.AddItem(_lastItem);
-            });
+            
+            _lastItem.ParentCells.AddItemInCell(_lastItem);
 
             _lastItem = null;
             _backgroundLock.Close();

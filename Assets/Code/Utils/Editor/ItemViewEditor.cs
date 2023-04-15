@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Code.Game.Item;
 using Code.Game.Item.Items;
 using UnityEditor;
@@ -25,10 +26,13 @@ namespace Code.Utils.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+            
+            if(Application.isPlaying)
+                return;
 
-            var additionalsUpdate = UpdateAdditionals();
             UpdateArray();
             DrawGrid();
+            var additionalsUpdate = UpdateAdditionals();
 
             if (IsRefresh() || additionalsUpdate)
                 Refresh();
@@ -57,14 +61,15 @@ namespace Code.Utils.Editor
 
         private void UpdateIndexesCellInAdditionals(AdditionalData additional)
         {
+            additional.Indexes = new List<Vector2Int>();
             for (int y = 0; y < _grid.GetLength(0); y++)
             {
                 for (int x = 0; x < _grid.GetLength(1); x++)
                 {
                     if (_grid[y, x].Type == additional.Type)
                     {
-                        additional.Indexes = new Vector2Int(x, y);
-                        _grid[y, x].Activate = additional.Activate;
+                        additional.Indexes.Add(new Vector2Int(x, y));
+                        _grid[y, x].ChangeActivateState(additional.Activate);
                     }
                 }
             }
@@ -195,7 +200,7 @@ namespace Code.Utils.Editor
                         : typeDraw;
             }
 
-            data.Activate = data.Value;
+            data.ChangeActivateState(data.Value);
         }
 
         private ItemType GetTypeDraw()

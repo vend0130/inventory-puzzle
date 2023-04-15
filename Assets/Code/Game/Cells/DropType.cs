@@ -2,8 +2,8 @@
 {
     public enum DropType
     {
-        Fail = 0,
-        Combine = 1,
-        Drop = 2
+        Combine = 0,
+        Drop = 1,
+        FailDrop = 2,
     }
 }

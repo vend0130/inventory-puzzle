@@ -30,6 +30,9 @@ namespace Code.Utils.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+            
+            if(Application.isPlaying)
+                return;
 
             DrawButtonsInMainInventory = GUILayout.Toggle(DrawButtonsInMainInventory, "DrawButtonsInMainInventory");
 
@@ -39,7 +42,7 @@ namespace Code.Utils.Editor
 
         private void OnSceneGUI()
         {
-            if (!DrawButtonsInMainInventory)
+            if (!DrawButtonsInMainInventory || Application.isPlaying)
                 return;
 
             Draw();
@@ -132,20 +135,17 @@ namespace Code.Utils.Editor
             item.ChangeInventory(LootInventory);
 
             item.ChangeCell(cells.Clone());
-            item.ParentCells.ForEach((cell) =>
-            {
-                if (cell.CellInItem.Activate)
-                    cell.CellOnGrid.AddItem(item);
-            });
+            item.ParentCells.AddItemInCell(item);
 
             item.transform.position = item.GetTargetPosition();
         }
 
         private void CheckItemPosition(BaseItem item, out List<ItemCellData> cells)
         {
+            //note: получаем все клетки в инвентаре, над которыми есть объект, который мы драгаем
             if (!CellsHelper.TryEnterOnCell(LootInventory, item, out cells))
                 throw new Exception($"not correct position: {item.name}");
-
+            
             if (CellsHelper.DropCellCount(cells, item.CellsCountForItem)
                 != CellsHelper.DropCellCount(item.ParentCells, item.CellsCountForItem))
                 throw new Exception($"not correct position item: {item.name}");

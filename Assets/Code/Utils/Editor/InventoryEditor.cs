@@ -16,6 +16,9 @@ namespace Code.Utils.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+            
+            if(Application.isPlaying)
+                return;
 
             if (GUILayout.Button("Load Cells"))
                 LoadCells();
