@@ -109,12 +109,16 @@ namespace Code.Game.InventorySystem.Drag
                 !cell.CellOnGrid.Item.TryGetCountCellsForAdditional(dragItemType, out int count))
                 return false;
 
+            if (cell.CellOnGrid.Item.AdditionalIsActivate(dragItemType))
+                return false;
+
             List<ItemCellData> cellAnotherItem = cell.CellOnGrid.Item.ParentCells;
 
             int countCombineCells = 0;
 
             foreach (var anotherCell in cellAnotherItem)
             {
+                // Debug.Log(anotherCell.CellOnGrid.Free + "  " + anotherCell.CellInItem.Type);
                 if (anotherCell.CellOnGrid.Free && anotherCell.CellInItem.Type == dragItemType)
                     countCombineCells++;
             }

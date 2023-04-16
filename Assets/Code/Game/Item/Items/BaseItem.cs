@@ -203,6 +203,17 @@ namespace Code.Game.Item.Items
             return false;
         }
 
+        public bool AdditionalIsActivate(ItemType itemType)
+        {
+            foreach (AdditionalData additional in AdditionalDatas)
+            {
+                if (additional.Type == itemType)
+                    return additional.Activate;
+            }
+
+            return false;
+        }
+
 
         public void UpdateAdditionalsCellsCount()
         {
