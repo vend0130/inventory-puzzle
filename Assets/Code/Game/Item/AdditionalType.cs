@@ -4,5 +4,6 @@
     {
         Magazine = 0,
         Bipod = 1,
+        AIM = 2,
     }
 }

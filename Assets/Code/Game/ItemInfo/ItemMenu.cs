@@ -86,10 +86,9 @@ namespace Code.Game.ItemInfo
             _lastItem.ChangeAdditionalState(index - 1, false);
             CreateItemHandler?.Invoke(_lastItem, (index - 1));
 
-            //note: получаем все клетки в инвентаре, над которыми есть объект, который мы драгаем
             if (CellsHelper.TryEnterOnCell(_lastItem.CurrentInventor, _lastItem, out List<ItemCellData> cells))
                 _lastItem.ChangeCell(cells);
-            
+
             _lastItem.ParentCells.AddItemInCell(_lastItem);
 
             _lastItem = null;
@@ -113,6 +112,8 @@ namespace Code.Game.ItemInfo
                     return Constants.AdditionalTypeMagazine;
                 case AdditionalType.Bipod:
                     return Constants.AdditionalTypeBipod;
+                case AdditionalType.AIM:
+                    return Constants.AdditionalTypeAIM;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

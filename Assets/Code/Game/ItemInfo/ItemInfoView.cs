@@ -38,5 +38,8 @@ namespace Code.Game.ItemInfo
 
         public void Open(SimpleData data) =>
             _infoSimple.Open(data.GetTexts());
+
+        public void Open(AimData data) =>
+            _infoSimple.Open(data.GetTexts());
     }
 }

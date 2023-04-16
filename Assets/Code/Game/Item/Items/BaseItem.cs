@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Code.Extensions;
 using Code.Game.InventorySystem.Inventories;
 using Code.Game.ItemInfo;
@@ -24,12 +23,14 @@ namespace Code.Game.Item.Items
         [SerializeField, HideInInspector] private int _defaultSortingOrder;
         [SerializeField, HideInInspector] private Vector3 _currentRotation;
 
-        [field: SerializeField] public WidthData[] Grid { get; set; }
+        [field: SerializeField, HideInInspector]
+        public WidthData[] Grid { get; set; }
 
         [field: SerializeField, HideInInspector]
         public int DefaultCellsCountForItem { get; set; }
 
-        [field: SerializeField] public int AdditionalsCellsCountForItem { get; set; }
+        [field: SerializeField, HideInInspector]
+        public int AdditionalsCellsCountForItem { get; set; }
 
         [field: SerializeField, HideInInspector]
         public List<ItemCellData> ParentCells { get; private set; }
@@ -37,7 +38,8 @@ namespace Code.Game.Item.Items
         [field: SerializeField, HideInInspector]
         public Vector2 LastOffset { get; private set; }
 
-        [field: SerializeField] public BaseInventory CurrentInventor { get; private set; }
+        [field: SerializeField, HideInInspector]
+        public BaseInventory CurrentInventor { get; private set; }
 
         public int CellsCountForItem => DefaultCellsCountForItem + AdditionalsCellsCountForItem;
         public float DistanceBetweenCells => _distanceBetweenCells;

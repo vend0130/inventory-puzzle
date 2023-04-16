@@ -8,5 +8,6 @@ namespace Code.Game.ItemInfo
         void Open(MagazineData data);
         void Open(BipodData data);
         void Open(SimpleData data);
+        void Open(AimData data);
     }
 }
