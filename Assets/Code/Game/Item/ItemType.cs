@@ -11,5 +11,7 @@
         PSL = 6,
         PSL_AIM = 7,
         PSL_Magazine = 8,
+        Mac10 = 9,
+        Mac10_Magazine = 10,
     }
 }

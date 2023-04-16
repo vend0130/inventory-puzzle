@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7120606017701920987, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7120606017701920987, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -98,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7120606017701920988, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
       propertyPath: m_Name
-      value: ItemWithExtensionsBase
+      value: BaseGunItem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -125,19 +125,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b94ba4313ed479989c95a3be8d3fc46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ItemTyper>k__BackingField: 0
+  <ItemType>k__BackingField: 0
   _canvasOrder: {fileID: 4974440730042161719}
   _containerForRotation: {fileID: 1472727262269502622}
   _distanceBetweenCells: 50
   <Width>k__BackingField: 1
   <Height>k__BackingField: 1
-  <Grid>k__BackingField: []
+  <AdditionalDatas>k__BackingField: []
   _defaultSortingOrder: 0
   _currentRotation: {x: 0, y: 0, z: 0}
-  <CellsCountForItem>k__BackingField: 0
+  <Grid>k__BackingField:
+  - <Width>k__BackingField:
+    - <Value>k__BackingField: 0
+      <Type>k__BackingField: 0
+      <Activate>k__BackingField: 0
+  <DefaultCellsCountForItem>k__BackingField: 0
+  <AdditionalsCellsCountForItem>k__BackingField: 0
   <ParentCells>k__BackingField: []
   <LastOffset>k__BackingField: {x: 0, y: 0}
-  <Data>k__BackingField: {fileID: 11400000, guid: 4c66e404947cee94c8c57aba784d5f58, type: 2}
+  <CurrentInventor>k__BackingField: {fileID: 0}
+  <Data>k__BackingField: {fileID: 0}
 --- !u!223 &4974440730042161719 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 7120606017701920985, guid: 268a0efa6bea65e4c86e8983d2f536e1, type: 3}
