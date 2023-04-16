@@ -15,5 +15,7 @@
         Mac10_Magazine = 10,
         M4A4 = 11,
         M4A4_Magazine = 12,
+        FiveSeven = 13,
+        FiveSeven_Magazine = 14,
     }
 }
