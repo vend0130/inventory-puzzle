@@ -13,5 +13,7 @@
         PSL_Magazine = 8,
         Mac10 = 9,
         Mac10_Magazine = 10,
+        M4A4 = 11,
+        M4A4_Magazine = 12,
     }
 }
