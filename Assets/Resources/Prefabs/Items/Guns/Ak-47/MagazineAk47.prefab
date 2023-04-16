@@ -79,7 +79,7 @@ PrefabInstance:
     - target: {fileID: 1022489337140597083, guid: 3a424a6924a8f99439b91583a38a5f09, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 738b4312ce7543c4f8453d7676cd034f, type: 3}
+      objectReference: {fileID: 21300000, guid: 2a61708e966fc474b8805cf636e1e042, type: 3}
     - target: {fileID: 7275191226687177392, guid: 3a424a6924a8f99439b91583a38a5f09, type: 3}
       propertyPath: m_Name
       value: MagazineAk47
@@ -154,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7275191226687177399, guid: 3a424a6924a8f99439b91583a38a5f09, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.7
+      value: -121
       objectReference: {fileID: 0}
     - target: {fileID: 7275191226687177399, guid: 3a424a6924a8f99439b91583a38a5f09, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

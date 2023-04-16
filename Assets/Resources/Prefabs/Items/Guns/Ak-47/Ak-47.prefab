@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 738b4312ce7543c4f8453d7676cd034f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2a61708e966fc474b8805cf636e1e042, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -87,7 +87,7 @@ PrefabInstance:
     - target: {fileID: 3444959314311924185, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e990b0e2da4ba2a4f9fa7af8386a2928, type: 3}
+      objectReference: {fileID: 21300000, guid: 9809ec5fd7ef74b4ea5c4db0ed9498b2, type: 3}
     - target: {fileID: 4974440730042161714, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: m_Name
       value: Ak-47
@@ -310,6 +310,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
       propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Indexes>k__BackingField.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Indexes>k__BackingField.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Indexes>k__BackingField.Array.data[0].x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
+      propertyPath: <AdditionalDatas>k__BackingField.Array.data[0].<Indexes>k__BackingField.Array.data[0].y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8769402394292424511, guid: 50545d448d9358147912daf2dcdd0527, type: 3}
