@@ -1,4 +1,5 @@
 ﻿using Code.Data;
+using Code.Data.Items;
 
 namespace Code.Game.ItemInfo
 {

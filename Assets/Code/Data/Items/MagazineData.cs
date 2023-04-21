@@ -3,9 +3,9 @@ using System.Globalization;
 using Code.Utils.Readonly;
 using UnityEngine;
 
-namespace Code.Data
+namespace Code.Data.Items
 {
-    [CreateAssetMenu(fileName = nameof(MagazineData), menuName = "Static Data/" + nameof(MagazineData))]
+    [CreateAssetMenu(fileName = nameof(MagazineData), menuName = "Static Data/Items/" + nameof(MagazineData))]
     public class MagazineData : ScriptableObject
     {
         [field: SerializeField, ReadOnly, Space(15)]

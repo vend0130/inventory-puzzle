@@ -3,9 +3,9 @@ using System.Globalization;
 using Code.Utils.Readonly;
 using UnityEngine;
 
-namespace Code.Data
+namespace Code.Data.Items
 {
-    [CreateAssetMenu(fileName = nameof(GunData), menuName = "Static Data/" + nameof(GunData))]
+    [CreateAssetMenu(fileName = nameof(GunData), menuName = "Static Data/Items/" + nameof(GunData))]
     public class GunData : ScriptableObject
     {
         [field: SerializeField, ReadOnly] public string NameName { get; private set; } = "Название";

@@ -1,5 +1,7 @@
 ﻿using Code.Data;
 using Code.Infrastructure.Factories;
+using Code.Infrastructure.Factories.Audio;
+using Code.Infrastructure.Services.Audio;
 using Code.Infrastructure.Services.LoadScene;
 using Code.Infrastructure.Services.Progress;
 using Code.Infrastructure.StateMachine;
@@ -17,14 +19,18 @@ namespace Code.Infrastructure.Root.Boot
         public override void InstallBindings()
         {
             BindStateMachine();
-            BindLoadScene();
-            BindProgressService();
+            BindServices();
+            BindFactories();
 
             Container.Bind<LevelsData>().FromInstance(_levelsData).AsSingle();
-
-            Container.BindInterfacesTo<GameFactory>().AsSingle();
-
+            
             Container.BindInterfacesTo<BootstrapInstaller>().FromInstance(this).AsSingle();
+        }
+
+        private void BindFactories()
+        {
+            Container.BindInterfacesTo<GameFactory>().AsSingle();
+            Container.BindInterfacesTo<AudioSourceFactory>().AsSingle();
         }
 
         private void BindStateMachine()
@@ -36,7 +42,15 @@ namespace Code.Infrastructure.Root.Boot
             Container.Bind<ExitState>().AsSingle();
         }
 
-        private void BindLoadScene()
+        private void BindServices()
+        {
+            BindProgressService();
+            BindLoadSceneService();
+
+            Container.BindInterfacesTo<AudioService>().AsSingle();
+        }
+
+        private void BindLoadSceneService()
         {
             Container.BindInterfacesTo<CurtainView>().FromInstance(_curtain).AsSingle();
             Container.BindInterfacesTo<LoadSceneService>().AsSingle();

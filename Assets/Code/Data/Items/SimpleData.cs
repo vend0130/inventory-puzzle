@@ -2,10 +2,10 @@
 using Code.Utils.Readonly;
 using UnityEngine;
 
-namespace Code.Data
+namespace Code.Data.Items
 {
-    [CreateAssetMenu(fileName = nameof(AimData), menuName = "Static Data/" + nameof(AimData))]
-    public class AimData : ScriptableObject
+    [CreateAssetMenu(fileName = nameof(SimpleData), menuName = "Static Data/Items/" + nameof(SimpleData))]
+    public class SimpleData : ScriptableObject
     {
         [field: SerializeField, ReadOnly, Space(15)]
         public string NameName { get; private set; } = "Название";
