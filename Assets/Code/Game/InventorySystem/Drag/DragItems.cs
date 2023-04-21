@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Data.Audio;
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item;
 using Code.Game.Item.Items;
+using Code.Infrastructure.Services.Audio;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -20,6 +22,7 @@ namespace Code.Game.InventorySystem.Drag
 
         private const float DurationMove = .1f;
 
+        private IAudioService _audioService;
         private BaseItem _item;
         private bool _isSpawned = false;
         private Vector2 _offset;
@@ -29,11 +32,15 @@ namespace Code.Game.InventorySystem.Drag
         private void OnDestroy() =>
             _tween.SimpleKill();
 
+        public void InitAudioService(IAudioService audioService) =>
+            _audioService = audioService;
+
         public void AddSpawnedItem(BaseItem item)
         {
             if (_item != null)
                 Assert.IsNotNull(_item, "bug in logic");
 
+            _audioService.Play(SoundType.TakeItem);
             _offset = Vector2.zero;
             _isSpawned = true;
             _item = item;
@@ -115,6 +122,7 @@ namespace Code.Game.InventorySystem.Drag
 
         private void BeginDrag(BaseItem item, Vector2 position)
         {
+            _audioService.Play(SoundType.TakeItem);
             _tween.SimpleKill();
             _cells.CellsExit();
 
@@ -192,6 +200,7 @@ namespace Code.Game.InventorySystem.Drag
 
         private void EndItemMoveToPoint()
         {
+            _audioService.Play(SoundType.DropItem);
             _tween.SimpleKill();
             _item.ResetOrder();
 
@@ -212,7 +221,10 @@ namespace Code.Game.InventorySystem.Drag
                 return;
 
             if (_item.TryRotation())
+            {
+                _audioService.Play(SoundType.RotationItem);
                 _cells.ChangeCellsWhenDragItem(_item);
+            }
         }
     }
 }

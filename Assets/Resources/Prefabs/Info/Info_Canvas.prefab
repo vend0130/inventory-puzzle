@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Info>k__BackingField: {fileID: 7443158519387863102}
+  <LockView>k__BackingField: {fileID: 8507327237409779207}
   _buttonsData:
   - {fileID: 4643307638807287713}
   - {fileID: 3154391202264115349}

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading;
+using Code.Data.Audio;
 using Code.Extensions;
 using Code.Game.Item.Items;
 using Code.Infrastructure.Factories;
+using Code.Infrastructure.Services.Audio;
 using Code.Infrastructure.Services.Progress;
 using Cysharp.Threading.Tasks;
 
@@ -14,14 +16,16 @@ namespace Code.Infrastructure.StateMachine.States
 
         private readonly IGameFactory _gameFactory;
         private readonly IProgressService _progressService;
+        private readonly IAudioService _audioService;
 
         private IGameStateMachine _stateMachine;
         private CancellationTokenSource _tokenSource;
 
-        public GameLoopState(IGameFactory gameFactory, IProgressService progressService)
+        public GameLoopState(IGameFactory gameFactory, IProgressService progressService, IAudioService audioService)
         {
             _gameFactory = gameFactory;
             _progressService = progressService;
+            _audioService = audioService;
         }
 
         public void InitStateMachine(IGameStateMachine stateMachine) =>
@@ -76,6 +80,7 @@ namespace Code.Infrastructure.StateMachine.States
 
         private void EndGame()
         {
+            _audioService.Play(SoundType.Win);
             _progressService.NextLevel();
             Delay().Forget();
         }
@@ -86,10 +91,16 @@ namespace Code.Infrastructure.StateMachine.States
             _stateMachine.Enter<LoadSceneState, string>(Constants.MainSceneName);
         }
 
-        private void OnAgain() =>
+        private void OnAgain()
+        {
+            _audioService.Play(SoundType.Button);
             _stateMachine.Enter<LoadSceneState, string>(Constants.MainSceneName);
+        }
 
-        private void OnExit() =>
+        private void OnExit()
+        {
+            _audioService.Play(SoundType.Button);
             _stateMachine.Enter<ExitState>();
+        }
     }
 }

@@ -14,5 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <AudioMixer>k__BackingField: {fileID: 24100000, guid: 381b62028a846984980f55353cebda02, type: 2}
   <SoundsDatas>k__BackingField:
-  - <Audio>k__BackingField: {fileID: 8300000, guid: 4389df3284551be45b996e9a8746a667, type: 3}
-    <Type>k__BackingField: 0
+  - <Clip>k__BackingField: {fileID: 8300000, guid: be96615b6d8d10f45a9d970e45ed9ccd, type: 3}
+    <Type>k__BackingField: 1
+    <MixerGroup>k__BackingField: 0
+    <Volume>k__BackingField: 1
+    <Pitch>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 72d396f014b7b614686ccf218aa18d73, type: 3}
+    <Type>k__BackingField: 2
+    <MixerGroup>k__BackingField: 0
+    <Volume>k__BackingField: 1
+    <Pitch>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: e5b3f4339c5727b41a56e65ac637a36c, type: 3}
+    <Type>k__BackingField: 3
+    <MixerGroup>k__BackingField: 0
+    <Volume>k__BackingField: 1
+    <Pitch>k__BackingField: 1.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: e61ded9b486b39d4abc01a3ee0dd6cab, type: 3}
+    <Type>k__BackingField: 4
+    <MixerGroup>k__BackingField: 1
+    <Volume>k__BackingField: 1
+    <Pitch>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 5c1d7cd90e9a6054eb3aa2108cd47a40, type: 3}
+    <Type>k__BackingField: 5
+    <MixerGroup>k__BackingField: 1
+    <Volume>k__BackingField: 1
+    <Pitch>k__BackingField: 0.9

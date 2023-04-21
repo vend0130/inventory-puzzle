@@ -6,6 +6,7 @@ using Code.Game.InventorySystem;
 using Code.Game.InventorySystem.Drag;
 using Code.Game.Item.Items;
 using Code.Game.ItemInfo;
+using Code.Infrastructure.Services.Audio;
 using Code.Infrastructure.Services.Progress;
 using Code.UI;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Code.Infrastructure.Factories
     public class GameFactory : IGameFactory
     {
         private readonly IProgressService _progressService;
+        private readonly IAudioService _audioService;
         private readonly LevelsData _levelsData;
         public InventoryGame InventoryGame { get; private set; }
         public GamePlayUI GamePlayUI { get; private set; }
@@ -26,9 +28,10 @@ namespace Code.Infrastructure.Factories
 
         private ItemInfoView _itemInfo;
 
-        public GameFactory(IProgressService progressService, LevelsData levelsData)
+        public GameFactory(IProgressService progressService, IAudioService audioService, LevelsData levelsData)
         {
             _progressService = progressService;
+            _audioService = audioService;
             _levelsData = levelsData;
 
             _backgroundsPaths = new List<string>()
@@ -44,7 +47,11 @@ namespace Code.Infrastructure.Factories
         public void CreateInfoPanel()
         {
             GameObject panel = Instantiate(AssetPath.InfoPanelsPath);
+
             ItemMenu = panel.GetComponent<ItemMenu>();
+            ItemMenu.InitAudioService(_audioService);
+
+            ItemMenu.LockView.InitAudioService(_audioService);
             _itemInfo = ItemMenu.Info;
         }
 
@@ -59,6 +66,8 @@ namespace Code.Infrastructure.Factories
             InventoryGame.Init(_progressService.ProgressData.CurrentLevel + 1, _levelsData.CountLevels);
 
             DragItems = InventoryGame.DragItems;
+            DragItems.InitAudioService(_audioService);
+
             PointerHandler = InventoryGame.PointerHandler;
 
             foreach (BaseItem item in InventoryGame.Items)

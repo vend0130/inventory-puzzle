@@ -1,4 +1,5 @@
 ﻿using Code.Data;
+using Code.Data.Audio;
 using Code.Infrastructure.Factories;
 using Code.Infrastructure.Factories.Audio;
 using Code.Infrastructure.Services.Audio;
@@ -14,6 +15,7 @@ namespace Code.Infrastructure.Root.Boot
     public class BootstrapInstaller : MonoInstaller, IInitializable
     {
         [SerializeField] private LevelsData _levelsData;
+        [SerializeField] private AudioData _audioData;
         [SerializeField] private CurtainView _curtain;
 
         public override void InstallBindings()
@@ -21,10 +23,15 @@ namespace Code.Infrastructure.Root.Boot
             BindStateMachine();
             BindServices();
             BindFactories();
+            BindInstance();
 
-            Container.Bind<LevelsData>().FromInstance(_levelsData).AsSingle();
-            
             Container.BindInterfacesTo<BootstrapInstaller>().FromInstance(this).AsSingle();
+        }
+
+        private void BindInstance()
+        {
+            Container.Bind<LevelsData>().FromInstance(_levelsData).AsSingle();
+            Container.Bind<AudioData>().FromInstance(_audioData).AsSingle();
         }
 
         private void BindFactories()
@@ -62,10 +69,7 @@ namespace Code.Infrastructure.Root.Boot
             Container.Bind<ProgressData>().AsSingle();
         }
 
-        public void Initialize()
-        {
-            Application.targetFrameRate = 60;
+        public void Initialize() =>
             Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
-        }
     }
 }

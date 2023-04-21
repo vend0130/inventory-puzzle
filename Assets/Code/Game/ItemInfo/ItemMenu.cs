@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Data.Audio;
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.Item;
 using Code.Game.Item.Items;
+using Code.Infrastructure.Services.Audio;
 using UnityEngine;
 
 namespace Code.Game.ItemInfo
@@ -11,12 +13,14 @@ namespace Code.Game.ItemInfo
     public class ItemMenu : MonoBehaviour
     {
         [field: SerializeField] public ItemInfoView Info { get; private set; }
+        [field: SerializeField] public LockView LockView { get; private set; }
         [SerializeField] private MenuButtonData[] _buttonsData;
         [SerializeField] private GameObject _menu;
         [SerializeField] private LockView _backgroundLock;
 
         public event Action<BaseItem, int> CreateItemHandler;
 
+        private IAudioService _audioService;
         private BaseItem _lastItem;
 
         private void Start()
@@ -50,8 +54,13 @@ namespace Code.Game.ItemInfo
             _backgroundLock.CloseHandler -= Close;
         }
 
+        public void InitAudioService(IAudioService audioService) =>
+            _audioService = audioService;
+
         public void Open(Vector2 position, BaseItem item)
         {
+            _audioService.Play(SoundType.Button);
+
             _lastItem = item;
             _backgroundLock.On();
 
@@ -76,12 +85,15 @@ namespace Code.Game.ItemInfo
 
         private void OpenInformation(int _)
         {
+            _audioService.Play(SoundType.Button);
             _lastItem.OpenInfo();
             Close();
         }
 
         private void Buttons(int index)
         {
+            _audioService.Play(SoundType.Button);
+
             _lastItem.ParentCells.RemoveItemInCell();
             _lastItem.ChangeAdditionalState(index - 1, false);
             CreateItemHandler?.Invoke(_lastItem, (index - 1));
