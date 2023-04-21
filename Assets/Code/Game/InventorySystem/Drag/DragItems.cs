@@ -34,6 +34,7 @@ namespace Code.Game.InventorySystem.Drag
             if (_item != null)
                 Assert.IsNotNull(_item, "bug in logic");
 
+            _offset = Vector2.zero;
             _isSpawned = true;
             _item = item;
         }
@@ -85,6 +86,8 @@ namespace Code.Game.InventorySystem.Drag
         {
             if (_item == null || !_isEnabled)
                 return;
+
+            _offset = Vector2.zero;
 
             switch (_cells.GetDropType(_item, out BaseItem combineItem))
             {
