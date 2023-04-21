@@ -4,6 +4,7 @@ using Code.Game.Cells;
 using Code.Game.InventorySystem.Drag;
 using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item.Items;
+using Code.UI;
 using Code.Utils.Readonly;
 using TMPro;
 using UnityEngine;
@@ -21,7 +22,9 @@ namespace Code.Game.InventorySystem
         [field: SerializeField, Space] public Canvas CanvasWithItems { get; private set; }
         [field: SerializeField, ReadOnly] public List<BaseItem> Items { get; private set; }
 
-        [SerializeField] private TextMeshProUGUI _levelText;
+        [SerializeField, Space] private TextMeshProUGUI _levelText;
+        [field: SerializeField] public MenuButton AgainButton { get; private set; }
+        [field: SerializeField] public MenuButton SoundButton { get; private set; }
 
         public event Action AllItemsInInventoryHandler;
 

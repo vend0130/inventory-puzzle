@@ -33,22 +33,26 @@ namespace Code.Infrastructure.StateMachine.States
 
         public void Enter()
         {
-            _gameFactory.GamePlayUI.AgainButton.Add(OnAgain);
             _gameFactory.GamePlayUI.ExitButton.Add(OnExit);
 
             _gameFactory.ItemMenu.CreateItemHandler += CreateItem;
             _gameFactory.InventoryGame.AllItemsInInventoryHandler += EndGame;
+
+            _gameFactory.InventoryGame.AgainButton.ClickHandler += Again;
+            _gameFactory.InventoryGame.SoundButton.ClickHandler += SwitchSound;
 
             _tokenSource = new CancellationTokenSource();
         }
 
         public void Exit()
         {
-            _gameFactory.GamePlayUI.AgainButton.Remove(OnAgain);
             _gameFactory.GamePlayUI.ExitButton.Remove(OnExit);
 
             _gameFactory.ItemMenu.CreateItemHandler -= CreateItem;
             _gameFactory.InventoryGame.AllItemsInInventoryHandler -= EndGame;
+
+            _gameFactory.InventoryGame.AgainButton.ClickHandler -= Again;
+            _gameFactory.InventoryGame.SoundButton.ClickHandler -= SwitchSound;
 
             DisposeToken();
         }
@@ -91,10 +95,17 @@ namespace Code.Infrastructure.StateMachine.States
             _stateMachine.Enter<LoadSceneState, string>(Constants.MainSceneName);
         }
 
-        private void OnAgain()
+        private void Again()
         {
             _audioService.Play(SoundType.Button);
             _stateMachine.Enter<LoadSceneState, string>(Constants.MainSceneName);
+        }
+
+        private void SwitchSound()
+        {
+            _audioService.ChangeEffectState();
+            _audioService.Play(SoundType.Button);
+            _gameFactory.InventoryGame.SoundButton.ChangeState(_audioService.EffectsState);
         }
 
         private void OnExit()

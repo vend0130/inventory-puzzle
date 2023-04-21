@@ -8,6 +8,8 @@ namespace Code.Infrastructure.Services.Audio
 {
     public class AudioService : IAudioService
     {
+        public bool EffectsState { get; private set; } = true;
+
         private readonly IAudioFactory _audioFactory;
         private readonly AudioData _data;
         private readonly Dictionary<SoundType, AudioSource> _audioCreated = new Dictionary<SoundType, AudioSource>();
@@ -23,11 +25,17 @@ namespace Code.Infrastructure.Services.Audio
 
         public void Play(SoundType soundType)
         {
+            if (!EffectsState)
+                return;
+
             if (!_audioCreated.ContainsKey(soundType))
                 _audioCreated.Add(soundType, Configure(soundType));
 
             _audioCreated[soundType].Play();
         }
+
+        public void ChangeEffectState() =>
+            EffectsState = !EffectsState;
 
         private AudioSource Configure(SoundType soundType)
         {

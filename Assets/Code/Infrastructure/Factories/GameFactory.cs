@@ -64,6 +64,7 @@ namespace Code.Infrastructure.Factories
             InventoryGame = Instantiate(prefab).GetComponent<InventoryGame>();
 
             InventoryGame.Init(_progressService.ProgressData.CurrentLevel + 1, _levelsData.CountLevels);
+            InventoryGame.SoundButton.ChangeState(_audioService.EffectsState);
 
             DragItems = InventoryGame.DragItems;
             DragItems.InitAudioService(_audioService);

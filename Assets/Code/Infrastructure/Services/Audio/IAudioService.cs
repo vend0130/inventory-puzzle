@@ -6,5 +6,7 @@ namespace Code.Infrastructure.Services.Audio
     {
         void Init();
         void Play(SoundType soundType);
+        bool EffectsState { get; }
+        void ChangeEffectState();
     }
 }
