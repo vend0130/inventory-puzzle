@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.InventorySystem.Drag;
 using Code.Game.InventorySystem.Inventories;
@@ -44,6 +45,9 @@ namespace Code.Game.InventorySystem
 
         private void Start()
         {
+            foreach (var item in Items)
+                item.ParentCells.CellsDrop();
+
             ChangeInventory();
             _previousScreenSize = CellsHelper.CurrentSizeScreen();
         }

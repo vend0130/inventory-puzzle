@@ -30,8 +30,8 @@ namespace Code.Utils.Editor
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            
-            if(Application.isPlaying)
+
+            if (Application.isPlaying)
                 return;
 
             DrawButtonsInMainInventory = GUILayout.Toggle(DrawButtonsInMainInventory, "DrawButtonsInMainInventory");
@@ -135,7 +135,12 @@ namespace Code.Utils.Editor
             item.ChangeInventory(LootInventory);
 
             item.ChangeCell(cells.Clone());
+
             item.ParentCells.AddItemInCell(item);
+            item.ParentCells.CellsDrop();
+
+            foreach (var cell in item.ParentCells)
+                PrefabUtility.RecordPrefabInstancePropertyModifications(cell.CellOnGrid.Image);
 
             item.transform.position = item.GetTargetPosition();
         }
@@ -145,7 +150,7 @@ namespace Code.Utils.Editor
             //note: получаем все клетки в инвентаре, над которыми есть объект, который мы драгаем
             if (!CellsHelper.TryEnterOnCell(LootInventory, item, out cells))
                 throw new Exception($"not correct position: {item.name}");
-            
+
             if (CellsHelper.DropCellCount(cells, item.CellsCountForItem)
                 != CellsHelper.DropCellCount(item.ParentCells, item.CellsCountForItem))
                 throw new Exception($"not correct position item: {item.name}");

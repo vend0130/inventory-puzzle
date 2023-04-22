@@ -18,7 +18,10 @@ namespace Code.Game.Cells
         [SerializeField] private Color _freeColor;
         [SerializeField] private Color _busyColor;
         [SerializeField] private Color _combineColor;
+        [SerializeField] private Color _dropColor;
         [SerializeField] private GameObject _lockObject;
+
+        public Image Image => _coloringImage;
 
         private Color _defaultColor;
 
@@ -44,8 +47,11 @@ namespace Code.Game.Cells
         public void CombineEnter() =>
             _coloringImage.color = _combineColor;
 
+        public void Drop() =>
+            _coloringImage.color = _dropColor;
+
         public void Exit() =>
-            _coloringImage.color = _defaultColor;
+            _coloringImage.color = Free ? _defaultColor : _dropColor;
 
         public void ChangeStateLock(bool value)
         {

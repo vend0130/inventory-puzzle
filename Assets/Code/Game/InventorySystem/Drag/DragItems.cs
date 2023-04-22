@@ -152,6 +152,8 @@ namespace Code.Game.InventorySystem.Drag
 
             item.ParentCells.AddItemInCell(item);
 
+            item.ParentCells.CellsDrop();
+
             DestroyItemHandler?.Invoke(_item);
             Destroy(_item.gameObject);
             EndItemMoveToPoint();
@@ -166,10 +168,12 @@ namespace Code.Game.InventorySystem.Drag
             item.ChangeAdditionalState(_item.ItemType, true);
 
             item.ParentCells.RemoveItemInCell();
+
             if (_cells.TryEnterOnCell(item, out List<ItemCellData> cells))
                 item.ChangeCell(cells);
 
             item.ParentCells.AddItemInCell(item);
+            item.ParentCells.CellsDrop();
 
             DestroyItemHandler?.Invoke(_item);
             Destroy(_item.gameObject);
@@ -191,6 +195,7 @@ namespace Code.Game.InventorySystem.Drag
                 .OnComplete(EndItemMoveToPoint);
 
             _item.ParentCells.AddItemInCell(_item);
+            _item.ParentCells.CellsDrop();
 
             if (!_cells.TryGetInventory(_item.transform.position, out BaseInventory inventory))
                 inventory = _item.CurrentInventor;

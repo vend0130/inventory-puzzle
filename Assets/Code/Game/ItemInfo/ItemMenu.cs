@@ -95,6 +95,8 @@ namespace Code.Game.ItemInfo
             _audioService.Play(SoundType.Button);
 
             _lastItem.ParentCells.RemoveItemInCell();
+            _lastItem.ParentCells.CellsExit();
+
             _lastItem.ChangeAdditionalState(index - 1, false);
             CreateItemHandler?.Invoke(_lastItem, (index - 1));
 
@@ -102,6 +104,7 @@ namespace Code.Game.ItemInfo
                 _lastItem.ChangeCell(cells);
 
             _lastItem.ParentCells.AddItemInCell(_lastItem);
+            _lastItem.ParentCells.CellsDrop();
 
             _lastItem = null;
             _backgroundLock.Close();

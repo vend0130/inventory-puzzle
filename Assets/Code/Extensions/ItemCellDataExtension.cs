@@ -37,6 +37,16 @@ namespace Code.Extensions
             });
 
         /// <summary>
+        /// Включаем подсвечивание клетки в которых находится объект
+        /// </summary>
+        public static void CellsDrop(this List<ItemCellData> cells) =>
+            cells.ForEach((cell) =>
+            {
+                if (cell.CellInItem.Activate)
+                    cell.CellOnGrid.Drop();
+            });
+
+        /// <summary>
         /// Включаем подсвечивание клетки, означающее, что мы  можем туда дропнуть объект
         /// </summary>
         public static void CellsEnter(this List<ItemCellData> cells) =>
