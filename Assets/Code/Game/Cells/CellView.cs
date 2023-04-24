@@ -19,16 +19,15 @@ namespace Code.Game.Cells
         [SerializeField] private Color _busyColor;
         [SerializeField] private Color _combineColor;
         [SerializeField] private Color _dropColor;
+        [SerializeField] private Color _defaultColor;
         [SerializeField] private GameObject _lockObject;
 
         public Image Image => _coloringImage;
 
-        private Color _defaultColor;
-
         public void Init()
         {
-            _defaultColor = _coloringImage.color;
             RemoveItem();
+            Exit();
         }
 
         public void RecalculatePoints(float distanceBetweenCells)
