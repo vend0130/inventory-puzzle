@@ -55,8 +55,10 @@ namespace Code.Infrastructure.Factories
             _itemInfo = ItemMenu.Info;
         }
 
+#if !UNITY_WEBGL
         public void CreateGamePlayUI() =>
             GamePlayUI = Instantiate(AssetPath.GamePlayUIPath).GetComponent<GamePlayUI>();
+#endif
 
         public void CreateLevel()
         {
