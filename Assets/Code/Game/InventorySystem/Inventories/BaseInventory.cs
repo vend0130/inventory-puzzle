@@ -1,4 +1,5 @@
-﻿using Code.Game.Cells;
+﻿using System;
+using Code.Game.Cells;
 using Code.Utils.Readonly;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ namespace Code.Game.InventorySystem.Inventories
         public void ChangeRect()
         {
             Vector2 position = _background.transform.position;
-            Vector2 rectMax = _background.rect.max;
+            Vector2 rectMax = _background.rect.max * CellsHelper.GetScale();
             Rect = new Rect(position - rectMax, rectMax * 2);
         }
 

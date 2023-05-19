@@ -59,7 +59,6 @@ namespace Code.Infrastructure.StateMachine.States
 
         public void Dispose()
         {
-            _gameFactory.GamePlayUI.AgainButton.RemoveAll();
             _gameFactory.GamePlayUI.ExitButton.RemoveAll();
 
             DisposeToken();

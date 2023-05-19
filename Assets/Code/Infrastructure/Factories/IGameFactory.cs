@@ -15,9 +15,7 @@ namespace Code.Infrastructure.Factories
         PointerHandler PointerHandler { get; }
         InventoryGame InventoryGame { get; }
 
-#if !UNITY_WEBGL
         void CreateGamePlayUI();
-#endif
         void CreateBackground();
         void CreateInfoPanel();
         void CreateLevel();

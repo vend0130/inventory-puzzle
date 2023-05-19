@@ -30,6 +30,7 @@ namespace Code.Game.InventorySystem
         public event Action AllItemsInInventoryHandler;
 
         private Vector2Int _previousScreenSize;
+        private BlurChanger _blurChanger;
 
         private void Awake()
         {
@@ -56,7 +57,10 @@ namespace Code.Game.InventorySystem
         private void Update()
         {
             if (CellsHelper.CurrentSizeScreen() != _previousScreenSize)
+            {
+                _blurChanger.Render();
                 ChangeInventory();
+            }
 
             _previousScreenSize = CellsHelper.CurrentSizeScreen();
         }
@@ -74,8 +78,9 @@ namespace Code.Game.InventorySystem
             DragItems.ItemEndMoveHandler -= ItemEndMove;
         }
 
-        public void Init(int currentLevel, int maxLevel)
+        public void Init(int currentLevel, int maxLevel, BlurChanger blurChanger)
         {
+            _blurChanger = blurChanger;
             _levelText.text = $"{Constants.LevelTextPrefix} {currentLevel} ";
             _levelText.text += string.Format(Constants.LevelTextPostfix, maxLevel);
         }

@@ -19,7 +19,7 @@ namespace Code.Game.InventorySystem
             inventory = null;
             return false;
         }
-        
+
         private static bool Collision(Vector2 position, Rect rect) =>
             position.x >= rect.min.x && position.x < rect.max.x &&
             position.y >= rect.min.y && position.y < rect.max.y;

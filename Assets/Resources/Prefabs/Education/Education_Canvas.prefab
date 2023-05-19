@@ -147,6 +147,34 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1714040728230029357}
     m_Modifications:
+    - target: {fileID: 1155498759323370367, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155498759323370367, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155498759323370367, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 639565642754761171}
+    - target: {fileID: 1155498759323370367, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155498759323370367, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155498759323370367, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155498759323370367, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4586798298623177933, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
       propertyPath: m_text
       value: "\u041A\u0430\u043A \u0438\u0433\u0440\u0430\u0442\u044C"
@@ -289,7 +317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7881146707536222471, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:

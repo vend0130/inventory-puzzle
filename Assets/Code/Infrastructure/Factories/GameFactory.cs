@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Code.Data;
 using Code.Extensions;
+using Code.Game;
 using Code.Game.Cells;
 using Code.Game.InventorySystem;
 using Code.Game.InventorySystem.Drag;
@@ -27,6 +28,7 @@ namespace Code.Infrastructure.Factories
         private readonly List<string> _backgroundsPaths;
 
         private ItemInfoView _itemInfo;
+        private BlurChanger _background;
 
         public GameFactory(IProgressService progressService, IAudioService audioService, LevelsData levelsData)
         {
@@ -42,7 +44,7 @@ namespace Code.Infrastructure.Factories
         }
 
         public void CreateBackground() =>
-            Instantiate(_backgroundsPaths.GetRandomElement());
+            _background = Instantiate(_backgroundsPaths.GetRandomElement()).GetComponent<BlurChanger>();
 
         public void CreateInfoPanel()
         {
@@ -55,17 +57,16 @@ namespace Code.Infrastructure.Factories
             _itemInfo = ItemMenu.Info;
         }
 
-#if !UNITY_WEBGL
         public void CreateGamePlayUI() =>
             GamePlayUI = Instantiate(AssetPath.GamePlayUIPath).GetComponent<GamePlayUI>();
-#endif
 
         public void CreateLevel()
         {
             GameObject prefab = _levelsData.GetLevel(_progressService.ProgressData.CurrentLevel);
             InventoryGame = Instantiate(prefab).GetComponent<InventoryGame>();
 
-            InventoryGame.Init(_progressService.ProgressData.CurrentLevel + 1, _levelsData.CountLevels);
+            InventoryGame.Init(_progressService.ProgressData.CurrentLevel + 1,
+                _levelsData.CountLevels, _background);
             InventoryGame.SoundButton.ChangeState(_audioService.EffectsState);
 
             DragItems = InventoryGame.DragItems;

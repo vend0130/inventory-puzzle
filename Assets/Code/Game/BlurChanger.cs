@@ -11,25 +11,38 @@ namespace Code.Game
 
         private const int MillisecondsDelay = 1000;
 
-        private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 
-        private void Start()
-        {
-            _translucent.maxUpdateRate = 60;
-            Render().Forget();
-        }
+        private void Start() =>
+            RenderAsync().Forget();
 
-        private void OnDestroy()
+        private void OnDestroy() =>
+            DisposeToken();
+
+        public void Render()
         {
-            _tokenSource.Cancel();
-            _tokenSource.Dispose();
+            if (_tokenSource != null && !_tokenSource.IsCancellationRequested)
+                return;
+
+            DisposeToken();
+            _tokenSource = new CancellationTokenSource();
+            RenderAsync().Forget();
         }
 
         //note: hack for updated TranslucentImageSource
-        private async UniTask Render()
+        private async UniTask RenderAsync()
         {
+            _translucent.maxUpdateRate = 60;
             await UniTask.Delay(MillisecondsDelay, cancellationToken: _tokenSource.Token);
             _translucent.maxUpdateRate = 0;
+
+            _tokenSource?.Cancel();
+        }
+
+        private void DisposeToken()
+        {
+            _tokenSource?.Cancel();
+            _tokenSource?.Dispose();
         }
     }
 }

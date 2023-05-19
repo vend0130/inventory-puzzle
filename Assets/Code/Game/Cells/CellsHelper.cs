@@ -21,11 +21,7 @@ namespace Code.Game.Cells
                 Debug.LogError("In Editor Mode use screen size 1920x1080");
 #endif
 
-            Vector2 scaler = GetScaler();
-
-            float currentScaler = scaler.x < scaler.y ? scaler.x : scaler.y;
-
-            return currentScaler * distance;
+            return GetScale() * distance;
         }
 
         public static Vector2Int CurrentSizeScreen()
@@ -117,14 +113,14 @@ namespace Code.Game.Cells
             return counter;
         }
 
-        private static Vector2 GetScaler()
+        public static float GetScale()
         {
             Vector2Int currentSize = CurrentSizeScreen();
-
+        
             float scalerX = (float)currentSize.x / DefaultWidthScreen;
             float scalerY = (float)currentSize.y / DefaultHeightScreen;
-
-            return new Vector2(scalerX, scalerY);
+        
+            return scalerX < scalerY ? scalerX : scalerY;
         }
 
         //note: попали ли по ячейке

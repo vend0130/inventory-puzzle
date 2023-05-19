@@ -45,9 +45,7 @@ namespace Code.Infrastructure.StateMachine.States
         {
             _gameFactory.CreateBackground();
             _gameFactory.CreateInfoPanel();
-#if !UNITY_WEBGL
             _gameFactory.CreateGamePlayUI();
-#endif
             _gameFactory.CreateLevel();
 
             await UniTask.Yield(cancellationToken: _tokenSource.Token);
