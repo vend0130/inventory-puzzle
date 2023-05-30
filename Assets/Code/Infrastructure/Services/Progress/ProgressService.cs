@@ -8,14 +8,11 @@ namespace Code.Infrastructure.Services.Progress
 
         private readonly LevelsData _levelsData;
 
-        public ProgressService(ProgressData progressData, LevelsData levelsData)
-        {
-            ProgressData = progressData;
+        public ProgressService(LevelsData levelsData) =>
             _levelsData = levelsData;
-        }
 
-        public void Load() =>
-            ProgressData.CurrentLevel = 0;
+        public void ChangeProgressData(ProgressData progressData) =>
+            ProgressData = progressData;
 
         public void NextLevel()
         {

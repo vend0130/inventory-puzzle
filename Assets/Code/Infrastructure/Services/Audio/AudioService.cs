@@ -20,8 +20,11 @@ namespace Code.Infrastructure.Services.Audio
             _data = data;
         }
 
-        public void Init() =>
+        public void Init(bool value)
+        {
             _audioFactory.CreateParent();
+            EffectsState = value;
+        }
 
         public void Play(SoundType soundType)
         {

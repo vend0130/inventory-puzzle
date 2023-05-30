@@ -6,6 +6,7 @@ using Code.Game.Item.Items;
 using Code.Infrastructure.Factories;
 using Code.Infrastructure.Services.Audio;
 using Code.Infrastructure.Services.Progress;
+using Code.Infrastructure.Services.SaveLoad;
 using Cysharp.Threading.Tasks;
 
 namespace Code.Infrastructure.StateMachine.States
@@ -15,15 +16,18 @@ namespace Code.Infrastructure.StateMachine.States
         private const int DelayMilliseconds = 500;
 
         private readonly IGameFactory _gameFactory;
+        private readonly ISaveLoadService _saveLoadService;
         private readonly IProgressService _progressService;
         private readonly IAudioService _audioService;
 
         private IGameStateMachine _stateMachine;
         private CancellationTokenSource _tokenSource;
 
-        public GameLoopState(IGameFactory gameFactory, IProgressService progressService, IAudioService audioService)
+        public GameLoopState(IGameFactory gameFactory, ISaveLoadService saveLoadService,
+            IProgressService progressService, IAudioService audioService)
         {
             _gameFactory = gameFactory;
+            _saveLoadService = saveLoadService;
             _progressService = progressService;
             _audioService = audioService;
         }
@@ -85,6 +89,7 @@ namespace Code.Infrastructure.StateMachine.States
         {
             _audioService.Play(SoundType.Win);
             _progressService.NextLevel();
+            _saveLoadService.Save();
             Delay().Forget();
         }
 
@@ -105,6 +110,9 @@ namespace Code.Infrastructure.StateMachine.States
             _audioService.ChangeEffectState();
             _audioService.Play(SoundType.Button);
             _gameFactory.InventoryGame.SoundButton.ChangeState(_audioService.EffectsState);
+
+            _progressService.ProgressData.Sound = _audioService.EffectsState;
+            _saveLoadService.Save();
         }
 
         private void OnExit()

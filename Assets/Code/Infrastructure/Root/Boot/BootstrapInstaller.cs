@@ -5,6 +5,7 @@ using Code.Infrastructure.Factories.Audio;
 using Code.Infrastructure.Services.Audio;
 using Code.Infrastructure.Services.LoadScene;
 using Code.Infrastructure.Services.Progress;
+using Code.Infrastructure.Services.SaveLoad;
 using Code.Infrastructure.StateMachine;
 using Code.Infrastructure.StateMachine.States;
 using UnityEngine;
@@ -66,7 +67,7 @@ namespace Code.Infrastructure.Root.Boot
         private void BindProgressService()
         {
             Container.BindInterfacesTo<ProgressService>().AsSingle();
-            Container.Bind<ProgressData>().AsSingle();
+            Container.BindInterfacesTo<SaveLoadService>().AsSingle();
         }
 
         public void Initialize() =>
