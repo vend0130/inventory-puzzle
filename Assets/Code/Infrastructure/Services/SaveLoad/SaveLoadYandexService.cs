@@ -4,35 +4,42 @@ using Code.Data;
 using Code.Extensions;
 using Code.Infrastructure.Services.Progress;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
+using Plugins.Yandex;
 
 namespace Code.Infrastructure.Services.SaveLoad
 {
-    public class SaveLoadService : ISaveLoadService, IDisposable
+    public class SaveLoadYandexService : ISaveLoadService, IDisposable
     {
-        private const string ProgressKey = "Progress";
-
         private readonly IProgressService _progressService;
         private readonly CancellationTokenSource _cancellation = new CancellationTokenSource();
 
-        public SaveLoadService(IProgressService progressService)
+        private string _data;
+
+        public SaveLoadYandexService(IProgressService progressService)
         {
             _progressService = progressService;
+            YandexManager.LoadedHandler += Loaded;
         }
 
         public void Dispose()
         {
+            YandexManager.LoadedHandler -= Loaded;
             _cancellation?.Cancel();
             _cancellation?.Dispose();
         }
 
         public void Save() =>
-            PlayerPrefs.SetString(ProgressKey, _progressService.ProgressData.ToJson());
+            YandexManager.CallSave(_progressService.ProgressData.ToJson());
 
         public async UniTask<ProgressData> Load()
         {
-            await UniTask.Yield(cancellationToken: _cancellation.Token);
-            return PlayerPrefs.GetString(ProgressKey)?.ToDeserialized<ProgressData>();
+            _data = null;
+            YandexManager.CallLoad();
+            await UniTask.WaitUntil(() => _data != null, cancellationToken: _cancellation.Token);
+            return _data.ToDeserialized<ProgressData>();
         }
+
+        private void Loaded(string data) =>
+            _data = data;
     }
 }

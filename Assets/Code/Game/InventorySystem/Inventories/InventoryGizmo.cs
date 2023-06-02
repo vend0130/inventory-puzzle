@@ -1,11 +1,11 @@
-﻿#if UNITY_EDITOR
-using Code.Game.Cells;
+﻿using Code.Game.Cells;
 using UnityEngine;
 
 namespace Code.Game.InventorySystem.Inventories
 {
     public class InventoryGizmo : MonoBehaviour
     {
+#if UNITY_EDITOR
         [Space, SerializeField] private bool _debug = false;
 
         private BaseInventory _inventory;
@@ -66,6 +66,6 @@ namespace Code.Game.InventorySystem.Inventories
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(new Vector2(endPoint.x, startPoint.y), point);
         }
+#endif
     }
 }
-#endif

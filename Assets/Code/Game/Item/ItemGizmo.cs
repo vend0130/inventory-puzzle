@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Code.Game.Item.Items;
 using UnityEngine;
 
@@ -7,6 +6,7 @@ namespace Code.Game.Item
 {
     public class ItemGizmo : MonoBehaviour
     {
+#if UNITY_EDITOR
         [SerializeField] private BaseItem _item;
         [SerializeField] private bool _debug = true;
 
@@ -61,6 +61,6 @@ namespace Code.Game.Item
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(endPoint, 7);
         }
+#endif
     }
 }
-#endif

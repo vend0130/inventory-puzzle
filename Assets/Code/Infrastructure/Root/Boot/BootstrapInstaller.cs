@@ -18,6 +18,7 @@ namespace Code.Infrastructure.Root.Boot
         [SerializeField] private LevelsData _levelsData;
         [SerializeField] private AudioData _audioData;
         [SerializeField] private CurtainView _curtain;
+        [SerializeField] private SaveLoadType _saveLoadType;
 
         public override void InstallBindings()
         {
@@ -67,10 +68,20 @@ namespace Code.Infrastructure.Root.Boot
         private void BindProgressService()
         {
             Container.BindInterfacesTo<ProgressService>().AsSingle();
-            Container.BindInterfacesTo<SaveLoadService>().AsSingle();
+
+            if (_saveLoadType == SaveLoadType.PlayerPrefs)
+                Container.BindInterfacesTo<SaveLoadService>().AsSingle();
+            else
+                Container.BindInterfacesTo<SaveLoadYandexService>().AsSingle();
         }
 
         public void Initialize() =>
             Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
+
+        private enum SaveLoadType
+        {
+            PlayerPrefs = 0,
+            Yandex = 1
+        }
     }
 }

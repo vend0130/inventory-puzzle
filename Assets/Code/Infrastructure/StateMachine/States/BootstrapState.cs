@@ -2,6 +2,7 @@
 using Code.Infrastructure.Services.Audio;
 using Code.Infrastructure.Services.Progress;
 using Code.Infrastructure.Services.SaveLoad;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Infrastructure.StateMachine.States
@@ -29,17 +30,26 @@ namespace Code.Infrastructure.StateMachine.States
         {
             Application.targetFrameRate = 60;
 
-            _progressService.ChangeProgressData(LoadProgress());
-
-            _audioService.Init(_progressService.ProgressData.Sound);
-            _stateMachine.Enter<LoadSceneState, string>(Constants.MainSceneName);
+            Init().Forget();
         }
 
         public void Exit()
         {
         }
 
-        private ProgressData LoadProgress() =>
-            _saveLoadService.Load() ?? new ProgressData();
+        private async UniTaskVoid Init()
+        {
+            ProgressData data = await LoadProgress();
+            _progressService.ChangeProgressData(data);
+
+            _audioService.Init(_progressService.ProgressData.Sound);
+            _stateMachine.Enter<LoadSceneState, string>(Constants.MainSceneName);
+        }
+
+        private async UniTask<ProgressData> LoadProgress()
+        {
+            ProgressData data = await _saveLoadService.Load();
+            return data ?? new ProgressData();
+        }
     }
 }

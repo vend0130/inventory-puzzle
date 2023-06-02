@@ -78,6 +78,7 @@ MonoBehaviour:
   _levelsData: {fileID: 11400000, guid: 8e96df1c94ebe6c45aa3a775737778e1, type: 2}
   _audioData: {fileID: 11400000, guid: 2074f151300b5fa40af1955a8e7dbe73, type: 2}
   _curtain: {fileID: 4770009513337792751}
+  _saveLoadType: 1
 --- !u!1001 &1336236622990895788
 PrefabInstance:
   m_ObjectHideFlags: 0
