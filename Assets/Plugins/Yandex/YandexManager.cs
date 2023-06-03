@@ -13,10 +13,12 @@ namespace Plugins.Yandex
         public void IsLoaded(string data) =>
             LoadedHandler?.Invoke(data);
 
+        public void IsFailLoaded() =>
+            LoadedHandler?.Invoke(null);
+
         public static void CallSave(string data) =>
             Save(data);
 
-        //call in .jslib
         public static void CallLoad()
         {
             if (_yandexObject == null)
