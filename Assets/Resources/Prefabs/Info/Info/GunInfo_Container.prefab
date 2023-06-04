@@ -687,6 +687,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4955791995043918226, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
+      propertyPath: <SecondTMP>k__BackingField
+      value: 
+      objectReference: {fileID: 1570900484069136442}
     - target: {fileID: 4955888230157342177, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
       propertyPath: m_Name
       value: GunInfo_Container
@@ -1380,6 +1384,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <First>k__BackingField: {fileID: 0}
   <Second>k__BackingField: {fileID: 8386993564326549473}
+  <FirstTMP>k__BackingField: {fileID: 0}
+  <SecondTMP>k__BackingField: {fileID: 2243328464709246358}
 --- !u!114 &8386993564326549473
 MonoBehaviour:
   m_ObjectHideFlags: 0

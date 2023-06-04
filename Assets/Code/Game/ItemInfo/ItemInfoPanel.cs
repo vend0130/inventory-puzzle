@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using I2.Loc;
+using TMPro;
 using UnityEngine;
 
 namespace Code.Game.ItemInfo
@@ -21,9 +22,9 @@ namespace Code.Game.ItemInfo
             for (var i = 0; i < _texts.Count; i++)
             {
                 if (_texts[i].First != null)
-                    _texts[i].First.SetTerm(datas[i].Item1.mTerm);
+                    SetText(_texts[i].First, _texts[i].FirstTMP, datas[i].Item1);
 
-                _texts[i].Second.SetTerm(datas[i].Item2.mTerm);
+                SetText(_texts[i].Second, _texts[i].SecondTMP, datas[i].Item2);
             }
 
             _panel.SetActive(true);
@@ -31,5 +32,13 @@ namespace Code.Game.ItemInfo
 
         public void Close() =>
             _panel.SetActive(false);
+
+        private void SetText(Localize localize, TMP_Text tmpText, LocalizedString localizedString)
+        {
+            if (localizedString.mTerm.StartsWith("item"))
+                localize.SetTerm(localizedString.mTerm);
+            else
+                tmpText.text = localizedString.mTerm;
+        }
     }
 }
