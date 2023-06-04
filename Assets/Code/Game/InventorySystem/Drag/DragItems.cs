@@ -40,6 +40,7 @@ namespace Code.Game.InventorySystem.Drag
             if (_item != null)
                 Assert.IsNotNull(_item, "bug in logic");
 
+            item.UpOrder();
             _audioService.Play(SoundType.TakeItem);
             _offset = Vector2.zero;
             _isSpawned = true;

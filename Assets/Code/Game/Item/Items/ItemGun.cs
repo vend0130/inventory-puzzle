@@ -1,5 +1,4 @@
-﻿using Code.Data;
-using Code.Data.Items;
+﻿using Code.Data.Items;
 using UnityEngine;
 
 namespace Code.Game.Item.Items

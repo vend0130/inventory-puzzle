@@ -109,8 +109,11 @@ namespace Code.Game.Item.Items
         {
             _targetPosition = _previousPosition = transform.position;
             _currentRotation = _previousRotation = _containerForRotation.eulerAngles;
-            _canvasOrder.sortingOrder = _defaultSortingOrder + UpSortingOrder;
+            UpOrder();
         }
+
+        public void UpOrder() =>
+            _canvasOrder.sortingOrder = _defaultSortingOrder + UpSortingOrder;
 
         public List<(Vector2, CellInItemData)> GetCellsPositions()
         {
@@ -214,7 +217,6 @@ namespace Code.Game.Item.Items
             return false;
         }
 
-
         public void UpdateAdditionalsCellsCount()
         {
             AdditionalsCellsCountForItem = 0;
@@ -223,17 +225,6 @@ namespace Code.Game.Item.Items
                 if (additional.Activate)
                     AdditionalsCellsCountForItem += additional.Indexes.Count;
             }
-        }
-
-        public bool CombineItem(ItemType type)
-        {
-            foreach (AdditionalData additional in AdditionalDatas)
-            {
-                if (!additional.Activate && additional.Type == type)
-                    return true;
-            }
-
-            return false;
         }
 
         private void GetData(out RotationType rotationType, out Vector2 startPointCell)
