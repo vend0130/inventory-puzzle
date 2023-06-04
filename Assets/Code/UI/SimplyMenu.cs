@@ -1,6 +1,9 @@
-﻿using I2.Loc;
+﻿using Code.Data.Audio;
+using Code.Infrastructure.Services.Audio;
+using I2.Loc;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.UI
 {
@@ -10,22 +13,44 @@ namespace Code.UI
         [SerializeField] private TMP_Text _valueLevelText;
         [field: SerializeField] public MenuButton AgainButton { get; private set; }
         [field: SerializeField] public MenuButton SoundButton { get; private set; }
-        [field: SerializeField] public MenuButton LanguageButton { get; private set; }
+
+        [Header("Languages")] [SerializeField] private Button _languageButton;
+        [SerializeField] private Image _languageButtonImage;
+        [SerializeField] private Sprite _russianSprite;
+        [SerializeField] private Sprite _englishSprite;
 
         private const string LevelTextPostfix = "{0} <size=25><color=#7E7E7E>/ {1}</color></size>";
 
-        public void Init(int currentLevel, int maxLevel, LocalizedString level)
+        private IAudioService _audioService;
+
+        private void Awake() =>
+            _languageButton.onClick.AddListener(ChangeLanguage);
+
+        private void OnDestroy() =>
+            _languageButton.onClick.RemoveListener(ChangeLanguage);
+
+        public void Init(int currentLevel, int maxLevel, LocalizedString level, IAudioService audioService)
         {
+            _audioService = audioService;
+
             _levelLocalize.SetTerm(level.mTerm);
             _valueLevelText.text = string.Format(LevelTextPostfix, currentLevel, maxLevel);
+
+            ChangeSprite();
         }
 
-        private void Update()
+        private void ChangeLanguage()
         {
-            if (Input.GetKeyDown(KeyCode.Q))
-                LocalizationManager.CurrentLanguageCode = "en";
-            else if (Input.GetKeyDown(KeyCode.W))
-                LocalizationManager.CurrentLanguageCode = "ru";
+            _audioService.Play(SoundType.Button);
+            LocalizationManager.CurrentLanguageCode = LocalizationManager.CurrentLanguageCode == "en" ? "ru" : "en";
+            ChangeSprite();
+        }
+
+        private void ChangeSprite()
+        {
+            _languageButtonImage.sprite = LocalizationManager.CurrentLanguageCode == "en"
+                ? _englishSprite
+                : _russianSprite;
         }
     }
 }
