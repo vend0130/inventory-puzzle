@@ -7,6 +7,7 @@ using Code.Game.InventorySystem.Inventories;
 using Code.Game.Item.Items;
 using Code.UI;
 using Code.Utils.Readonly;
+using I2.Loc;
 using TMPro;
 using UnityEngine;
 
@@ -22,10 +23,6 @@ namespace Code.Game.InventorySystem
 
         [field: SerializeField, Space] public Canvas CanvasWithItems { get; private set; }
         [field: SerializeField, ReadOnly] public List<BaseItem> Items { get; private set; }
-
-        [SerializeField, Space] private TextMeshProUGUI _levelText;
-        [field: SerializeField] public MenuButton AgainButton { get; private set; }
-        [field: SerializeField] public MenuButton SoundButton { get; private set; }
 
         public event Action AllItemsInInventoryHandler;
 
@@ -78,11 +75,11 @@ namespace Code.Game.InventorySystem
             DragItems.ItemEndMoveHandler -= ItemEndMove;
         }
 
-        public void Init(int currentLevel, int maxLevel, BlurChanger blurChanger)
+        public void Init(BlurChanger blurChanger, LocalizedString lootInventory, LocalizedString mainInventory)
         {
+            LootInventory.ChangeText(lootInventory);
+            MainInventory.ChangeText(mainInventory);
             _blurChanger = blurChanger;
-            _levelText.text = $"{Constants.LevelTextPrefix} {currentLevel} ";
-            _levelText.text += string.Format(Constants.LevelTextPostfix, maxLevel);
         }
 
         public void CreateArrayItems() =>

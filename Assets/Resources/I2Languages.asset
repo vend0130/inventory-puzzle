@@ -16,7 +16,537 @@ MonoBehaviour:
     UserAgreesToHaveItOnTheScene: 0
     UserAgreesToHaveItInsideThePluginsFolder: 0
     GoogleLiveSyncIsUptoDate: 1
-    mTerms: []
+    mTerms:
+    - Term: Exit
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0412\u042B\u0425\u041E\u0414"
+      - EXIT
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Invenory.Inventory
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0418\u041D\u0412\u0415\u041D\u0422\u0410\u0420\u042C"
+      - INVENTORY
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Inventory.Loot
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041B\u0423\u0422"
+      - LOOT
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ItemMenu.Bipods
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0421\u043E\u0448\u043A\u0438"
+      - Bipods
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ItemMenu.Information
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0418\u041D\u0424\u041E\u0420\u041C\u0410\u0426\u0418\u042F"
+      - INFORMATION
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ItemMenu.Magazine
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041C\u0430\u0433\u0430\u0437\u0438\u043D"
+      - Magazine
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ItemMenu.Scope
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041F\u0440\u0438\u0446\u0435\u043B"
+      - Scope
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ItemMenu.Take
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0421\u043D\u044F\u0442\u044C"
+      - Take
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Menu.Level
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0423\u0420\u041E\u0412\u0415\u041D\u042C"
+      - LEVEL
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.ak47.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0410\u041A-47 - \u043E\u0444\u0438\u0446\u0438\u0430\u043B\u044C\u043D\u043E\u0435
+        \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435: \"7,62-\u043C\u043C \u0430\u0432\u0442\u043E\u043C\u0430\u0442
+        \u041A\u0430\u043B\u0430\u0448\u043D\u0438\u043A\u043E\u0432\u0430 \u043E\u0431\u0440\u0430\u0437\u0446\u0430
+        1947 \u0433\u043E\u0434\u0430\". \u0411\u044B\u043B \u0441\u043A\u043E\u043D\u0441\u0442\u0440\u0443\u0438\u0440\u043E\u0432\u0430\u043D
+        \u0432 1947 \u0433\u043E\u0434\u0443 \u041C. \u0422. \u041A\u0430\u043B\u0430\u0448\u043D\u0438\u043A\u043E\u0432\u044B\u043C.
+        \u0410\u041A \u0438 \u0435\u0433\u043E \u043C\u043E\u0434\u0438\u0444\u0438\u043A\u0430\u0446\u0438\u0438
+        \u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F \u0441\u0430\u043C\u044B\u043C
+        \u0440\u0430\u0441\u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0451\u043D\u043D\u044B\u043C
+        \u0441\u0442\u0440\u0435\u043B\u043A\u043E\u0432\u044B\u043C \u043E\u0440\u0443\u0436\u0438\u0435\u043C
+        \u0432 \u043C\u0438\u0440\u0435, \u043E\u043D \u0432\u043A\u043B\u044E\u0447\u0451\u043D
+        \u0432 \u041A\u043D\u0438\u0433\u0443 \u0440\u0435\u043A\u043E\u0440\u0434\u043E\u0432
+        \u0433\u0438\u043D\u043D\u0435\u0441\u0441\u0430: \u043D\u0430\u0441\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u0442\u0441\u044F
+        \u0431\u043E\u043B\u0435\u0435 100 \u043C\u043B\u043D \u0435\u0434\u0438\u043D\u0438\u0446,
+        \u043E\u043D \u0441\u043E\u0441\u0442\u043E\u0438\u0442 \u043D\u0430 \u0432\u043E\u043E\u0440\u0443\u0436\u0435\u043D\u0438\u0438
+        106 \u0441\u0442\u0440\u0430\u043D \u043C\u0438\u0440\u0430."
+      - 'AK-47 - Official name: "7.62 mm Kalashnikov assault rifle of 1947". It was
+        designed in 1947 by M. T. Kalashnikov. The AK and its modifications are the
+        world''s most widely used firearms and are listed in the Guinness Book of
+        World Records: there are over 100 million AKs in service in 106 countries.'
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.ak47.magazine.name
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0434\u043B\u044F \u0410\u041A"
+      - AK magazine
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.ak47.magazine.type
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0434\u043B\u044F \u0410\u041A-47
+        \u0438 \u0420\u041F\u041A"
+      - magazine for AK-47 and RPK
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.ak47.name
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0430\u043A-47"
+      - ak-47
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.axe.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0420\u0443\u0431\u044F\u0449\u0435\u0435 \u043E\u0440\u0443\u0434\u0438\u0435,
+        \u0447\u0430\u0449\u0435 \u043A\u043E\u0440\u043E\u0442\u043A\u043E\u0435
+        \u0434\u0440\u0435\u0432\u043A\u043E\u0432\u043E\u0435 \u0438 \u0438\u043C\u0435\u044E\u0449\u0435\u0435
+        \u0440\u0430\u0431\u043E\u0447\u0435\u0435 \u043B\u0435\u0437\u0432\u0438\u0435,
+        \u0440\u0430\u0441\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u043D\u043E\u0435
+        \u0432\u0434\u043E\u043B\u044C \u0440\u0443\u043A\u043E\u044F\u0442\u043A\u0438."
+      - A chopping tool, more often a short shaft and having a working blade, located
+        along the handle.
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.axe.name
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0422\u043E\u043F\u043E\u0440"
+      - Axe
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.boxMagazine
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043A\u043E\u0440\u043E\u0431\u0447\u0430\u0442\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D"
+      - box magazine
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.fs.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0421\u0430\u043C\u043E\u0437\u0430\u0440\u044F\u0434\u043D\u044B\u0439
+        \u043F\u0438\u0441\u0442\u043E\u043B\u0435\u0442, \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0430\u043D\u043D\u044B\u0439
+        \u0438 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u043C\u044B\u0439
+        \u0431\u0435\u043B\u044C\u0433\u0438\u0439\u0441\u043A\u043E\u0439 \u0444\u0438\u0440\u043C\u043E\u0439
+        Fabrique Nationale. \u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u0442
+        \u0441\u043E\u0431\u043E\u0439 \u043A\u043E\u043C\u0431\u0438\u043D\u0430\u0446\u0438\u044E,
+        \u0441 \u043E\u0434\u043D\u043E\u0439 \u0441\u0442\u043E\u0440\u043E\u043D\u044B
+        Five-seveN \u044D\u0442\u043E \xAB5-7\xBB (5,7 \u2014 \u043A\u0430\u043B\u0438\u0431\u0440
+        \u043E\u0440\u0443\u0436\u0438\u044F, \u043A\u043E\u0442\u043E\u0440\u044B\u0439
+        \u0440\u0430\u0432\u0435\u043D), \u0430 \u0441 \u0434\u0440\u0443\u0433\u043E\u0439
+        \u043F\u0435\u0440\u0432\u0430\u044F \u0438 \u043F\u043E\u0441\u043B\u0435\u0434\u043D\u044F\u044F
+        \u0431\u0443\u043A\u0432\u0430 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F,
+        \u043F\u0438\u0448\u0443\u0449\u0438\u0435\u0441\u044F \u0437\u0430\u0433\u043B\u0430\u0432\u043D\u044B\u043C\u0438
+        \u2014 \u044D\u0442\u043E \u0430\u0431\u0431\u0440\u0435\u0432\u0438\u0430\u0442\u0443\u0440\u0430
+        \u0444\u0438\u0440\u043C\u044B Fabrique Nationale"
+      - A semi-automatic pistol designed and manufactured by the Belgian company
+        Fabrique Nationale. The name is a combination, on the one hand Five-seveN
+        is "5-7" (5.7 caliber, which is equal), and on the other hand the first and
+        last letters of the name, written in capital letters, are the abbreviation
+        of Fabrique Nationale
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.fs.magazine.type
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0434\u043B\u044F FN Five-seveN"
+      - magazine for FN Five-seveN
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.fs.name
+      TermType: 0
+      Description: 
+      Languages:
+      - FN Five-seveN
+      - FN Five-seveN
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.m4.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "A\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+        \u043A\u0430\u0440\u0430\u0431\u0438\u043D, \u0441\u043E\u0437\u0434\u0430\u043D\u043D\u044B\u0439
+        \u0432 \u0421\u0428\u0410. \u041A\u043E\u043C\u0430\u043D\u0434\u043E\u0432\u0430\u043D\u0438\u0435
+        \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0445 \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u0439
+        \u0421\u0428\u0410 \u043F\u0440\u0438\u043D\u044F\u043B\u043E \u044D\u0442\u043E\u0442
+        \u043A\u0430\u0440\u0430\u0431\u0438\u043D \u0432 \u043A\u0430\u0447\u0435\u0441\u0442\u0432\u0435
+        \u0435\u0434\u0438\u043D\u043E\u0433\u043E \u0434\u043B\u044F \u0432\u0441\u0435\u0445
+        \u0430\u043C\u0435\u0440\u0438\u043A\u0430\u043D\u0441\u043A\u0438\u0445
+        \u0441\u0438\u043B \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0445
+        \u043E\u043F\u0435\u0440\u0430\u0446\u0438\u0439. \u0412 \u043D\u0430\u0441\u0442\u043E\u044F\u0449\u0435\u0435
+        \u0432\u0440\u0435\u043C\u044F \u043D\u0430 \u043D\u0435\u0433\u043E \u043F\u0435\u0440\u0435\u0448\u043B\u0430
+        \u0438 \u0432\u0441\u044F \u0410\u0440\u043C\u0438\u044F \u0421\u0428\u0410,
+        \u0442\u0430\u043A \u043A\u0430\u043A \u0443\u0434\u043E\u0431\u0441\u0442\u0432\u043E
+        \u0443\u043A\u043E\u0440\u043E\u0447\u0435\u043D\u043D\u043E\u0433\u043E
+        \u043A\u0430\u0440\u0430\u0431\u0438\u043D\u0430 \u0432 \u0441\u043E\u0432\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0445
+        \u0443\u0441\u043B\u043E\u0432\u0438\u044F\u0445, \u043A\u043E\u0433\u0434\u0430
+        \u0431\u043E\u043B\u044C\u0448\u0443\u044E \u0447\u0430\u0441\u0442\u044C
+        \u0430\u0440\u043C\u0438\u0438 \u0441\u043E\u0441\u0442\u0430\u0432\u043B\u044F\u044E\u0442
+        \u043C\u043E\u0442\u043E\u043F\u0435\u0445\u043E\u0442\u0430, \u044D\u043A\u0438\u043F\u0430\u0436\u0438
+        \u0431\u043E\u0435\u0432\u044B\u0445 \u043C\u0430\u0448\u0438\u043D \u0438
+        \u0432\u0441\u043F\u043E\u043C\u043E\u0433\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0435
+        \u0432\u043E\u0439\u0441\u043A\u0430, \u0431\u043E\u043B\u0435\u0435 \u0447\u0435\u043C
+        \u043A\u043E\u043C\u043F\u0435\u043D\u0441\u0438\u0440\u0443\u0435\u0442
+        \u043D\u0435\u0437\u043D\u0430\u0447\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435
+        \u0441\u043D\u0438\u0436\u0435\u043D\u0438\u0435 \u0435\u0433\u043E \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A
+        \u0432 \u0441\u0440\u0430\u0432\u043D\u0435\u043D\u0438\u0438 \u0441 \u0432\u0438\u043D\u0442\u043E\u0432\u043A\u043E\u0439."
+      - An automatic carbine developed in the USA. The U.S. Special Operations Command
+        adopted this carbine as the single carbine for all U.S. Special Operations
+        Forces. It has now been adopted by the entire U.S. Army, as the convenience
+        of the shortened carbine in today's environment, where most of the Army is
+        motorized infantry, combat vehicles crews and auxiliary troops, more than
+        compensates for the slight reduction in its performance compared to the rifle.
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.m4.magazine.type
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0434\u043B\u044F M4"
+      - magazine for M4
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.m4.name
+      TermType: 0
+      Description: 
+      Languages:
+      - M4
+      - M4
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.m4.typeArmo
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043A\u043E\u0440\u043E\u0431\u0447\u0430\u0442\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D
+        STANAG"
+      - STANAG box magazine
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.mac10.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041A\u043E\u043C\u043F\u0430\u043A\u0442\u043D\u044B\u0439 \u043F\u0438\u0441\u0442\u043E\u043B\u0435\u0442
+        - \u043F\u0443\u043B\u0435\u043C\u0451\u0442, \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0430\u043D\u043D\u044B\u0439
+        \u0432 \u0421\u0428\u0410. \u041E\u0440\u0443\u0436\u0438\u0435 \u044F\u0432\u043B\u044F\u0435\u0442\u0441\u044F
+        \u0434\u0435\u0448\u0451\u0432\u044B\u043C \u0438 \u0442\u0435\u0445\u043D\u043E\u043B\u043E\u0433\u0438\u0447\u043D\u044B\u043C
+        \u0432 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u0435,
+        \u043C\u043D\u043E\u0433\u0438\u0435 \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u0435
+        \u0434\u0435\u0442\u0430\u043B\u0438 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u044F\u0442\u0441\u044F
+        \u0438\u0437 \u0441\u0442\u0430\u043B\u044C\u043D\u043E\u0433\u043E \u043B\u0438\u0441\u0442\u0430
+        \u043C\u0435\u0442\u043E\u0434\u043E\u043C \u0445\u043E\u043B\u043E\u0434\u043D\u043E\u0439
+        \u0448\u0442\u0430\u043C\u043F\u043E\u0432\u043A\u0438 \u0438 \u0442\u043E\u0447\u0435\u0447\u043D\u043E\u0439
+        \u0441\u0432\u0430\u0440\u043A\u0438. \u041E\u0441\u043D\u043E\u0432\u043D\u0430\u044F
+        \u0438\u0434\u0435\u044F, \u0437\u0430\u043B\u043E\u0436\u0435\u043D\u043D\u0430\u044F
+        \u0432 \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044E
+        - \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
+        \u043F\u0440\u043E\u0441\u0442\u043E\u0442\u0430 \u0438 \u0434\u0435\u0448\u0435\u0432\u0438\u0437\u043D\u0430."
+      - A compact submachine gun developed in the USA. The weapon is cheap and technologically
+        advanced in production, with many basic parts manufactured from cold-formed
+        and spot-welded steel plate. The basic idea behind the design is maximum
+        simplicity and cheapness.
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.mac10.magazine.type
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0434\u043B\u044F MAC 10"
+      - magazine for MAC 10
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.mac10.name
+      TermType: 0
+      Description: 
+      Languages:
+      - MAC 10
+      - MAC 10
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.magazine
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043C\u0430\u0433\u0430\u0437\u0438\u043D"
+      - magazine
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.magazine.metal
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043C\u0435\u0442\u0430\u043B\u043B"
+      - metal
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.psl.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0421\u0430\u043C\u043E\u0437\u0430\u0440\u044F\u0434\u043D\u0430\u044F
+        \u0441\u043D\u0430\u0439\u043F\u0435\u0440\u0441\u043A\u0430\u044F \u0432\u0438\u043D\u0442\u043E\u0432\u043A\u0430
+        \u0440\u0443\u043C\u044B\u043D\u0441\u043A\u043E\u0433\u043E \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0441\u0442\u0432\u0430.
+        \u041D\u0435\u0441\u043C\u043E\u0442\u0440\u044F \u043D\u0430 \u043E\u0447\u0435\u0432\u0438\u0434\u043D\u043E\u0435
+        \u0432\u043D\u0435\u0448\u043D\u0435\u0435 \u0441\u0445\u043E\u0434\u0441\u0442\u0432\u043E
+        \u0441 \u0441\u043E\u0432\u0435\u0442\u0441\u043A\u043E\u0439 \u0432\u0438\u043D\u0442\u043E\u0432\u043A\u043E\u0439
+        \u0421\u0412\u0414, \u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0446\u0438\u044F
+        \u043E\u0440\u0443\u0436\u0438\u044F \u043E\u0441\u043D\u043E\u0432\u0430\u043D\u0430
+        \u043D\u0430 \u0420\u041F\u041A. \u0421\u043D\u0430\u0439\u043F\u0435\u0440\u0441\u043A\u0430\u044F
+        \u0432\u0438\u043D\u0442\u043E\u0432\u043A\u0430 PSL \u043A\u0430\u043A \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u043E
+        \u0438 \u0410\u041A \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442
+        \u0433\u0430\u0437\u043E\u043E\u0442\u0432\u043E\u0434\u043D\u0443\u044E
+        \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u043A\u0443 \u0441 \u0434\u043B\u0438\u043D\u043D\u044B\u043C
+        \u0445\u043E\u0434\u043E\u043C \u0433\u0430\u0437\u043E\u0432\u043E\u0433\u043E
+        \u043F\u043E\u0440\u0448\u043D\u044F (\u0432 \u0421\u0412\u0414 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F
+        \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u043A\u0430 \u0441 \u043A\u043E\u0440\u043E\u0442\u043A\u0438\u043C
+        \u0445\u043E\u0434\u043E\u043C) \u0438 \u043F\u043E\u0432\u043E\u0440\u043E\u0442\u043D\u044B\u043C
+        \u0437\u0430\u0442\u0432\u043E\u0440\u043E\u043C \u0441 \u0434\u0432\u0443\u043C\u044F
+        \u0431\u043E\u0435\u0432\u044B\u043C\u0438 \u0443\u043F\u043E\u0440\u0430\u043C\u0438."
+      - Romanian-made semi-automatic sniper rifle. Although the rifle bears obvious
+        resemblance to Soviet SVD rifle, it is based on Romanian semi-automatic rifle.
+        PSL rifle as well as AK rifle is gas operated, locked breech weapon with
+        short-stroke gas piston (SVD uses short-stroke gas piston) and rotary bolt
+        with dual locking lugs.
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.psl.magazine.type
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0434\u043B\u044F PSL"
+      - magazine for PSL
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.psl.name
+      TermType: 0
+      Description: 
+      Languages:
+      - PSL
+      - PSL
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.psl.scope.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041E\u043F\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u043F\u0440\u0438\u0446\u0435\u043B
+        LPS-2 \u043A\u0440\u0430\u0442\u043D\u043E\u0441\u0442\u0438 4\u0425"
+      - LPS-2 4x Magnification Optical Sight
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.psl.scope.name
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041E\u043F\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439 \u043F\u0440\u0438\u0446\u0435\u043B
+        \u0434\u043B\u044F PSL"
+      - Optical sight for PSL
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.rpk.bipod.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041B\u0451\u0433\u043A\u0438\u0435 \u0441\u043A\u043B\u0430\u0434\u043D\u044B\u0435
+        \u0441\u043E\u0448\u043A\u0438 (\u0437\u0430\u043A\u0440\u0435\u043F\u043B\u0451\u043D\u043D\u044B\u043C\u0438
+        \u0432 \u0434\u0443\u043B\u044C\u043D\u043E\u0439 \u0447\u0430\u0441\u0442\u0438
+        \u0441\u0442\u0432\u043E\u043B\u0430) \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u044B\u0435
+        \u0434\u043B\u044F \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0435\u043D\u0438\u044F
+        \u0443\u0441\u0442\u043E\u0439\u0447\u0438\u0432\u043E\u0441\u0442\u0438
+        \u043F\u0440\u0438 \u0441\u0442\u0440\u0435\u043B\u044C\u0431\u0435"
+      - Lightweight folding bipods (mounted in the muzzle of the barrel) required
+        to ensure stability when firing
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.rpk.bipod.name
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0421\u043E\u0448\u043A\u0438"
+      - Bipods
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.rpk.bipod.type
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0421\u043E\u0448\u043A\u0438 \u0434\u043B\u044F \u0420\u041F\u041A"
+      - Bipods for RPK
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.rpk.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "7,62-\u043C\u043C \u0440\u0443\u0447\u043D\u043E\u0439 \u043F\u0443\u043B\u0435\u043C\u0451\u0442
+        \u041A\u0430\u043B\u0430\u0448\u043D\u0438\u043A\u043E\u0432\u0430 - \u0441\u043E\u0432\u0435\u0442\u0441\u043A\u0438\u0439
+        \u0440\u0443\u0447\u043D\u043E\u0439 \u043F\u0443\u043B\u0435\u043C\u0451\u0442,
+        \u0441\u043E\u0437\u0434\u0430\u043D\u043D\u044B\u0439 \u043D\u0430 \u043E\u0441\u043D\u043E\u0432\u0435
+        \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0430 \u0410\u041A\u041C. \u0420\u0443\u0447\u043D\u043E\u0439
+        \u043F\u0443\u043B\u0435\u043C\u0451\u0442 \u0420\u041F\u041A \u0431\u044B\u043B
+        \u043F\u0440\u0438\u043D\u044F\u0442 \u043D\u0430 \u0432\u043E\u043E\u0440\u0443\u0436\u0435\u043D\u0438\u0435
+        \u0432 \u0430\u0440\u043C\u0438\u044F\u0445 \u0431\u043E\u043B\u0435\u0435
+        20 \u0441\u0442\u0440\u0430\u043D. \u0412 \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0445
+        \u0441\u0442\u0440\u0430\u043D\u0430\u0445 \u043F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u044F\u0442\u0441\u044F
+        \u0435\u0433\u043E \u0432\u0430\u0440\u0438\u0430\u043D\u0442\u044B \u0438\u043B\u0438
+        \u043A\u043E\u043F\u0438\u0438.\r"
+      - The 7.62 mm Kalashnikov hand-machine gun is a Soviet hand-machine gun based
+        on the AKM assault rifle. The RPK was adopted by the armies of more than
+        20 countries. Some countries produce variants or copies of it.
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.rpk.name
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0420\u041F\u041A"
+      - RPK
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.rpk.typeArmo
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043A\u043E\u0440\u043E\u0431\u0447\u0430\u0442\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D,
+        \u0431\u0430\u0440\u0430\u0431\u0430\u043D\u043D\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D"
+      - box magazine, drum magazine
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.name
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435"
+      - Title
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435"
+      - Description
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.type
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0422\u0438\u043F"
+      - Type
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.calibre
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041A\u0430\u043B\u0438\u0431\u0440"
+      - Calibre
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.length
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0414\u043B\u0438\u043D\u0430, \u043C\u043C"
+      - Length, mm
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.sightingRange
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041F\u0440\u0438\u0446\u0435\u043B\u044C\u043D\u0430\u044F \u0434\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C,
+        \u043C"
+      - Aiming range, m
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.maxDistance
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F
+        \u0434\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C \u043F\u043E\u043B\u0451\u0442\u0430
+        \u043F\u0443\u043B\u0438, \u043C"
+      - maximum bullet range, m
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.typeArmo
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u0412\u0438\u0434 \u0431\u043E\u0435\u043F\u0438\u0442\u0430\u043D\u0438\u044F"
+      - Type of ammunition
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.capacity
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041E\u0431\u044A\u0435\u043C, \u043F\u0430\u0442\u0440\u043E\u043D\u043E\u0432"
+      - Capacity, cartridges
+      Flags: 0000
+      Languages_Touch: []
+    - Term: item.material
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B"
+      - Material
+      Flags: 0000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

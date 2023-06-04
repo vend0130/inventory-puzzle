@@ -14,6 +14,7 @@ namespace Code.Infrastructure.Factories
         DragItems DragItems { get; }
         PointerHandler PointerHandler { get; }
         InventoryGame InventoryGame { get; }
+        SimplyMenu SimplyMenu { get; }
 
         void CreateGamePlayUI();
         void CreateBackground();

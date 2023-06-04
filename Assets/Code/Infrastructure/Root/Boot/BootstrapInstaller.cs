@@ -1,5 +1,6 @@
 ﻿using Code.Data;
 using Code.Data.Audio;
+using Code.Data.Localize;
 using Code.Infrastructure.Factories;
 using Code.Infrastructure.Factories.Audio;
 using Code.Infrastructure.Services.Audio;
@@ -16,6 +17,7 @@ namespace Code.Infrastructure.Root.Boot
     public class BootstrapInstaller : MonoInstaller, IInitializable
     {
         [SerializeField] private LevelsData _levelsData;
+        [SerializeField] private LocalizeConfig _localizeConfig;
         [SerializeField] private AudioData _audioData;
         [SerializeField] private CurtainView _curtain;
         [SerializeField] private SaveLoadType _saveLoadType;
@@ -33,6 +35,7 @@ namespace Code.Infrastructure.Root.Boot
         private void BindInstance()
         {
             Container.Bind<LevelsData>().FromInstance(_levelsData).AsSingle();
+            Container.Bind<LocalizeConfig>().FromInstance(_localizeConfig).AsSingle();
             Container.Bind<AudioData>().FromInstance(_audioData).AsSingle();
         }
 

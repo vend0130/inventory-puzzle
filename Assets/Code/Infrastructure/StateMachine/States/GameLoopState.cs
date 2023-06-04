@@ -42,8 +42,8 @@ namespace Code.Infrastructure.StateMachine.States
             _gameFactory.ItemMenu.CreateItemHandler += CreateItem;
             _gameFactory.InventoryGame.AllItemsInInventoryHandler += EndGame;
 
-            _gameFactory.InventoryGame.AgainButton.ClickHandler += Again;
-            _gameFactory.InventoryGame.SoundButton.ClickHandler += SwitchSound;
+            _gameFactory.SimplyMenu.AgainButton.ClickHandler += Again;
+            _gameFactory.SimplyMenu.SoundButton.ClickHandler += SwitchSound;
 
             _tokenSource = new CancellationTokenSource();
         }
@@ -55,8 +55,8 @@ namespace Code.Infrastructure.StateMachine.States
             _gameFactory.ItemMenu.CreateItemHandler -= CreateItem;
             _gameFactory.InventoryGame.AllItemsInInventoryHandler -= EndGame;
 
-            _gameFactory.InventoryGame.AgainButton.ClickHandler -= Again;
-            _gameFactory.InventoryGame.SoundButton.ClickHandler -= SwitchSound;
+            _gameFactory.SimplyMenu.AgainButton.ClickHandler -= Again;
+            _gameFactory.SimplyMenu.SoundButton.ClickHandler -= SwitchSound;
 
             DisposeToken();
         }
@@ -109,7 +109,7 @@ namespace Code.Infrastructure.StateMachine.States
         {
             _audioService.ChangeEffectState();
             _audioService.Play(SoundType.Button);
-            _gameFactory.InventoryGame.SoundButton.ChangeState(_audioService.EffectsState);
+            _gameFactory.SimplyMenu.SoundButton.ChangeState(_audioService.EffectsState);
 
             _progressService.ProgressData.Sound = _audioService.EffectsState;
             _saveLoadService.Save();

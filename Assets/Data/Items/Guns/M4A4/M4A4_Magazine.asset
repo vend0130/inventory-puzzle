@@ -12,14 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e7985d343b4dd2ac7479d6ec92849e, type: 3}
   m_Name: M4A4_Magazine
   m_EditorClassIdentifier: 
-  <NameName>k__BackingField: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435"
-  <Name>k__BackingField: "\u043C\u0430\u0433\u0430\u0437\u0438\u043D"
-  <NameType>k__BackingField: "\u0422\u0438\u043F"
-  <Type>k__BackingField: "\u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0434\u043B\u044F
-    M4"
-  <NameCalibre>k__BackingField: "\u041A\u0430\u043B\u0438\u0431\u0440"
+  <NameName>k__BackingField:
+    mTerm: item.name
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+    m_DontLocalizeParameters: 0
+  <Name>k__BackingField:
+    mTerm: item.magazine
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+    m_DontLocalizeParameters: 0
+  <NameType>k__BackingField:
+    mTerm: item.type
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+    m_DontLocalizeParameters: 0
+  <Type>k__BackingField:
+    mTerm: item.m4.magazine.type
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+    m_DontLocalizeParameters: 0
+  <NameCalibre>k__BackingField:
+    mTerm: item.calibre
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+    m_DontLocalizeParameters: 0
   <Calibre>k__BackingField: 5.56
-  "<Name\u0421apacity>k__BackingField": "\u041E\u0431\u044A\u0435\u043C"
+  "<Name\u0421apacity>k__BackingField":
+    mTerm: item.capacity
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+    m_DontLocalizeParameters: 0
   "<\u0421apacity>k__BackingField": 30
-  <NameMaterial>k__BackingField: "\u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B"
-  <Material>k__BackingField: "\u043C\u0435\u0442\u0430\u043B\u043B"
+  <NameMaterial>k__BackingField:
+    mTerm: item.material
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+    m_DontLocalizeParameters: 0
+  <Material>k__BackingField:
+    mTerm: item.magazine.metal
+    mRTL_IgnoreArabicFix: 0
+    mRTL_MaxLineLength: 0
+    mRTL_ConvertNumbers: 0
+    m_DontLocalizeParameters: 0

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.Data;
+using Code.Data.Localize;
 using Code.Extensions;
 using Code.Game;
 using Code.Game.Cells;
@@ -19,7 +20,9 @@ namespace Code.Infrastructure.Factories
         private readonly IProgressService _progressService;
         private readonly IAudioService _audioService;
         private readonly LevelsData _levelsData;
+        private readonly LocalizeConfig _localizeConfig;
         public InventoryGame InventoryGame { get; private set; }
+        public SimplyMenu SimplyMenu { get; private set; }
         public GamePlayUI GamePlayUI { get; private set; }
         public ItemMenu ItemMenu { get; private set; }
         public DragItems DragItems { get; private set; }
@@ -30,11 +33,13 @@ namespace Code.Infrastructure.Factories
         private ItemInfoView _itemInfo;
         private BlurChanger _background;
 
-        public GameFactory(IProgressService progressService, IAudioService audioService, LevelsData levelsData)
+        public GameFactory(IProgressService progressService, IAudioService audioService,
+            LevelsData levelsData, LocalizeConfig localizeConfig)
         {
             _progressService = progressService;
             _audioService = audioService;
             _levelsData = levelsData;
+            _localizeConfig = localizeConfig;
 
             _backgroundsPaths = new List<string>()
             {
@@ -51,23 +56,30 @@ namespace Code.Infrastructure.Factories
             GameObject panel = Instantiate(AssetPath.InfoPanelsPath);
 
             ItemMenu = panel.GetComponent<ItemMenu>();
-            ItemMenu.InitAudioService(_audioService);
+            ItemMenu.Init(_audioService, _localizeConfig.ItemMenu);
 
             ItemMenu.LockView.InitAudioService(_audioService);
             _itemInfo = ItemMenu.Info;
         }
 
-        public void CreateGamePlayUI() =>
+        public void CreateGamePlayUI()
+        {
             GamePlayUI = Instantiate(AssetPath.GamePlayUIPath).GetComponent<GamePlayUI>();
+            GamePlayUI.ChangeText(_localizeConfig.Exit);
+        }
 
         public void CreateLevel()
         {
             GameObject prefab = _levelsData.GetLevel(_progressService.ProgressData.CurrentLevel);
-            InventoryGame = Instantiate(prefab).GetComponent<InventoryGame>();
+            var inventoryObject = Instantiate(prefab);
 
-            InventoryGame.Init(_progressService.ProgressData.CurrentLevel + 1,
-                _levelsData.CountLevels, _background);
-            InventoryGame.SoundButton.ChangeState(_audioService.EffectsState);
+            InventoryGame = inventoryObject.GetComponent<InventoryGame>();
+            InventoryGame.Init(_background, _localizeConfig.Loot, _localizeConfig.Inventory);
+
+            SimplyMenu = inventoryObject.GetComponent<SimplyMenu>();
+            SimplyMenu.SoundButton.ChangeState(_audioService.EffectsState);
+            SimplyMenu.Init(_progressService.ProgressData.CurrentLevel + 1,
+                _levelsData.CountLevels, _localizeConfig.Level);
 
             DragItems = InventoryGame.DragItems;
             DragItems.InitAudioService(_audioService);

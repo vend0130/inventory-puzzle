@@ -5856,6 +5856,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -125
       objectReference: {fileID: 0}
+    - target: {fileID: 6507388351857441381, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+      propertyPath: m_text
+      value: INVENTORY
+      objectReference: {fileID: 0}
+    - target: {fileID: 7897931305912985208, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+      propertyPath: mTerm
+      value: Invenory.Inventory
+      objectReference: {fileID: 0}
     - target: {fileID: 8760052545820701698, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -5942,7 +5950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8760052545820701699, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
       propertyPath: m_Name
-      value: MainInventory (1)
+      value: MainInventory
       objectReference: {fileID: 0}
     - target: {fileID: 8760052545820701701, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
       propertyPath: _debug
@@ -5955,6 +5963,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+--- !u!114 &3434065648887252112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7897931305912985208, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+  m_PrefabInstance: {fileID: 4770251186356527848}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4297176552338715674 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8760052545283675890, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
@@ -6107,6 +6126,7 @@ MonoBehaviour:
   <ParentForCells>k__BackingField: {fileID: 4297176553945030403}
   _layoutGroup: {fileID: 4297176553945030402}
   _background: {fileID: 4297176552338715674}
+  _textLocalize: {fileID: 3434065648887252112}
 --- !u!114 &4297176553945030402 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8760052546890726890, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}

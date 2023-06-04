@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Code.Data.Audio;
+using Code.Data.Localize;
 using Code.Extensions;
 using Code.Game.Cells;
 using Code.Game.Item;
 using Code.Game.Item.Items;
 using Code.Infrastructure.Services.Audio;
+using I2.Loc;
 using UnityEngine;
 
 namespace Code.Game.ItemInfo
@@ -21,12 +23,13 @@ namespace Code.Game.ItemInfo
         public event Action<BaseItem, int> CreateItemHandler;
 
         private IAudioService _audioService;
+        private ItemMenuLocalizeConfig _localization;
         private BaseItem _lastItem;
 
         private void Start()
         {
             _menu.SetActive(false);
-            _buttonsData[0].Text.text = Constants.InformationText;
+            _buttonsData[0].ChangeText(_localization.Information);
 
             for (int i = 0; i < _buttonsData.Length; i++)
             {
@@ -54,8 +57,11 @@ namespace Code.Game.ItemInfo
             _backgroundLock.CloseHandler -= Close;
         }
 
-        public void InitAudioService(IAudioService audioService) =>
+        public void Init(IAudioService audioService, ItemMenuLocalizeConfig localization)
+        {
             _audioService = audioService;
+            _localization = localization;
+        }
 
         public void Open(Vector2 position, BaseItem item)
         {
@@ -73,8 +79,8 @@ namespace Code.Game.ItemInfo
                     if (!item.AdditionalDatas[i].Activate)
                         continue;
 
-                    _buttonsData[i + 1].Text.text =
-                        $"{Constants.PrefixAdditionalText} {GetText(item.AdditionalDatas[i].AdditionalType)}";
+                    _buttonsData[i + 1].ChangeText(_localization.Take,
+                        GetText(item.AdditionalDatas[i].AdditionalType));
                     _buttonsData[i + 1].gameObject.SetActive(true);
                 }
             }
@@ -119,16 +125,17 @@ namespace Code.Game.ItemInfo
             _lastItem = null;
         }
 
-        private string GetText(AdditionalType type)
+        private LocalizedString GetText(AdditionalType type)
         {
             switch (type)
             {
                 case AdditionalType.Magazine:
-                    return Constants.AdditionalTypeMagazine;
+                    return _localization.Magazine;
+                    ;
                 case AdditionalType.Bipod:
-                    return Constants.AdditionalTypeBipod;
+                    return _localization.Bipods;
                 case AdditionalType.AIM:
-                    return Constants.AdditionalTypeAIM;
+                    return _localization.Scope;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

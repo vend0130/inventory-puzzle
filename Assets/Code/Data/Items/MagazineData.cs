@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
-using Code.Utils.Readonly;
+using I2.Loc;
 using UnityEngine;
 
 namespace Code.Data.Items
@@ -8,34 +8,29 @@ namespace Code.Data.Items
     [CreateAssetMenu(fileName = nameof(MagazineData), menuName = "Static Data/Items/" + nameof(MagazineData))]
     public class MagazineData : ScriptableObject
     {
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameName { get; private set; } = "Название";
+        //Name
+        [field: SerializeField, Space(15)] public LocalizedString NameName { get; private set; } = "item.name";
+        [field: SerializeField] public LocalizedString Name { get; private set; }
 
-        [field: SerializeField] public string Name { get; private set; } = "Магазин";
+        //Type
+        [field: SerializeField, Space(15)] public LocalizedString NameType { get; private set; } = "item.type";
+        [field: SerializeField] public LocalizedString Type { get; private set; }
 
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameType { get; private set; } = "Тип";
-
-        [field: SerializeField] public string Type { get; private set; } = "Магазин для";
-
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameCalibre { get; private set; } = "Калибр";
-
+        //Calibre
+        [field: SerializeField, Space(15)] public LocalizedString NameCalibre { get; private set; } = "item.calibre";
         [field: SerializeField] public float Calibre { get; private set; } = 3.22f;
 
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameСapacity { get; private set; } = "Объем, патронов";
-
+        //Сapacity
+        [field: SerializeField, Space(15)] public LocalizedString NameСapacity { get; private set; } = "item.capacity";
         [field: SerializeField] public int Сapacity { get; private set; } = 322;
 
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameMaterial { get; private set; } = "Материал";
+        //Material
+        [field: SerializeField, Space(15)] public LocalizedString NameMaterial { get; private set; } = "item.material";
+        [field: SerializeField] public LocalizedString Material { get; private set; }
 
-        [field: SerializeField] public string Material { get; private set; } = "Vtnfk";
-
-        public List<(string, string)> GetTexts()
+        public List<(LocalizedString, LocalizedString)> GetTexts()
         {
-            return new List<(string, string)>(7)
+            return new List<(LocalizedString, LocalizedString)>(7)
             {
                 (NameName, Name),
                 (NameType, Type),

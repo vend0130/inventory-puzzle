@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Utils.Readonly;
+using I2.Loc;
 using UnityEngine;
 
 namespace Code.Data.Items
@@ -7,25 +7,22 @@ namespace Code.Data.Items
     [CreateAssetMenu(fileName = nameof(BipodData), menuName = "Static Data/Items/" + nameof(BipodData))]
     public class BipodData : ScriptableObject
     {
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameName { get; private set; } = "Название";
+        [field: SerializeField, Space(15)] public LocalizedString NameName { get; private set; } = "item.name";
+        [field: SerializeField] public LocalizedString Name { get; private set; }
 
-        [field: SerializeField] public string Name { get; private set; } = "сошки//";
 
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameDescription { get; private set; } = "Описание";
+        [field: SerializeField, Space(15)]
+        public LocalizedString NameDescription { get; private set; } = "item.description";
 
-        [field: SerializeField, TextArea(5, 5)]
-        public string Description { get; private set; } = "Клалаш";
+        [field: SerializeField] public LocalizedString Description { get; private set; }
 
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameType { get; private set; } = "Тип";
 
-        [field: SerializeField] public string Type { get; private set; } = "сошки для";
+        [field: SerializeField, Space(15)] public LocalizedString NameType { get; private set; } = "item.type";
+        [field: SerializeField] public LocalizedString Type { get; private set; }
 
-        public List<(string, string)> GetTexts()
+        public List<(LocalizedString, LocalizedString)> GetTexts()
         {
-            return new List<(string, string)>(7)
+            return new List<(LocalizedString, LocalizedString)>(3)
             {
                 (NameName, Name),
                 (NameDescription, Description),

@@ -7026,9 +7026,9 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -125
       objectReference: {fileID: 0}
-    - target: {fileID: 6507388351857441381, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
-      propertyPath: m_text
-      value: "\u041B\u0443\u0442"
+    - target: {fileID: 7897931305912985208, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+      propertyPath: mTerm
+      value: Inventory.Loot
       objectReference: {fileID: 0}
     - target: {fileID: 8760052545283675891, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
       propertyPath: m_IsActive
@@ -8785,6 +8785,18 @@ MonoBehaviour:
   <ParentForCells>k__BackingField: {fileID: 4994781676609984547}
   _layoutGroup: {fileID: 4994781676609984546}
   _background: {fileID: 4994781677142766394}
+  _textLocalize: {fileID: 5862530807045538736}
+--- !u!114 &5862530807045538736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7897931305912985208, guid: 7fbe17955801bf0488b60d221e1247e4, type: 3}
+  m_PrefabInstance: {fileID: 4377765023835661768}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4851557770798606048
 PrefabInstance:
   m_ObjectHideFlags: 0

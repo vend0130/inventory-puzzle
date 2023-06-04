@@ -397,7 +397,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3190066988894633388, guid: 9c77ed4dc1c42d043bea1d012aa2bbb4, type: 3}
       propertyPath: m_text
-      value: "\u0418\u043D\u0432\u0435\u043D\u0442\u0430\u0440\u044C"
+      value: LOOT
       objectReference: {fileID: 0}
     - target: {fileID: 4982522791011165613, guid: 9c77ed4dc1c42d043bea1d012aa2bbb4, type: 3}
       propertyPath: m_Pivot.x
@@ -495,6 +495,50 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4982522791011165613, guid: 9c77ed4dc1c42d043bea1d012aa2bbb4, type: 3}
   m_PrefabInstance: {fileID: 8506039914100000713}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4057663857945489389 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5639687591305521188, guid: 9c77ed4dc1c42d043bea1d012aa2bbb4, type: 3}
+  m_PrefabInstance: {fileID: 8506039914100000713}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7897931305912985208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4057663857945489389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: Inventory.Loot
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
 --- !u!1001 &8760052545034358726
 PrefabInstance:
   m_ObjectHideFlags: 0

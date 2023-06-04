@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Utils.Readonly;
+using I2.Loc;
 using UnityEngine;
 
 namespace Code.Data.Items
@@ -7,20 +7,18 @@ namespace Code.Data.Items
     [CreateAssetMenu(fileName = nameof(AimData), menuName = "Static Data/Items/" + nameof(AimData))]
     public class AimData : ScriptableObject
     {
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameName { get; private set; } = "Название";
+        [field: SerializeField, Space(33)] public LocalizedString NameName { get; private set; } = "item.name";
 
-        [field: SerializeField] public string Name { get; private set; } = "Магазин";
+        [field: SerializeField] public LocalizedString Name { get; private set; }
 
-        [field: SerializeField, ReadOnly, Space(15)]
-        public string NameDescription { get; private set; } = "Описание";
+        [field: SerializeField, Space(15)]
+        public LocalizedString NameDescription { get; private set; } = "item.description";
 
-        [field: SerializeField, TextArea(5, 5)]
-        public string Description { get; private set; } = "Клалаш";
+        [field: SerializeField] public LocalizedString Description { get; private set; }
 
-        public List<(string, string)> GetTexts()
+        public List<(LocalizedString, LocalizedString)> GetTexts()
         {
-            return new List<(string, string)>(7)
+            return new List<(LocalizedString, LocalizedString)>(2)
             {
                 (NameName, Name),
                 (NameDescription, Description),

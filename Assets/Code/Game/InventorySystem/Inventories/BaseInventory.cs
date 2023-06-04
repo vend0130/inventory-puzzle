@@ -1,6 +1,7 @@
 ﻿using System;
 using Code.Game.Cells;
 using Code.Utils.Readonly;
+using I2.Loc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,10 @@ namespace Code.Game.InventorySystem.Inventories
 
         [SerializeField] private GridLayoutGroup _layoutGroup;
         [SerializeField] private RectTransform _background;
+        [SerializeField] private Localize _textLocalize;
+
+        public void ChangeText(LocalizedString localizedString) =>
+            _textLocalize.SetTerm(localizedString.mTerm);
 
         public void UpdateGrid(float distance)
         {
