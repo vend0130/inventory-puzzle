@@ -37,10 +37,10 @@ namespace Code.Game.InventorySystem.Drag
 
         public void AddSpawnedItem(BaseItem item)
         {
-            if (_item != null)
-                Assert.IsNotNull(_item, "bug in logic");
+            Assert.IsNull(_item, "item is nul. Bug in logic");
 
             item.UpOrder();
+
             _audioService.Play(SoundType.TakeItem);
             _offset = Vector2.zero;
             _isSpawned = true;
