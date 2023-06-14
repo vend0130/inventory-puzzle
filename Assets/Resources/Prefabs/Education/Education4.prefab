@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Education4
       objectReference: {fileID: 0}
+    - target: {fileID: 5805825164004621163, guid: 26a40e8b64666e340bf3edd94d2a5911, type: 3}
+      propertyPath: mTerm
+      value: education.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6270006590826119564, guid: 26a40e8b64666e340bf3edd94d2a5911, type: 3}
       propertyPath: m_text
       value: "\u0423 \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u043E\u0431\u044A\u0435\u043A\u0442\u043E\u0432

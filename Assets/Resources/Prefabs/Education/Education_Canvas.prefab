@@ -307,6 +307,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.27450982
       objectReference: {fileID: 0}
+    - target: {fileID: 5600607850945306738, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
+      propertyPath: mTerm
+      value: education.title
+      objectReference: {fileID: 0}
     - target: {fileID: 6873276078448689293, guid: d4449182a369dc649ac33adf3ede020e, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -458,3 +462,47 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1788292184840334332, guid: 21a63fd1165fedd418864e553a926971, type: 3}
   m_PrefabInstance: {fileID: 668704735330300700}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3819858683475432452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4342994316093122328, guid: 21a63fd1165fedd418864e553a926971, type: 3}
+  m_PrefabInstance: {fileID: 668704735330300700}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5805825164004621163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3819858683475432452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344445a89b4f74a0e9a0a766903df87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mTerm: 
+  mTermSecondary: 
+  PrimaryTermModifier: 0
+  SecondaryTermModifier: 0
+  TermPrefix: 
+  TermSuffix: 
+  LocalizeOnAwake: 1
+  IgnoreRTL: 0
+  MaxCharactersInRTL: 0
+  IgnoreNumbersInRTL: 1
+  CorrectAlignmentForRTL: 1
+  AddSpacesToJoinedLanguages: 0
+  AllowLocalizedParameters: 1
+  AllowParameters: 1
+  TranslatedObjects: []
+  LocalizeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  AlwaysForceLocalize: 0
+  LocalizeCallBack:
+    Target: {fileID: 0}
+    MethodName: 
+  mGUI_ShowReferences: 0
+  mGUI_ShowTems: 1
+  mGUI_ShowCallback: 0
+  mLocalizeTarget: {fileID: 0}
+  mLocalizeTargetName: I2.Loc.LocalizeTarget_TextMeshPro_UGUI
