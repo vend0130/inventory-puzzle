@@ -79,7 +79,7 @@ MonoBehaviour:
   _localizeConfig: {fileID: 11400000, guid: 4920bbe71390c7c4a8751430dda94682, type: 2}
   _audioData: {fileID: 11400000, guid: 2074f151300b5fa40af1955a8e7dbe73, type: 2}
   _curtain: {fileID: 4770009513337792751}
-  _saveLoadType: 1
+  _saveLoadType: 0
 --- !u!1001 &1336236622990895788
 PrefabInstance:
   m_ObjectHideFlags: 0
