@@ -30,10 +30,16 @@ namespace Plugins.Yandex
             Load();
         }
 
+        public static void ShowFullscreenAdv() => 
+            ShowAd();
+
         [DllImport("__Internal")]
         private static extern void Save(string data);
 
         [DllImport("__Internal")]
         private static extern void Load();
+        
+        [DllImport("__Internal")]
+        private static extern void ShowAd();
     }
 }

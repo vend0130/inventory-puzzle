@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Code.Infrastructure.Factories;
+using Code.Infrastructure.Services.Ad;
 using Code.Infrastructure.Services.LoadScene;
 using Cysharp.Threading.Tasks;
 
@@ -10,14 +11,16 @@ namespace Code.Infrastructure.StateMachine.States
     {
         private readonly ILoadSceneService _loadSceneService;
         private readonly IGameFactory _gameFactory;
+        private readonly IAdService _adService;
 
         private CancellationTokenSource _tokenSource;
         private IGameStateMachine _stateMachine;
 
-        public LoadSceneState(ILoadSceneService loadSceneService, IGameFactory gameFactory)
+        public LoadSceneState(ILoadSceneService loadSceneService, IGameFactory gameFactory, IAdService adService)
         {
             _loadSceneService = loadSceneService;
             _gameFactory = gameFactory;
+            _adService = adService;
         }
 
         public void InitStateMachine(IGameStateMachine stateMachine) =>
@@ -25,6 +28,8 @@ namespace Code.Infrastructure.StateMachine.States
 
         public async void Enter(string sceneName)
         {
+            _adService.Show();
+            
             _tokenSource = new CancellationTokenSource();
 
             await _loadSceneService.CurtainOnAsync();

@@ -26,4 +26,18 @@ mergeInto(LibraryManager.library, {
 		});
   },
   
+  ShowAd: function () {
+    console.log("Show ad");
+  	ysdk.adv.showFullscreenAdv({
+        callbacks: {
+            onClose: function(wasShown) {
+              // some action after close
+            },
+            onError: function(error) {
+              // some action on error
+            }
+        }
+    })
+    },
+  
 });

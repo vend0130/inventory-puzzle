@@ -3,6 +3,7 @@ using Code.Data.Audio;
 using Code.Data.Localize;
 using Code.Infrastructure.Factories;
 using Code.Infrastructure.Factories.Audio;
+using Code.Infrastructure.Services.Ad;
 using Code.Infrastructure.Services.Audio;
 using Code.Infrastructure.Services.LoadScene;
 using Code.Infrastructure.Services.Progress;
@@ -57,6 +58,7 @@ namespace Code.Infrastructure.Root.Boot
         private void BindServices()
         {
             BindProgressService();
+            BindAdService();
             BindLoadSceneService();
 
             Container.BindInterfacesTo<AudioService>().AsSingle();
@@ -76,6 +78,14 @@ namespace Code.Infrastructure.Root.Boot
                 Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             else
                 Container.BindInterfacesTo<SaveLoadYandexService>().AsSingle();
+        }
+
+        private void BindAdService()
+        {
+            if (_saveLoadType == SaveLoadType.PlayerPrefs)
+                Container.BindInterfacesTo<EditorAdService>().AsSingle();
+            else
+                Container.BindInterfacesTo<AdYandexService>().AsSingle();
         }
 
         public void Initialize() =>
