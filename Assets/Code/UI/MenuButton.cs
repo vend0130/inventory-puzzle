@@ -30,10 +30,8 @@ namespace Code.UI
 
         private Tween _tween;
 
-        private void Start()
-        {
+        private void Start() =>
             _button.Add(Click);
-        }
 
         private void OnDestroy()
         {

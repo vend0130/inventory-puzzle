@@ -8,9 +8,7 @@ namespace Code.Utils.Hide
     {
         public readonly string Flag;
 
-        public HideAttribute(string flag)
-        {
+        public HideAttribute(string flag) =>
             Flag = flag;
-        }
     }
 }
