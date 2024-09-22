@@ -1,4 +1,5 @@
-﻿using Code.Data;
+﻿using System;
+using Code.Data;
 using Code.Data.Audio;
 using Code.Data.Localize;
 using Code.Infrastructure.Factories;
@@ -21,7 +22,13 @@ namespace Code.Infrastructure.Root.Boot
         [SerializeField] private LocalizeConfig _localizeConfig;
         [SerializeField] private AudioData _audioData;
         [SerializeField] private CurtainView _curtain;
-        [SerializeField] private SaveLoadType _saveLoadType;
+        [SerializeField] private PlatformType _platformType;
+
+        private void OnValidate()
+        {
+            if (_platformType == PlatformType.Yandex)
+                Debug.LogError($"PlatformType <b><i>{_platformType}</i></b> is obsolete");
+        }
 
         public override void InstallBindings()
         {
@@ -74,7 +81,7 @@ namespace Code.Infrastructure.Root.Boot
         {
             Container.BindInterfacesTo<ProgressService>().AsSingle();
 
-            if (_saveLoadType == SaveLoadType.PlayerPrefs)
+            if (_platformType == PlatformType.PlayerPrefs)
                 Container.BindInterfacesTo<SaveLoadService>().AsSingle();
             else
                 Container.BindInterfacesTo<SaveLoadYandexService>().AsSingle();
@@ -82,7 +89,7 @@ namespace Code.Infrastructure.Root.Boot
 
         private void BindAdService()
         {
-            if (_saveLoadType == SaveLoadType.PlayerPrefs)
+            if (_platformType == PlatformType.PlayerPrefs)
                 Container.BindInterfacesTo<EditorAdService>().AsSingle();
             else
                 Container.BindInterfacesTo<AdYandexService>().AsSingle();
@@ -91,7 +98,7 @@ namespace Code.Infrastructure.Root.Boot
         public void Initialize() =>
             Container.Resolve<IGameStateMachine>().Enter<BootstrapState>();
 
-        private enum SaveLoadType
+        private enum PlatformType
         {
             PlayerPrefs = 0,
             Yandex = 1
