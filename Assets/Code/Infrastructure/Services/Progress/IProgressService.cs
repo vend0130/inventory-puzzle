@@ -7,5 +7,6 @@ namespace Code.Infrastructure.Services.Progress
         ProgressData ProgressData { get; }
         void NextLevel();
         void ChangeProgressData(ProgressData progressData);
+        void ChangeLevel(int level);
     }
 }

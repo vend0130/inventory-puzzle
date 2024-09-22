@@ -14,12 +14,23 @@ namespace Code.Infrastructure.Services.Progress
         public void ChangeProgressData(ProgressData progressData) =>
             ProgressData = progressData;
 
+        public void ChangeLevel(int level) =>
+            SetLevel(level);
+
         public void NextLevel()
         {
-            ProgressData.CurrentLevel++;
+            SetLevel(ProgressData.CurrentLevel + 1);
 
-            if (ProgressData.CurrentLevel >= _levelsData.CountLevels)
-                ProgressData.CurrentLevel = 0;
+            if (ProgressData.OpenedLevel < ProgressData.CurrentLevel)
+                ProgressData.SetOpenedLevel(ProgressData.CurrentLevel);
+        }
+
+        private void SetLevel(int level)
+        {
+            ProgressData.SetCurrentLevel(level);
+
+            if (ProgressData.CurrentLevel >= _levelsData.CountLevels || ProgressData.CurrentLevel < 0)
+                ProgressData.SetCurrentLevel(0);
         }
     }
 }

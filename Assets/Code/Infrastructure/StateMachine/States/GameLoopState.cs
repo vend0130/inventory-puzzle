@@ -42,6 +42,7 @@ namespace Code.Infrastructure.StateMachine.States
             _gameFactory.ItemMenu.CreateItemHandler += CreateItem;
             _gameFactory.InventoryGame.AllItemsInInventoryHandler += EndGame;
 
+            _gameFactory.SimplyMenu.PlayLevelHandler += PlayLevel;
             _gameFactory.SimplyMenu.AgainButton.ClickHandler += Again;
             _gameFactory.SimplyMenu.SoundButton.ClickHandler += SwitchSound;
 
@@ -55,6 +56,7 @@ namespace Code.Infrastructure.StateMachine.States
             _gameFactory.ItemMenu.CreateItemHandler -= CreateItem;
             _gameFactory.InventoryGame.AllItemsInInventoryHandler -= EndGame;
 
+            _gameFactory.SimplyMenu.PlayLevelHandler -= PlayLevel;
             _gameFactory.SimplyMenu.AgainButton.ClickHandler -= Again;
             _gameFactory.SimplyMenu.SoundButton.ClickHandler -= SwitchSound;
 
@@ -99,6 +101,14 @@ namespace Code.Infrastructure.StateMachine.States
             _stateMachine.Enter<LoadSceneState, string>(Constants.MainSceneName);
         }
 
+        private void PlayLevel(int level)
+        {
+            _progressService.ChangeLevel(level);
+            _saveLoadService.Save();
+            _audioService.Play(SoundType.Button);
+            _stateMachine.Enter<LoadSceneState, string>(Constants.MainSceneName);
+        }
+
         private void Again()
         {
             _audioService.Play(SoundType.Button);
@@ -111,7 +121,7 @@ namespace Code.Infrastructure.StateMachine.States
             _audioService.Play(SoundType.Button);
             _gameFactory.SimplyMenu.SoundButton.ChangeState(_audioService.EffectsState);
 
-            _progressService.ProgressData.Sound = _audioService.EffectsState;
+            _progressService.ProgressData.ChangeSoundState(_audioService.EffectsState);
             _saveLoadService.Save();
         }
 

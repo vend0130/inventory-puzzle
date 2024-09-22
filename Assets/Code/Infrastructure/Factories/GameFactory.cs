@@ -78,8 +78,13 @@ namespace Code.Infrastructure.Factories
 
             SimplyMenu = inventoryObject.GetComponent<SimplyMenu>();
             SimplyMenu.SoundButton.ChangeState(_audioService.EffectsState);
-            SimplyMenu.Init(_progressService.ProgressData.CurrentLevel + 1,
-                _levelsData.CountLevels, _localizeConfig.Level, _audioService);
+            SimplyMenu.Init(
+                _progressService.ProgressData.CurrentLevel + 1,
+                _levelsData.CountLevels,
+                _localizeConfig.Level,
+                _audioService,
+                _levelsData,
+                _progressService);
 
             DragItems = InventoryGame.DragItems;
             DragItems.InitAudioService(_audioService);
